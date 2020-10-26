@@ -74,7 +74,7 @@ $getProducts = $query->fetchAll();
             </table>
         </div>
         <hr>
-        <h3>Add new user to DB!</h3>
+        <h3>Add new product to DB!</h3>
 
         <form class="col s12" name="contact" method="post" action="addEntry.php">
             <div class="row">
@@ -84,11 +84,11 @@ $getProducts = $query->fetchAll();
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                     <input id="Category" name="Category" type="text" class="validate" required="" aria-required="true">
                     <label for="Category">category</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                     <input id="Color" name="Color" type="text" class="validate" required="" aria-required="true">
                     <label for="Color">Color</label>
                 </div>

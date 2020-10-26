@@ -4,7 +4,7 @@ CREATE DATABASE RubberDuckDB;
 USE RubberDuckDB;
 
 CREATE TABLE Employee (
-    EmployeeID int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    employeeID int AUTO_INCREMENT NOT NULL PRIMARY KEY,
     fname varchar(100) NOT NULL,
     lname varchar(100) NOT NULL,
     email varchar(100) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `Order` (
 CREATE TABLE Orderline
 (
     orderlineID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    price DECIMAL(3, 2) NOT NULL,
+    price DECIMAL(5, 2) NOT NULL,
     quanity INT NOT NULL,
     `order` INT NOT NULL,
     product INT NOT NULL,
@@ -66,11 +66,17 @@ CREATE TABLE Color
     `name` varchar(100) NOT NULL
 );
 
+insert into Color (ColorID, `name`) values (null, 'yellow');
+insert into Color (ColorID, `name`) values (null, 'blue');
+insert into Color (ColorID, `name`) values (null, 'pink');
+insert into Color (ColorID, `name`) values (null, 'black');
+
 CREATE TABLE Product
 (
     productID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` varchar(255) NOT NULL,
-    price DECIMAL(3, 2) NOT NULL,
+    price DECIMAL(5, 2) NOT NULL,
+    `image` varchar(255),
     `description` varchar(60000),
     color int NOT NULL,
     FOREIGN KEY (color) REFERENCES Color (colorID)
