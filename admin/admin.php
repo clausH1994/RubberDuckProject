@@ -2,6 +2,14 @@
 <?php require_once("../connection/session.php"); ?>
 <?php require_once("../connection/functions.php"); ?>
 
+<!-- { [0]=> string(1) "4" 
+    ["employeeID"]=> string(1) "4" 
+    [1]=> string(16) "bob@duckshop.com" 
+    ["email"]=> string(16) "bob@duckshop.com" 
+    [2]=> string(8) "password" 
+    ["password"]=> string(8) "password" 
+} -->
+
 <html>
 
 <head>
@@ -17,21 +25,21 @@
 	if (isset($_POST['submit'])) { // Form has been submitted.
 		$email = trim(mysqli_real_escape_string($connection, $_POST['email']));
 		$password = trim(mysqli_real_escape_string($connection,$_POST['pass']));
-
-		$query = "SELECT id, email, pass FROM employee WHERE email = '{$email}' LIMIT 1";
+        
+        $query = "SELECT employeeID, email, pass FROM employee WHERE email = '{$email}' LIMIT 1";
 		$result = mysqli_query($connection, $query);
-			
 			if (mysqli_num_rows($result) == 1) {
-				// username/password authenticated
-				// and only 1 match
-				$found_employee = mysqli_fetch_array($result);
+				// email/password authenticated
+                // and only 1 match
+                $found_employee = mysqli_fetch_array($result);
+                var_dump($found_employee);
                 if(password_verify($password, $found_employee['pass'])){
 				    $_SESSION['admin_id'] = $found_employee['id'];
 				    $_SESSION['admin'] = $found_employee['email'];
 				    redirect_to("../index.html");
 			} else {
-				// username/password combo was not found in the database
-				$message = "Username/password combination incorrect.<br />
+				// email/password combo was not found in the database
+				$message = "Email/password combination incorrect.<br />
 					Please make sure your caps lock key is off and try again.";
 			}}
 	} else { // Form has not been submitted.
