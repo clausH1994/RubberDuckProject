@@ -11,7 +11,7 @@
 </head>
 <?php
 $dbCon = dbCon($user, $pass);
-$query = $dbCon->prepare("SELECT * FROM customers");
+$query = $dbCon->prepare("SELECT * FROM product");
 $query->execute();
 $getProducts = $query->fetchAll();
 //var_dump($getProducts);
@@ -45,9 +45,9 @@ $getProducts = $query->fetchAll();
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Category</th>
                     <th>Price</th>
                     <th>Image</th>
+                    <th>Color</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -57,16 +57,13 @@ $getProducts = $query->fetchAll();
                 <?php
                 foreach ($getProducts as $getProduct) {
                     echo "<tr>";
-                    echo "<td>". $getProduct['ProductID']."</td>";
+                    echo "<td>". $getProduct['productID']."</td>";
                     echo "<td>". $getProduct['name']."</td>";
-                    echo "<td>". $getProduct['category']."</td>";
-                    echo "<td>". $getProduct['Color']."</td>";
-                    echo "<td>". $getProduct['Price']."</td>";
-                    echo "<td>". $getProduct['Image']."</td>";
-                    echo "<td>";
-                    echo "</td>";
-                    echo '<td><a href="editEntry.php?ID='.$getProduct['ID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
-                    echo '<td><a href="deleteEntry.php?ID='.$getProduct['ID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                    echo "<td>". $getProduct['color']."</td>";
+                    echo "<td>". $getProduct['price']."</td>";
+                    echo "<td>". $getProduct['image']."</td>";
+                    echo '<td><a href="editEntry.php?ID='.$getProduct['productID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
+                    echo '<td><a href="deleteEntry.php?ID='.$getProduct['productID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                     echo "</tr>";
                 }
                 ?>
@@ -85,23 +82,19 @@ $getProducts = $query->fetchAll();
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="Category" name="Category" type="text" class="validate" required="" aria-required="true">
-                    <label for="Category">category</label>
-                </div>
-                <div class="input-field col s12">
                     <input id="Color" name="Color" type="text" class="validate" required="" aria-required="true">
                     <label for="Color">Color</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="Price" name="Price" type="Price" class="validate" required="" aria-required="true">
+                    <input id="Price" name="Price" type="text" class="validate" required="" aria-required="true">
                     <label for="Price">Price</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="Image" name="Image" type="Image" class="validate" required="" aria-required="true">
+                    <input id="Image" name="Image" type="text" class="validate" required="" aria-required="true">
                     <label for="Image">Image Url</label>
                 </div>
             </div>
