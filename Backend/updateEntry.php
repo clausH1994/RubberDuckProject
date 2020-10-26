@@ -1,17 +1,17 @@
 <?php
 require_once "dbcon.php";
 if (isset($_POST['entryID']) && isset($_POST['submit'])) {
-    $userName = $_POST['userName'];
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
+    $Name = $_POST['Name'];
+    $Category = $_POST['Category'];
+    $Color = $_POST['Color'];
+    $Price = $_POST['Price'];
     $description = $_POST['description'];
-    $entryID = $_POST['entryID'];
+
 
     $dbCon = dbCon($user, $pass);
-    $query = $dbCon->prepare("UPDATE customers SET `username`='$userName', `Fname`='$firstName', `Lname`='$lastName', `email`='$email', `description`='$description' WHERE ID=$entryID");
+    $query = $dbCon->prepare("UPDATE customers SET `Name`='$Name', `Fname`='$Category', `Lname`='$Color', `Price`='$Price', `description`='$description' WHERE ID=$ProductID");
     $query->execute();
-    header("Location: index.php?status=updated&ID=$entryID");
+    header("Location: index.php?status=updated&ID=$ProductID");
 
 }else{
     header("Location: index.php?status=0");

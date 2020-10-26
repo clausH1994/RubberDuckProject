@@ -16,42 +16,46 @@ $entryID = $_GET['ID'];
 $dbCon = dbCon($user, $pass);
 $query = $dbCon->prepare("SELECT * FROM customers WHERE ID=$entryID");
 $query->execute();
-$getUsers = $query->fetchAll();
+$getProducts = $query->fetchAll();
 ?>
 <body>
 
 <div class="container">
-        <h3>Editing user "<?php echo $getUsers[0][1]; ?>"</h3>
+        <h3>Editing user "<?php echo $getProducts[0][1]; ?>"</h3>
         <form class="col s12" name="contact" method="post" action="updateEntry.php">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="userName" name="userName" type="text" value="<?php echo $getUsers[0][1]; ?>" class="validate" required="" aria-required="true">
-                    <label for="userName">Username</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="firstName" name="firstName" type="text"value="<?php echo $getUsers[0][2]; ?>" class="validate" required="" aria-required="true">
-                    <label for="firstName">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="lastName" name="lastName" type="text"value="<?php echo $getUsers[0][3]; ?>" class="validate" required="" aria-required="true">
-                    <label for="lastName">Last Name</label>
+                    <input id="Name" name="Name" type="text" value="<?php echo $getProducts[0][1]; ?>" class="validate" required="" aria-required="true">
+                    <label for="Name">Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" name="email" type="email"value="<?php echo $getUsers[0][4]; ?>" class="validate" required="" aria-required="true">
-                    <label for="email">E-Mail</label>
+                    <input id="Category" name="Category" type="text"value="<?php echo $getProducts[0][2]; ?>" class="validate" required="" aria-required="true">
+                    <label for="Category">Category</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="Color" name="Color" type="text"value="<?php echo $getProducts[0][3]; ?>" class="validate" required="" aria-required="true">
+                    <label for="Color">Color</label>
+                </div>
+            </div>
+            <div class="input-field col s12">
+                    <input id="Price" name="Price" type="text"value="<?php echo $getProducts[0][3]; ?>" class="validate" required="" aria-required="true">
+                    <label for="Price">Price</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea name="description" id="description" class="materialize-textarea" required="" aria-required="true"><?php echo $getUsers[0][6]; ?></textarea>
+                    <input id="Image" name="Image" type="Image"value="<?php echo $getProducts[0][4]; ?>" class="validate" required="" aria-required="true">
+                    <label for="Image">image location</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea name="description" id="description" class="materialize-textarea" required="" aria-required="true"><?php echo $getProducts[0][6]; ?></textarea>
                     <label for="description">Description</label>
                 </div>
             </div>
-            <input type="hidden" name="entryID" value="<?php echo $entryID; ?>">
             <button class="btn waves-effect waves-light" type="submit" name="submit">Update
             </button>
         </form>

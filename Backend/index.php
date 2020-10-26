@@ -13,14 +13,14 @@
 $dbCon = dbCon($user, $pass);
 $query = $dbCon->prepare("SELECT * FROM customers");
 $query->execute();
-$getUsers = $query->fetchAll();
-//var_dump($getUsers);
+$getProducts = $query->fetchAll();
+//var_dump($getProducts);
 ?>
 <body>
 
 <div class="container">
 
-    <h2>See all the users ma dudes!!!</h2>
+    <h2>Product management</h2>
     <?php
     if (isset($_GET['status'])) {
         if ($_GET['status'] == "deleted") {
@@ -55,25 +55,18 @@ $getUsers = $query->fetchAll();
 
                 <tbody>
                 <?php
-                foreach ($getUsers as $getUser) {
+                foreach ($getProducts as $getProduct) {
                     echo "<tr>";
-                    echo "<td>". $getUser['ID']."</td>";
-                    echo "<td>". $getUser['username']."</td>";
-                    echo "<td>". $getUser['Fname']. " " .$getUser['Lname']."</td>";
-                    echo "<td>". $getUser['email']."</td>";
+                    echo "<td>". $getProduct['ProductID']."</td>";
+                    echo "<td>". $getProduct['name']."</td>";
+                    echo "<td>". $getProduct['category']."</td>";
+                    echo "<td>". $getProduct['Color']."</td>";
+                    echo "<td>". $getProduct['Price']."</td>";
+                    echo "<td>". $getProduct['Image']."</td>";
                     echo "<td>";
-                    if ($getUser['rank']==1){
-                        echo '<img src="img/lvl1.png" alt="lvl 1" height="40px">';
-                    }
-                    elseif ($getUser['rank']==2){
-                        echo '<img src="img/lvl2.png" alt="lvl 2" height="40px">';
-                    }
-                    elseif ($getUser['rank']==3){
-                        echo '<img src="img/lvl3.png" alt="lvl 3" height="40px">';
-                    }
                     echo "</td>";
-                    echo '<td><a href="editEntry.php?ID='.$getUser['ID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
-                    echo '<td><a href="deleteEntry.php?ID='.$getUser['ID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                    echo '<td><a href="editEntry.php?ID='.$getProduct['ID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
+                    echo '<td><a href="deleteEntry.php?ID='.$getProduct['ID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                     echo "</tr>";
                 }
                 ?>
@@ -86,24 +79,30 @@ $getUsers = $query->fetchAll();
         <form class="col s12" name="contact" method="post" action="addEntry.php">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="userName" name="userName" type="text" class="validate" required="" aria-required="true">
-                    <label for="userName">Name</label>
+                    <input id="Name" name="Name" type="text" class="validate" required="" aria-required="true">
+                    <label for="Name">Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="firstName" name="firstName" type="text" class="validate" required="" aria-required="true">
-                    <label for="firstName">First Name</label>
+                    <input id="Category" name="Category" type="text" class="validate" required="" aria-required="true">
+                    <label for="Category">category</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="lastName" name="lastName" type="text" class="validate" required="" aria-required="true">
-                    <label for="lastName">Last Name</label>
+                    <input id="Color" name="Color" type="text" class="validate" required="" aria-required="true">
+                    <label for="Color">Color</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" name="email" type="email" class="validate" required="" aria-required="true">
-                    <label for="email">E-Mail</label>
+                    <input id="Price" name="Price" type="Price" class="validate" required="" aria-required="true">
+                    <label for="Price">Price</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Image" name="Image" type="Image" class="validate" required="" aria-required="true">
+                    <label for="Image">Image Url</label>
                 </div>
             </div>
             <div class="row">
