@@ -9,3 +9,10 @@
     font-size: 12px !important;
         
 }
+
+.center
+{
+    display:flex;
+    justify-content: center;
+    margin-top: 30vh;
+}
