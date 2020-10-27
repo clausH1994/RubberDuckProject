@@ -2,11 +2,11 @@
 <header>
 <body>
 
-Phone: <input type="text" name="phone" value="<?php echo $phone;?>">
+Phone: <input type="text" name="phone" value="<?php $phone;?>">
 
-Email: <input type="text" name="email" value="<?php echo $email;?>">
+Email: <input type="text" name="email" value="<?php $email;?>">
 
-Company description: <textarea type="text" name="description" value="<?php echo $companyDesc;?>">
+Company description: <textarea type="text" name="description" value="<?php $companyDesc;?>">
 
 </body>
 </header>
