@@ -2,11 +2,11 @@
 <header>
 <body>
 
-Opening hours: <input type="text" name="Opening" value="<?php echo $openingH;?>">
+Phone: <input type="text" name="phone" value="<?php echo $phone;?>">
 
-Contact info: <input type="text" name="Contact" value="<?php echo $contact;?>">
+Email: <input type="text" name="email" value="<?php echo $email;?>">
 
-Company description: <textarea type="text" name="Description" value="<?php echo $companyDesc;?>">
+Company description: <textarea type="text" name="description" value="<?php echo $companyDesc;?>">
 
 </body>
 </header>
