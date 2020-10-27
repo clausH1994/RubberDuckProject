@@ -1,0 +1,18 @@
+<?php
+
+require ("aboutUs.php");
+if(isset($_POST["submit"])){
+    $contact= $_POST["contact"];
+    $companyDesc= $_POST["description"];
+    
+
+    mysqli_set_charset($conn, "utf8");
+
+$query = "INSERT INTO `company` (`ID`,`username` `Fname`, ) 
+            VALUES (NULL,'$username' '$fname', '$lname', '$email');";
+
+if(!mysqli_query($conn, $query)){
+    die("error". mysqli_error($conn));
+}
+
+}
