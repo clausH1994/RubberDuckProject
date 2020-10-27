@@ -14,5 +14,22 @@
 {
     display:flex;
     justify-content: center;
-    margin-top: 30vh;
+
+}
+
+.headerAdmin
+{
+    background-color: green;
+    height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+}
+
+#btnLogout
+{
+    height: 50px;
+   
+    
 }
