@@ -111,7 +111,7 @@ CREATE TABLE Company
     phone int NOT NULL,
     email varchar(255) NOT NULL,
     `description` varchar(10000) NOT NULL,
-    FOREIGN KEY (postalID) REFERENCES PostalCode (zipcodeID),
+    FOREIGN KEY (postalID) REFERENCES PostalCode (zipcodeID)
 );
 
 
