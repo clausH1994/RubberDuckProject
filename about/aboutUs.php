@@ -1,6 +1,12 @@
 <html>
 <body>
 <form action="aboutUsData.php" method="post">
+Name: <input type="text" name="name" value="" />
+
+Address: <input type="text" name="address" value="" />
+
+Postalcode: <input type="text" name="postalId" value="" />
+
 Phone: <input type="text" name="phone" value="" />
 
 Email: <input type="text" name="email" value="" />
