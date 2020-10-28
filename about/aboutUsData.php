@@ -1,19 +1,20 @@
 <?php
 
 require ("aboutUs.php");
+require ("../connection/conn.php");
 if(isset($_POST["submit"])){
     $phone= $_POST["phone"];
     $email= $_POST["email"];
     $companyDesc= $_POST["description"];
     
 
-    mysqli_set_charset($conn, "utf8");
+    mysqli_set_charset($connection, "utf8");
 
 $query = "INSERT INTO `company` (`phone`,`email` `description`, ) 
             VALUES (NULL,'$phone' '$email', '$description');";
 
-if(!mysqli_query($conn, $query)){
-    die("error". mysqli_error($conn));
+if(!mysqli_query($connection, $query)){
+    die("error". mysqli_error($connection));
 }
 
 }

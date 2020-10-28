@@ -1,6 +1,4 @@
 <html>
-<header>
-
 <body>
 <form action="aboutUsData.php" method="post">
 Phone: <input type="text" name="phone" value="" />
@@ -11,6 +9,5 @@ Company description: <textarea type="text" name="description" value="<?php $comp
 <input type="submit" id="submit" name="submit" value="Send">
 </form>
 </body>
-</header>
 </html>
 
