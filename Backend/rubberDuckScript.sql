@@ -8,7 +8,7 @@ CREATE TABLE Employee (
     fname varchar(100) NOT NULL,
     lname varchar(100) NOT NULL,
     email varchar(100) NOT NULL,
-    `password` varchar(255)  NOT NULL
+    pass varchar(255)  NOT NULL
 );
 
 
@@ -31,7 +31,7 @@ CREATE TABLE Customer (
     customerID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     fname varchar(100) NOT NULL,
     lname varchar(100)  NOT NULL,
-    `password` varchar(255) NOT NULL,
+    pass varchar(255) NOT NULL,
     phonenumber int NOT NULL,
     email varchar(100) NOT NULL,
     `address` varchar(100) NOT NULL, 
@@ -100,12 +100,7 @@ CREATE TABLE ProductCategory
     FOREIGN KEY (category) REFERENCES Category (categoryID)  
 );
 
-CREATE TABLE ContactInfo
-(
-    contactInfoID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    phone int NOT NULL,
-    email varchar(255) NOT NULL
-);
+
 
 CREATE TABLE Company
 (
@@ -113,9 +108,10 @@ CREATE TABLE Company
     `name` varchar(100) NOT NULL, 
     `address` varchar(200) NOT NULL,
     postalID int NOT NULL,
-    contactInfo int NOT NULL,
-    FOREIGN KEY (postalID) REFERENCES PostalCode (zipcodeID),
-    FOREIGN KEY (contactInfo) REFERENCES ContactInfo (contactInfoID)
+    phone int NOT NULL,
+    email varchar(255) NOT NULL,
+    `description` varchar(10000) NOT NULL,
+    FOREIGN KEY (postalID) REFERENCES PostalCode (zipcodeID)
 );
 
 
@@ -127,8 +123,6 @@ CREATE TABLE OpeningHours
     endtime float NOT Null,
     company int NOT NULL,
     FOREIGN KEY (company) REFERENCES Company (companyID)
-);
+)
 
-
-insert into Employee (fname, lname, email, password) values ('Lari', 'Bythway', 'duckman@duckshop.com', '654321');
 
