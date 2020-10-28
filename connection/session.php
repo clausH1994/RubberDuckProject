@@ -1,13 +1,18 @@
 <?php
+class Session
+{
+function __construct()
+{
 	session_start();
+}
 	
-	function logged_in() {
+	function adminlogged_in() {
 		return isset($_SESSION['admin_id']);
     }
     
 	function confirm_adminlogged_in() {
-		if (!logged_in()) {
-			redirect_to("../admin/admin.php");
-		}
+		if (!$this->adminlogged_in()) {
+            $redirect = new Redirector("employeeOverview.php");
+        }
 	}
-?>
+}

@@ -25,11 +25,10 @@
     justify-content: flex-end;
     align-items: center;
     padding: 10px;
+    
 }
 
 #btnLogout
 {
     height: 50px;
-   
-    
 }

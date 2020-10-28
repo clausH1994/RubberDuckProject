@@ -14,13 +14,13 @@
 <body>
 	<div class="headerAdmin">
 		<form method="post">
-			<input id="btnLogout" type="submit" name="logout" value="Logout"/>
+			<input id="btnLogout" type="submit" name="logout" value="Logout" />
 		</form>
 
 		<?php
-         if(isset($_POST['logout'])) { 
-            logout(); 
-        } ?>
+		if (isset($_POST['logout'])) {
+			logout();
+		} ?>
 	</div>
 	<div class="center">
 		<div>
@@ -49,9 +49,13 @@
 			}
 			?>
 			<div>
-				<h2>Create New User</h2>
+				<h2>Create New Employee</h2>
 
 				<form action="" method="post">
+					First Name:
+					<input type="text" name="fname" value="">
+					Last Name:
+					<input type="text" name="lname" value="">
 					Email:
 					<input type="text" name="email" maxlength="30" value="" />
 					Password:
@@ -62,12 +66,22 @@
 		</div>
 	</div>
 	<?php readEmployees($connection); ?>
+	<?php
+	if (isset($_POST['delete'])) {
+		$em_id = $_POST["em_id"];
+
+		deleteEmployees($em_id, $connection);
+	}
+	if (isset($_POST['edit']))  {
+		$em_id = $_POST["em_id"];
+		redirect_to('employeeEdit.php');
+	}
+	mysqli_close($connection);
+	?>
+
+	
 </body>
 
 </html>
-<?php
-if (isset($connection)) {
-	mysqli_close($connection);
-}
-?>
+
 </body>
