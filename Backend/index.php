@@ -1,4 +1,4 @@
-<?php require_once "dbcon.php";?>
+<?php require_once "../connection/dbcon.php";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +45,9 @@ $getProducts = $query->fetchAll();
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Price</th>
-                    <th>Image</th>
                     <th>Color</th>
+                    <th>Price</th>
+                    <th>Image URL</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>

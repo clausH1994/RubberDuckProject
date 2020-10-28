@@ -1,5 +1,5 @@
 <?php
-require_once "dbcon.php";
+require_once "../connection/dbcon.php";
 if (isset($_GET['ID'])) {
     $entryID = $_GET['ID'];
     $dbCon = dbCon($user, $pass);

@@ -1,4 +1,4 @@
-<?php require_once "dbcon.php";
+<?php require_once "../connection/dbcon.php";
 if (isset($_GET['ID'])) {
 ?>
 <!DOCTYPE html>
@@ -35,6 +35,7 @@ $getProducts = $query->fetchAll();
                     <label for="Color">Color</label>
                 </div>
             </div>
+            <div class="row">
             <div class="input-field col s12">
                     <input id="Price" name="Price" type="text"value="<?php echo $getProducts[0]['price']; ?>" class="validate" required="" aria-required="true">
                     <label for="Price">Price</label>
