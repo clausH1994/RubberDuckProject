@@ -2,27 +2,7 @@
 <?php require_once("../connection/conn.php"); ?>
 <?php
 
-function logout()
-{
-	// Four steps to closing a session
-	// (i.e. logging out)
 
-	// 1. Find the session
-	session_start();
-
-	// 2. Unset all the session variables
-	$_SESSION = array();
-
-	// 3. Destroy the session cookie
-	if (isset($_COOKIE[session_name()])) {
-		setcookie(session_name(), '', time() - 42000, '/');
-	}
-
-	// 4. Destroy the session
-	session_destroy();
-
-	redirect_to("admin.php?logout=1");
-}
 
 function readEmployees($connection)
 {
@@ -50,7 +30,7 @@ function deleteEmployees($em_id, $connection)
 	$query = "DELETE FROM `employee` WHERE `employee`.`employeeID`='$em_id'";
 	mysqli_query($connection, $query) or die('Error, query failed');
 
-	redirect_to("employeeOverview.php");
+	
 }
 
 function editEmployee($em_id, $connection)

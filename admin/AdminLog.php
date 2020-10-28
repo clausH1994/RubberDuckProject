@@ -1,15 +1,17 @@
 <?php
-class Session
+<?php require_once("../connection/dbcon.php"); ?>
+class Admin
 {
     public $message;
 
     function __construct()
     {
+        
     }
 
     function login()
     {
-        $db = new DbCon();
+        $db = dbCon($user, $pass);
         $email = trim($username);
         $pass = trim($password);
         $query = $db->dbCon->prepare("SELECT id, user, pass FROM users WHERE user = '{$user}' LIMIT 1");
