@@ -19,5 +19,5 @@
 
 #card{
     height: 300px;
-    background-size: cover;
+    background-size: contain;
 }

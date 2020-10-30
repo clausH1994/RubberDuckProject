@@ -1,9 +1,10 @@
 <?php
-$user = "Admin";
-$pass = "123456";
-function dbCon($user, $pass){
+function dbCon(){
 try {
-    $dbCon = new PDO('mysql:host=localhost;dbname=rubberduckdb;charset=utf8', $user, $pass);
+    $userReal = "Admin";
+    $passReal = "123456";
+   
+    $dbCon = new PDO('mysql:host=localhost;dbname=rubberduckdb;charset=utf8', $userReal, $passReal);
     //$dbCon = null;
     return $dbCon;
 } catch (PDOException $err) {
