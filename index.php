@@ -11,11 +11,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <?php
-$dbCon = dbCon($user, $pass);
+$dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM product");
 $query->execute();
 $getProducts = $query->fetchAll();
-echo count ($getProducts);
 //var_dump($getProducts);
 
     echo '<div class="row">';
@@ -23,10 +22,10 @@ echo count ($getProducts);
       foreach ($getProducts as $getProduct) {
       echo "
         <div class='col s12 m3'>
-          <div class='card' id='card'>
+          <div class='card'>
           <span class='card-title'>" . $getProduct['name'] ."</span>
             <div class='card-image'>
-              <img src=". $getProduct['image']. ">
+              <img src=". $getProduct['image']. " id='card'>
             </div>
             <div class='card-content'>
               <p>" . $getProduct['description'] .".</p>
