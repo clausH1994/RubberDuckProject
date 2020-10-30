@@ -11,7 +11,7 @@
 </head>
 <?php
 $dbCon = dbCon($user, $pass);
-$query = $dbCon->prepare("SELECT * FROM customers");
+$query = $dbCon->prepare("SELECT * FROM company");
 $query->execute();
 $getData = $query->fetchAll();
 //var_dump($getUsers);
@@ -48,8 +48,6 @@ $getData = $query->fetchAll();
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Description</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
                 </tr>
                 </thead>
 
@@ -57,23 +55,16 @@ $getData = $query->fetchAll();
                 <?php
                 foreach ($getData as $getData) {
                     echo "<tr>";
-                    echo "<td>". $getData['ID']."</td>";
-                    echo "<td>". $getData['username']."</td>";
-                    echo "<td>". $getData['Fname']. " " .$getData['Lname']."</td>";
+                    echo "<td>". $getData['name']."</td>";
+                    echo "<td>". $getData['address']. "</td>";
+                    echo "<td>". $getData['postalID']."</td>";
+                    echo "<td>". $getData['phone']."</td>";
                     echo "<td>". $getData['email']."</td>";
+                    echo "<td>". $getData['description']."</td>";
                     echo "<td>";
-                    if ($getData['rank']==1){
-                        echo '<img src="img/lvl1.png" alt="lvl 1" height="40px">';
-                    }
-                    elseif ($getData['rank']==2){
-                        echo '<img src="img/lvl2.png" alt="lvl 2" height="40px">';
-                    }
-                    elseif ($getData['rank']==3){
-                        echo '<img src="img/lvl3.png" alt="lvl 3" height="40px">';
-                    }
                     echo "</td>";
-                    echo '<td><a href="editEntry.php?ID='.$getData['ID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
-                    echo '<td><a href="deleteEntry.php?ID='.$getData['ID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                    echo '<td><a href="edit.php?ID='.$getData['companyID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
+                    echo '<td><a href="delete.php?ID='.$getData['companyID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                     echo "</tr>";
                 }
                 ?>

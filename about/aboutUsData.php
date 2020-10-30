@@ -1,29 +1,22 @@
 <?php
 
 require ("aboutUs.php");
-require ("../connection/dbcon.php");
+
 if(isset($_POST["submit"])){
     $name= $_POST["name"];
-
     $address= $_POST["address"];
-
-    $postal= $_POST["postalId"];
-
-    $phone= $_POST["phone"];
-      
+    $postal= $_POST["postalID"];
+    $phone= $_POST["phone"];      
     $email= $_POST["email"];
-    
     $companyDesc= $_POST["description"];
 
-    mysqli_set_charset($connection, "utf8");
+    $dbCon = dbCon($user, $pass);
 
-$query = "INSERT INTO `company` (`name`, `address`, `postalId`, `phone`,`email`, `description`) 
-            VALUES ('$name','$address','$postal' ,'$phone','$email', '$companyDesc')";
+    $query =$dbCon->prepare ("INSERT INTO `company` (`name`, `address`, `postalID`, `phone`,`email`, `description`) 
+            VALUES ('$name','$address','$postal' ,'$phone','$email', '$companyDesc')");
+    $query->execute();
+    //header("Location: aboutUs.php?status=added");
 
-            
-
-if(!mysqli_query($connection, $query)){
-    die("error". mysqli_error($connection));
-}
-
+}else{
+   // header("Location: aboutUs.php?status=0");
 }
