@@ -28,7 +28,7 @@ $getProducts = $query->fetchAll();
               <img src=". $getProduct['image']. " id='card'>
             </div>
             <div class='card-content'>
-              <p>" . $getProduct['description'] .".</p>
+              <p>" . $getProduct['description'] ."</p>
             </div>
             <div class='card-action'>
               <a href='#'>This is a link</a>
