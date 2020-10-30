@@ -13,7 +13,7 @@ if (isset($_GET['ID'])) {
 </head>
 <?php
 $companyID = $_GET['ID'];
-$dbCon = dbCon($user, $pass);
+$dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM company WHERE companyID=$companyID");
 $query->execute();
 $getData = $query->fetchAll();
@@ -64,5 +64,5 @@ $getData = $query->fetchAll();
 </div>
 </body>
 </html>
-<?php }else{    header("Location: aboutUS.php");
+<?php  }else{    header("Location: aboutUs.php");
 }?>

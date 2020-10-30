@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <?php
-$dbCon = dbCon($user, $pass);
+$dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM company");
 $query->execute();
 $getData = $query->fetchAll();
@@ -87,7 +87,7 @@ $getData = $query->fetchAll();
                     <label for="address">Address</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="postalId" name="postalId" type="text" class="validate" required="" aria-required="true">
+                    <input id="postalId" name="postalID" type="text" class="validate" required="" aria-required="true">
                     <label for="postalId">Postalcode</label>
                 </div>
             </div>

@@ -10,13 +10,13 @@ if(isset($_POST["submit"])){
     $email= $_POST["email"];
     $companyDesc= $_POST["description"];
 
-    $dbCon = dbCon($user, $pass);
+    $dbCon = dbCon();
 
     $query =$dbCon->prepare ("INSERT INTO `company` (`name`, `address`, `postalID`, `phone`,`email`, `description`) 
             VALUES ('$name','$address','$postal' ,'$phone','$email', '$companyDesc')");
     $query->execute();
-    //header("Location: aboutUs.php?status=added");
+    header("Location: aboutUs.php?status=added");
 
 }else{
-   // header("Location: aboutUs.php?status=0");
+    header("Location: aboutUs.php?status=0");
 }
