@@ -1,39 +1,44 @@
 <?php
-<?php require_once("../connection/dbcon.php"); ?>
-class Admin
+
+require_once("admin.php");
+require_once("../connection/dbcon.php");
+
+class AdminLog
 {
     public $message;
+    
 
-    function __construct()
+    public function __construct()
     {
         
     }
 
-    function login()
+    public function adminLogin($email, $password)
     {
         $db = dbCon($user, $pass);
-        $email = trim($username);
+        $email = trim($email);
         $pass = trim($password);
-        $query = $db->dbCon->prepare("SELECT id, user, pass FROM users WHERE user = '{$user}' LIMIT 1");
-        if($query->execute()){
-            $found_user = $query->fetchAll();
-            if (count($found_user)==1){
-                if(password_verify($pass, $found_user[0]['pass'])){
-                    $_SESSION['user_id'] = $found_user[0]['id'];
-                    $_SESSION['user'] = $found_user[0]['user'];
-                    $redirect = new Redirector("frontpage.php");
+        $query = $db->dbCon->prepare("SELECT id, email, pass FROM users WHERE email = '{$email}' LIMIT 1");
+        if ($query->execute()) {
+            $found_admin = $query->fetchAll();
+            if (count($found_admin) == 1) {
+                if (password_verify($pass, $found_admin[0]['pass'])) {
+                    $_SESSION['admin_id'] = $found_admin[0]['id'];
+                    $_SESSION['admin'] = $found_admin[0]['email'];
+                    $redirect = new Redirector("employeeOverview.php");
                 } else {
                     // username/password combo was not found in the database
-                    $this->message = "Username/password combination incorrect.<br />
+                    $this->message = "Email/password combination incorrect.<br />
 					Please make sure your caps lock key is off and try again.";
                 }
-            }else{
-                $this->message = "No such Username in the database.<br />
+            } else {
+                $this->message = "No such Email in the database.<br />
 				Please make sure your caps lock key is off and try again.";
             }
+        }
     }
 
-    function logout()
+    public function adminLogout()
     {
         // Four steps to closing a session
         // (i.e. logging out)
