@@ -13,7 +13,7 @@ if (isset($_GET['ID'])) {
 </head>
 <?php
 $entryID = $_GET['ID'];
-$dbCon = dbCon($user, $pass);
+$dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM product WHERE productID=$entryID");
 $query->execute();
 $getProducts = $query->fetchAll();
