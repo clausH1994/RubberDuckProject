@@ -1,5 +1,6 @@
 <?php require_once "../connection/dbcon.php";
-if (isset($_GET['ID'])) {
+if (!isset($_GET['ID'])) {
+    header("Location: aboutUs.php");}else{ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,13 +18,14 @@ $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM company WHERE companyID=$companyID");
 $query->execute();
 $getData = $query->fetchAll();
-//var_dump($companyID);
+//var_dump($query);
+
 ?>
 <body>
 
 <div class="container">
         <h3>Editing data "<?php echo $getData[0][1]; ?>"</h3>
-        <form class="col s12" name="companyInfo" method="post" action="edit.php">
+        <form class="col s12" name="companyInfo" method="post" action="editData.php">
             <div class="row">
                 <div class="input-field col s12">
                     <input id="name" name="name" type="text" value="<?php echo $getData[0][1]; ?>" class="validate" required="" aria-required="true">
@@ -42,7 +44,7 @@ $getData = $query->fetchAll();
             </div>
             <div class="row">
             <div class="input-field col s12">
-                    <input id="phone" name="phone" type="phone"value="<?php echo $getData[0][4]; ?>" class="validate" required="" aria-required="true">
+                    <input id="phone" name="phone" type="text"value="<?php echo $getData[0][4]; ?>" class="validate" required="" aria-required="true">
                     <label for="phone">Phone</label>
                 </div>
                 <div class="input-field col s12">
@@ -64,5 +66,5 @@ $getData = $query->fetchAll();
 </div>
 </body>
 </html>
-<?php  }else{    header("Location: aboutUs.php");
+<?php    
 }?>
