@@ -1,32 +1,33 @@
 <?php
 
-require_once("admin.php");
 require_once("../connection/dbcon.php");
 
-class AdminLog
+class AdminLoginHandle
 {
     public $message;
-    
+
 
     public function __construct()
     {
-        
     }
 
-    public function adminLogin($email, $password)
+    public function adminLogin($email, $pass)
     {
-        $db = dbCon($user, $pass);
+
         $email = trim($email);
-        $pass = trim($password);
-        $query = $db->dbCon->prepare("SELECT id, email, pass FROM users WHERE email = '{$email}' LIMIT 1");
+        $pass = trim($pass);
+        $query = dbCon()->prepare("SELECT employeeID, email, pass FROM employee WHERE email = '{$email}' LIMIT 1");
+
         if ($query->execute()) {
             $found_admin = $query->fetchAll();
+
             if (count($found_admin) == 1) {
                 if (password_verify($pass, $found_admin[0]['pass'])) {
-                    $_SESSION['admin_id'] = $found_admin[0]['id'];
+                    $_SESSION['admin_id'] = $found_admin[0]['employeeID'];
                     $_SESSION['admin'] = $found_admin[0]['email'];
-                    $redirect = new Redirector("employeeOverview.php");
+                    $redirect = new Redirector("employeeView.php");
                 } else {
+
                     // username/password combo was not found in the database
                     $this->message = "Email/password combination incorrect.<br />
 					Please make sure your caps lock key is off and try again.";

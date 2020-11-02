@@ -14,7 +14,7 @@ class Session
 	public function confirm_adminlogged_in()
 	{
 		if (!$this->adminlogged_in()) {
-			$redirect = new Redirector("employeeOverview.php");
+			$redirect = new Redirector("adminLoginView.php");
 		}
 	}
 }

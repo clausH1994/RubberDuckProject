@@ -1,5 +1,5 @@
-<?php require_once("../connection/functions.php"); ?>
-<?php require_once("../connection/conn.php"); ?>
+
+<?php require_once("../connection/dbcon.php"); ?>
 <?php
 
 
