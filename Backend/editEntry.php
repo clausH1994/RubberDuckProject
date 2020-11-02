@@ -12,7 +12,7 @@ if (isset($_GET['ID'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <?php
-$entryID = $_GET['ID'];
+$entryID = htmlspecialchars($_GET['ID']);
 $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM product WHERE productID=$entryID");
 $query->execute();
@@ -21,7 +21,7 @@ $getProducts = $query->fetchAll();
 <body>
 
 <div class="container">
-        <h3>Editing user "<?php echo $getProducts[0][1]; ?>"</h3>
+        <h3>Editing product "<?php echo $getProducts[0][1]; ?>"</h3>
         <form class="col s12" name="contact" method="post" action="updateEntry.php">
             <div class="row">
                 <div class="input-field col s12">

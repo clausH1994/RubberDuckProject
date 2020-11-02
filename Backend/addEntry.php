@@ -1,5 +1,7 @@
 <?php
 require_once "../connection/dbcon.php";
+
+
 if (isset($_POST['submit'])) {
 
     
@@ -8,8 +10,11 @@ $Color = $_POST['Color'];
 $Price = $_POST['Price'];
 $Image = $_POST['Image'];
 $description = $_POST['description'];
+}
 
-$sql = "INSERT INTO product (`name`, `color`, `price`, `image`, `description`) VALUES (:'name', :'color', :'price,' :'image', :'description')";
+try {
+
+$sql = "INSERT INTO product (`name`, `color`, `price`, `image`, `description`) VALUES (:name, :color, :price, :image, :description)";
 $query = dbCon()->prepare($sql);
 
 //$query = dbCon()->prepare("INSERT INTO product (`name`, `color`, `price`, `image`, `description`) VALUES ('$Name', '$Color', '$Price', '$Image', '$description')");
@@ -24,14 +29,21 @@ $query->bindParam(':color', $sanitized_color);
 $query->bindParam(':price', $sanitized_price);
 $query->bindParam(':image', $sanitized_image);
 $query->bindParam(':description', $sanitized_desc);
-		
-
 
 $query->execute();
   header("Location: index.php?status=added");
 
+
+echo "The item has been added.";
+
+//}
+
+// else{
+//    header("Location: index.php?status=0");
+// }
+
 }
 
-else{
-  header("Location: index.php?status=0");
+catch(\Throwable $ex){
+  echo "Error:" . $ex->getMessage();
 }
