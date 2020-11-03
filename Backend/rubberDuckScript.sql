@@ -79,8 +79,13 @@ CREATE TABLE Product
     `image` varchar(255),
     `description` varchar(60000),
     color int NOT NULL,
+    quantity int NOT null,
     FOREIGN KEY (color) REFERENCES Color (colorID)
 );
+
+insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Ducky', 99, 'img/duck.png', 'This is a yellow duck', 1, 10);
+insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Blue Ducky', 199, 'img/bducky.png', 'This is magical blue duck', 2, 50);
+insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Black Duck', 50, 'img/ducky.png', 'Said to bring misfortune to those who see it cross the road', 4, 20);
 
 ALTER TABLE Orderline
 ADD FOREIGN KEY (product) REFERENCES Product (productID);
