@@ -49,6 +49,12 @@ $getProducts = $query->fetchAll();
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                    <input id="Quantity" name="Quantity" type="text"value="<?php echo $getProducts[0]['quantity']; ?>" class="validate" required="" aria-required="true">
+                    <label for="Quantity">Quantity</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
                     <textarea name="description" id="description" class="materialize-textarea" required="" aria-required="true"><?php echo $getProducts[0]['description']; ?></textarea>
                     <label for="description">Description</label>
                 </div>
