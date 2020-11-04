@@ -18,7 +18,7 @@ $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM company WHERE companyID=$companyID");
 $query->execute();
 $getData = $query->fetchAll();
-//var_dump($query);
+//var_dump($getData);
 
 ?>
 <body>
@@ -61,6 +61,8 @@ $getData = $query->fetchAll();
             <input type="hidden" name="companyID" value="<?php echo $companyID; ?>">
             <button class="btn waves-effect waves-light" type="submit" name="submit">Update
             </button>
+            <button class="btn waves-effect waves-light" type="submit" name="cancel">cancel
+            </button>
         </form>
     </div>
 </div>
@@ -68,3 +70,9 @@ $getData = $query->fetchAll();
 </html>
 <?php    
 }?>
+
+<?php
+require_once "../connection/Redirector.php";
+if (isset($_POST ['cancel'])) {
+    $redirector = new Redirector("aboutUs.php");
+}
