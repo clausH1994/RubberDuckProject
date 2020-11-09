@@ -11,7 +11,7 @@ class EmployeeDAO
         $query = $dbcon->prepare("SELECT * FROM employee WHERE employeeID=$emID");
         $query->execute();
         $result = $query->fetchAll();
-      
+
         return $result;
     }
 
@@ -35,8 +35,20 @@ class EmployeeDAO
         try {
             $dbcon = dbCon();
 
-            $query = "INSERT INTO employee (fname, lname, email, pass) VALUES ('" . $fname . "','" . $lname . "', '" . $email . "', '" . $pass . "')";
+            $query = "INSERT INTO employee (fname, lname, email, pass) VALUES (:fName, :lName, :Email, :Pass)";
             $handle = $dbcon->prepare($query);
+
+            $sanitized_fname = htmlspecialchars(trim($fname));
+            $sanitized_lname = htmlspecialchars(trim($lname));
+            $sanitized_email = htmlspecialchars(trim($email));
+            $sanitized_pass = htmlspecialchars(trim($pass));
+
+            $handle->bindParam(':fName', $sanitized_fname);
+            $handle->bindParam(':lName', $sanitized_lname);
+            $handle->bindParam(':Email', $sanitized_email);
+            $handle->bindParam(':Pass', $sanitized_pass);
+     
+
             $handle->execute();
 
             $dbcon = null;
@@ -47,51 +59,47 @@ class EmployeeDAO
 
     public function UpdateEmployeeDB($emID, $fname, $lname, $email, $pass)
     {
-        try
-	{
-       
-       
-		$dbcon= dbCon();
+        try {
 
-		$query = "UPDATE employee SET fname = :fName, lname = :lName, email = :Email, pass = :Pass WHERE employeeID = :EmployeeID";
-		$handle = $dbcon->prepare( $query );
-	
-		$sanitized_fname = htmlspecialchars(trim($fname));
-		$sanitized_lname = htmlspecialchars(trim($lname));
-        $sanitized_email = htmlspecialchars(trim($email));
-        $sanitized_pass = htmlspecialchars(trim($pass));
-        
-		$handle->bindParam(':fName', $sanitized_fname);
-        $handle->bindParam(':lName', $sanitized_lname);
-        $handle->bindParam(':Email', $sanitized_email);
-        $handle->bindParam(':Pass', $sanitized_pass);
-		$handle->bindParam(':EmployeeID', $emID);
 
-		$handle->execute();
+            $dbcon = dbCon();
 
-		$dbcon = null;
-	}
-	catch(\PDOException $ex){
-		print($ex->getMessage());
-	}
+            $query = "UPDATE employee SET fname = :fName, lname = :lName, email = :Email, pass = :Pass WHERE employeeID = :EmployeeID";
+            $handle = $dbcon->prepare($query);
+
+            $sanitized_fname = htmlspecialchars(trim($fname));
+            $sanitized_lname = htmlspecialchars(trim($lname));
+            $sanitized_email = htmlspecialchars(trim($email));
+            $sanitized_pass = htmlspecialchars(trim($pass));
+
+            $handle->bindParam(':fName', $sanitized_fname);
+            $handle->bindParam(':lName', $sanitized_lname);
+            $handle->bindParam(':Email', $sanitized_email);
+            $handle->bindParam(':Pass', $sanitized_pass);
+            $handle->bindParam(':EmployeeID', $emID);
+
+            $handle->execute();
+
+            $dbcon = null;
+        } catch (\PDOException $ex) {
+            print($ex->getMessage());
+        }
     }
 
     public function deleteEmployeeDB($emID)
     {
-        try
-        {
+        try {
             $dbcon = dbCon();
-    
+
             $query = "DELETE FROM employee WHERE employeeID = :employeeID";
-            $handle = $dbcon->prepare( $query );
+            $handle = $dbcon->prepare($query);
             $handle->bindParam(':employeeID', $emID);
-            
+
             $handle->execute();
-    
+
             //close the connection
             $dbcon = null;
-        }
-        catch(\PDOException $ex){
+        } catch (\PDOException $ex) {
             print($ex->getMessage());
         }
     }

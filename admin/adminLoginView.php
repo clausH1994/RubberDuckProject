@@ -1,7 +1,6 @@
-
 <?php require_once("adminLoginHandle.php"); ?>
 <?php spl_autoload_register(function ($class) {
-    include "../connection/" .$class . ".php";
+    include "../connection/" . $class . ".php";
 }); ?>
 
 
@@ -18,11 +17,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
     $redirect = new Redirector("employeeView.php");
 }
 // START FORM PROCESSING
-if (isset($_POST['submit'])) { // Form has been submitted.
 
-    $log->adminLogin($_POST['email'], $_POST['pass']);
-    $msg = $log->message;
-}
+
 ?>
 
 <html>
@@ -32,22 +28,36 @@ if (isset($_POST['submit'])) { // Form has been submitted.
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body >
-    <?php
-    if (!empty($msg)) {
-        echo "<p>" . $msg . "</p>";
-    }
-    ?>
+<body>
+
     <div class="center">
         <div>
+            <?php
 
+            if (isset($_POST['submit'])) { // Form has been submitted.
 
+                $regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
+                if (!preg_match($regexp, $_POST['email'])) {
+            ?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
+            <?php
+                } 
+                else {
+
+                    $log->adminLogin($_POST['email'], $_POST['pass']);
+                    $msg = $log->message;   
+                }
+             
+            }
+            if (!empty($msg)) {
+                echo "<p>" . $msg . "</p>";
+            }
+            ?>
             <h2>Please login</h2>
             <form method="post">
                 email:
-                <input type="text" name="email" maxlength="30" />
+                <input type="text" name="email" maxlength="30" required />
                 Password:
-                <input type="password" name="pass" maxlength="30" />
+                <input type="password" name="pass" maxlength="30" required />
                 <input type="submit" name="submit" value="Login" />
             </form>
         </div>
