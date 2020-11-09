@@ -130,4 +130,25 @@ CREATE TABLE OpeningHours
     FOREIGN KEY (company) REFERENCES Company (companyID)
 )
 
+CREATE TABLE News
+(
+    newsID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title varchar(100) NOT NULL,
+    `description` varchar() NOT NULL,
+    `date` date NOT NULL
+)
 
+CREATE TABLE DailySpecial
+(
+    dailyID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    discount int NOT NULL
+)
+
+CREATE TABLE SpecialNews
+(
+    daily int NOT NULL,
+    news int NOT NULL,
+    CONSTRAINT PK_ProductCategory PRIMARY KEY (daily, news),  
+    FOREIGN KEY (daily) REFERENCES DailySpecial (dailyID),
+    FOREIGN KEY (news) REFERENCES News (newsID) 
+)
