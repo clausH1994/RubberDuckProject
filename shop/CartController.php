@@ -13,7 +13,7 @@ class CartController
     {
         $db_handle = new DBController();
         if (!empty($quantity)) {
-            $productByID = $db_handle->runQuery("SELECT * FROM products WHERE productID='" . $ID . "'");
+            $productByID = $db_handle->runQuery("SELECT * FROM product WHERE productID='" . $ID . "'");
             $this->newItemArray = array($productByID[0]["ID"] => array(
                 'name' => $productByID[0]["name"],
                 'productID' => $productByID[0]["productID"],
