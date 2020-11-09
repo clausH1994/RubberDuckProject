@@ -1,5 +1,4 @@
 <?php require_once "../connection/dbcon.php"; ?>
-<?php// require_once "aboutUsData.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,25 +16,23 @@ $getData = $query->fetchAll();
 ?>
 
 <body>
-    <h3> <?php// echo $getData['name'];?> </h3>
+
+<?php
+foreach ($getData as $getData) {
+$getData['name']; 
+$getData['address'];
+$getData['postalID'];
+$getData['phone'];
+$getData['email'];
+$getData['description'];
+}
+?>
+
+
+    <h3> <?php echo $getData['name'] ;?> </h3>
 <div class="col s10" name="about" action="aboutUs.php">
     <div class="row">
         <div class="container">
-<?php
-foreach ($getData as $getData) {
-echo $getData['name']; 
-echo "<br><br>";
-echo $getData['address'];
-echo "<br><br>";
-echo $getData['postalID'];
-echo "<br><br>";
-echo $getData['phone'];
-echo "<br><br>";
-echo $getData['email'];
-echo "<br><br>";
-echo $getData['description'];
-}
-?>
             
         </div>
     </div>
