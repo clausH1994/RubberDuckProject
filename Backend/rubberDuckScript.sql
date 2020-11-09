@@ -128,21 +128,21 @@ CREATE TABLE OpeningHours
     endtime float NOT Null,
     company int NOT NULL,
     FOREIGN KEY (company) REFERENCES Company (companyID)
-)
+);
 
 CREATE TABLE News
 (
     newsID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title varchar(100) NOT NULL,
-    `description` varchar() NOT NULL,
+    `description` varchar(65535) NOT NULL,
     `date` date NOT NULL
-)
+);
 
 CREATE TABLE DailySpecial
 (
     dailyID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     discount int NOT NULL
-)
+);
 
 CREATE TABLE SpecialNews
 (
@@ -151,4 +151,4 @@ CREATE TABLE SpecialNews
     CONSTRAINT PK_ProductCategory PRIMARY KEY (daily, news),  
     FOREIGN KEY (daily) REFERENCES DailySpecial (dailyID),
     FOREIGN KEY (news) REFERENCES News (newsID) 
-)
+);
