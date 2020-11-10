@@ -19,16 +19,6 @@ $employee = $employeeCon->readEmployeeById($_GET['ID']);
 
 ?>
 
-
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="stylesheet" href="../css/style.css">
-</head>
 <div class="container">
     <div>
         <h2>Edit Employee</h2>
@@ -56,13 +46,9 @@ $employee = $employeeCon->readEmployeeById($_GET['ID']);
             Email:
             <input type="text" name="email" maxlength="30" value="<?php echo $employee[0][3]; ?>" required />
             <button class="btn waves-effect waves-light" type="submit" name="submit">Update Employee</button>
-            <button class="btn" style="background-color: red; color:white;" type="submit" name="cancel" value="Cancel">Cancel</button>
+            <a href="employeeView.php" class="waves-effect waves-light btn red">Cancel</a>
         </form>
     </div>
 </div>
 
 <?php
-
-if (isset($_POST['cancel'])) { // Form has been submitted.
-    $redirector = new Redirector("employeeView.php");
-}

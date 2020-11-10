@@ -8,9 +8,12 @@ class EmployeeDAO
     {
         $dbcon = dbCon();
 
-        $query = $dbcon->prepare("SELECT * FROM employee WHERE employeeID=$emID");
-        $query->execute();
-        $result = $query->fetchAll();
+        $query = "SELECT * FROM employee WHERE employeeID= :employeeID";
+        $handle = $dbcon->prepare($query);
+        $handle->bindParam(':employeeID', $emID);
+        $handle->execute();
+
+        $result = $handle->fetchAll();
 
         return $result;
     }

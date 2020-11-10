@@ -18,6 +18,14 @@ class employeeController
 	}
 
 
+	public function readEmployees()
+	{
+		$employeeDAO = new EmployeeDAO();
+		$employees = $employeeDAO->readEmployeeDB();
+
+		$this->templateEmployee($employees);
+	}
+
 	public function createEmployee($fname, $lname, $email, $pass)
 	{
 		$employeeDAO = new EmployeeDAO();
@@ -29,13 +37,7 @@ class employeeController
 		$redirect = new Redirector("employeeView.php");
 	}
 
-	public function readEmployees()
-	{
-		$employeeDAO = new EmployeeDAO();
-		$employees = $employeeDAO->readEmployeeDB();
-
-		$this->templateEmployee($employees);
-	}
+	
 
 
 
