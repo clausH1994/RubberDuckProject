@@ -124,8 +124,8 @@ CREATE TABLE OpeningHours
 (
     openinghoursID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `day` varchar(50) NOT NULL,
-    startTime float NOT NULL,
-    endtime float NOT Null,
+    startTime DECIMAL(4,2) NOT NULL,
+    endtime DECIMAL(4,2) NOT Null,
     company int NOT NULL,
     FOREIGN KEY (company) REFERENCES Company (companyID)
 );
