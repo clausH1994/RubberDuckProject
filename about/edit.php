@@ -68,7 +68,7 @@ $getData = $query->fetchAll();
 </div>
 </body>
 </html>
-<?php    
+<?php
 }?>
 
 <?php
