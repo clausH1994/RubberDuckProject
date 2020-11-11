@@ -35,7 +35,7 @@ class NewsDAO
     }
 
 
-    public function CreateNewsDB($title, $description, $date)
+    public function createNewsDB($title, $description, $date)
     {
         try {
             $dbcon = dbCon();
@@ -53,13 +53,17 @@ class NewsDAO
 
             $handle->execute();
 
+            $last_id = $dbcon->lastInsertId();
+          
             $dbcon = null;
+            return $last_id;
+
         } catch (\PDOException $ex) {
             print($ex->getMessage());
         }
     }
 
-    public function UpdateNewsDB($newsID, $title, $description, $date)
+    public function updateNewsDB($newsID, $title, $description, $date)
     {
         try {
             $dbcon = dbCon();

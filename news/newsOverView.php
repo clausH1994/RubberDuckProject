@@ -12,6 +12,7 @@ require_once("NewsController.php");
                             <th>title</th>
                             <th>Desciption</th>
                             <th>Date</th>
+                            <th>Discount(%)</th>
                         </tr>
                     </thead>
 

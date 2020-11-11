@@ -19,8 +19,6 @@ require("adminHeader.php");
 
 
 <body>
-
-
 	<div class="container">
 		<div class="row">
 			<div class="row">
@@ -56,7 +54,8 @@ require("adminHeader.php");
 						if (isset($_POST['submit'])) { // Form has been submitted.
 							$regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
 							if (!preg_match($regexp, $_POST['email'])) {
-								?> <p style="color: red; font-size: 20px;">please enter a valid mail</p> <?php
+						?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
+						<?php
 							} else {
 								$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
 							}

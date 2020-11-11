@@ -16,6 +16,8 @@ require_once("NewsController.php");
                     <textarea id="descArea"  class="materialize-textarea" name="desc" value="" required></textarea>
                     Date:
                     <input type="date"  name="date" maxlength="30" value="" required />
+                    Discount:
+                    <input type="number"  name="discount" maxlength="30" value="" />
                     <button class="btn waves-effect waves-light" type="submit" name="submit" value="Create">Create News</button>
                     <a href="newsOverView.php" class="waves-effect waves-light btn red">Cancel</a>
                 </form>
@@ -28,7 +30,7 @@ require_once("NewsController.php");
 <?php
 if (isset($_POST['submit'])) { // Form has been submitted.
     $newsCon = new NewsController();
-    $newsCon->createNews($_POST["title"], $_POST["desc"], $_POST["date"]);
+    $newsCon->manangeCreate($_POST["title"], $_POST["desc"], $_POST["date"], $_POST["discount"]);
 }
 
 ?>
