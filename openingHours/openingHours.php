@@ -11,7 +11,43 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
+<?php
+$dbCon = dbCon();
+$query = $dbCon->prepare("SELECT * FROM openinghours");
+$query->execute();
+$getData = $query->fetchAll();
+//var_dump($getUsers);
+?>
+<div class="container">
+<div class="row">
+        <div class="row">
+            <table class="highlight">
+                <thead>
+                <tr>
+                    <th>Weekdays</th>
+                    <th>opening</th>
+                    <th>closing</th>
+                </tr>
+                </thead>
 
+                <tbody>
+                <?php
+                foreach ($getData as $getData) {
+                    echo "<tr>";
+                    echo "<td>". $getData['day']."</td>";
+                    echo "<td>". $getData['startTime']. "</td>";
+                    echo "<td>". $getData['endtime']."</td>";
+                    echo "</td>";
+                    echo '<td><a href="editOpeningHours.php?ID='.$getData['openinghoursID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
+                    echo '<td><a href="deleteOpeningHours.php?ID='.$getData['openinghoursID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                    echo "</tr>";
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <hr>
 <div class="container">
         <h3>Editing opening hours</h3>
         <form class="col s12" name="openingHours" method="post" action="openingHoursData.php">
@@ -27,15 +63,12 @@
                     <label for="startTime">opening hour</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="" name="endTIme" type="text"value="" class="validate" required="" aria-required="true">
-                    <label for="endTime">closing hour</label>
+                    <input id="" name="endtime" type="text"value="" class="validate" required="" aria-required="true">
+                    <label for="endtime">closing hour</label>
                 </div>
             </div>
             <button class="btn waves-effect waves-light" type="submit" name="submit">Add
             </button>
-            <button class="btn waves-effect waves-light" type="submit" name="cancel">cancel
+            <a href="" class="waves-effect waves-light btn red">cancel
             </button>
         </form>
-
-
-
