@@ -134,7 +134,7 @@ CREATE TABLE News
 (
     newsID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title varchar(100) NOT NULL,
-    `description` varchar(65535) NOT NULL,
+    `description` varchar(10000) NOT NULL,
     `date` date NOT NULL
 );
 
