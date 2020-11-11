@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit entry</title>
+    <title>opening hours</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -14,7 +14,7 @@
 
 <div class="container">
         <h3>Editing opening hours</h3>
-        <form class="col s12" name="openingHours" method="post" action="about.php">
+        <form class="col s12" name="openingHours" method="post" action="openingHoursData.php">
             <div class="row">
                 <div class="input-field col s12">
                     <input id="day" name="day" type="text" value="" class="validate" required="" aria-required="true"/>
