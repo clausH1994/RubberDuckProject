@@ -152,3 +152,12 @@ CREATE TABLE SpecialNews
     FOREIGN KEY (daily) REFERENCES DailySpecial (dailyID),
     FOREIGN KEY (news) REFERENCES News (newsID) 
 );
+
+CREATE TABLE Offer
+(
+    offer int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    productID int NOT NULL,
+    dailyID int NOT NULL,
+    FOREIGN KEY (productID) REFERENCES Product (ProductID),
+    FOREIGN KEY (dailyID) REFERENCES DailySpecial (dailyID)
+);
