@@ -9,21 +9,21 @@ class CartController
             $this->itemArray["cartItem"] = $existingItems;
         }
     }
-    public function cartAdd($ID, $quantity)
+    public function cartAdd($productID, $quantity)
     {
         $db_handle = new DBController();
         if (!empty($quantity)) {
-            $productByID = $db_handle->runQuery("SELECT * FROM product WHERE productID='" . $ID . "'");
-            $this->newItemArray = array($productByID[0]["ID"] => array(
+            $productByID = $db_handle->runQuery("SELECT * FROM product WHERE productID='" . $productID . "'");
+            $this->newItemArray = array($productByID[0]["productID"] => array(
                 'name' => $productByID[0]["name"],
                 'productID' => $productByID[0]["productID"],
                 'quantity' => $_POST["quantity"],
                 'price' => $productByID[0]["price"]));
 
             if (!empty($this->itemArray["cartItem"])) {
-                if (in_array($productByID[0]["code"], array_keys($this->itemArray["cartItem"]))) {
+                if (in_array($productByID[0]["productID"], array_keys($this->itemArray["cartItem"]))) {
                     foreach ($this->itemArray["cartItem"] as $k => $v) {
-                        if ($productByID[0]["code"] == $k) {
+                        if ($productByID[0]["productID"] == $k) {
                             if (empty($this->itemArray["cartItem"][$k]["quantity"])) {
                                 $this->itemArray["cartItem"][$k]["quantity"] = 0;
                             }
@@ -39,11 +39,11 @@ class CartController
         }
     }
 
-    public function cartRemove($code){
+    public function cartRemove($productID){
     //Remove item from cart
         if (!empty($this->itemArray["cartItem"])) {
             foreach ($this->itemArray["cartItem"] as $k => $v) {
-                if ($code == $k)
+                if ($productID == $k)
                     unset($this->itemArray["cartItem"][$k]);
                 if (empty($this->itemArray["cartItem"]))
                     unset($this->itemArray["cartItem"]);
