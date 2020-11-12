@@ -37,10 +37,6 @@ class employeeController
 		$redirect = new Redirector("employeeView.php");
 	}
 
-	
-
-
-
 	public function editEmployee($emID, $fname, $lname, $email, $pass)
 	{
 		$employeeDAO = new EmployeeDAO();
@@ -55,6 +51,7 @@ class employeeController
 		$redirect = new Redirector("employeeView.php");
 	}
 
+	
 	private function templateEmployee($row)
 	{
 
@@ -67,4 +64,5 @@ class employeeController
 			echo "</tr>";
 		}
 	}
+
 }

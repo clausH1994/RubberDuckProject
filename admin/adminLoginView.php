@@ -18,6 +18,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
 }
 // START FORM PROCESSING
 
+$log->checkforAdmin();
 
 ?>
 

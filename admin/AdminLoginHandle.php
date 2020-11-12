@@ -2,6 +2,7 @@
 
 require_once("../connection/dbcon.php");
 
+
 class AdminLoginHandle
 {
     public $message;
@@ -59,4 +60,19 @@ class AdminLoginHandle
         // 4. Destroy the session
         session_destroy();
     }
+
+    public function checkforAdmin()
+	{
+        require_once("employeeDAO.php");
+        require_once("employeeController.php");
+		$employeeDAO = new EmployeeDAO();
+		$employees = $employeeDAO->readEmployeeDB();
+
+		if($employees == null)
+		{
+            $employeeCon = new employeeController();
+			$employeeCon->createEmployee("Demo", "Acc", "demoAcc@demo.dk", "breakfast");
+		}
+	}
+
 }

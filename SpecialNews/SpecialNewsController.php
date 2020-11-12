@@ -10,16 +10,12 @@ class SpecialNewsController
         $specialNewsDAO->createSpecialNewsDB($dailyID, $newsID);
     }
 
-    public function getDailyByNewsId($newsID)
+    public function getSpecialNewsByNewsId($newsID)
     {
         $specialNewsDAO = new SpecialNewsDAO();
         $specialNews = $specialNewsDAO->readSpecialNewsByNewsDB($newsID);
 
-        foreach ($specialNews as $specail) {
-            # code here
-        }
-
-      
+        return $specialNews;
     }
 
     
