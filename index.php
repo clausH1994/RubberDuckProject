@@ -1,41 +1,51 @@
 <?php require_once "connection/dbcon.php";?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Front Page</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-<?php
-$dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM product");
-$query->execute();
-$getProducts = $query->fetchAll();
+<?php include "connection/session.php"?>
+<?php include "header.php" ?>
+
+
+ <?php
+//$dbCon = dbCon();
+//$query = $dbCon->prepare("SELECT * FROM product");
+//$query->execute();
+//$getProducts = $query->fetchAll();
 //var_dump($getProducts);
+?>
 
-    echo '<div class="row">';
 
-      foreach ($getProducts as $getProduct) {
-      echo "
-        <div class='col s12 m3'>
-          <div class='card'>
-          <span class='card-title'>" . $getProduct['name'] ."</span>
-            <div class='card-image'>
-              <img src=". $getProduct['image']. " id='card'>
+    <div class="row">
+    <?php
+    $db_handle = new DBController();
+	$product_array = $db_handle->runQuery("SELECT * FROM product ORDER BY productID ASC");
+	if (!empty($product_array)) { 
+		foreach($product_array as $aNumber=> $value){
+	?>
+        <form method="post" action="index.php?action=add&productID=<?php echo $product_array[$aNumber]["productID"]; ?>">      
+        <div class="col s12 m3">
+          <div class="card">
+          <span class="card-title"><?php echo $product_array[$aNumber]["name"]; ?></span>
+            <div class="card-image">
+              <img src="<?php echo $product_array[$aNumber]["image"]; ?>" id="card">
             </div>
-            <div class='card-content'>
-              <p>" . $getProduct['description'] .".</p>
+            <div class="card-content">
+              <p><?php echo $product_array[$aNumber]["description"]; ?></p>
             </div>
-            <div class='card-action'>
-              <a href='#'>This is a link</a>
+            <div>
+                <input type="text" name="quantity" value="1" size="1" />
+                <input class="waves-effect waves-light btn" type="submit" value="Add to cart" class="addBtn" />
             </div>
           </div>
-        </div>";
+        </div>
+    </form>
 
-    }
-    echo "</div>";
-?>
+        <?php
+        
+		}
+	}
+	?>
+    </div>
+
+    <?php
+    $total_items = 0;
+    $_SESSION["total-item"] = $total_items;
+    $total_items = $total_items + $_POST["quantity"];
+ ?>

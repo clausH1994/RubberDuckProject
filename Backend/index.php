@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact</title>
+    <title>Product Management</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -48,6 +48,7 @@ $getProducts = $query->fetchAll();
                     <th>Color</th>
                     <th>Price</th>
                     <th>Image URL</th>
+                    <th>Quantity</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -62,6 +63,7 @@ $getProducts = $query->fetchAll();
                     echo "<td>". $getProduct['color']."</td>";
                     echo "<td>". $getProduct['price']."</td>";
                     echo "<td>". $getProduct['image']."</td>";
+                    echo "<td>". $getProduct['quantity']."</td>";
                     echo '<td><a href="editEntry.php?ID='.$getProduct['productID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
                     echo '<td><a href="deleteEntry.php?ID='.$getProduct['productID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                     echo "</tr>";
@@ -96,6 +98,12 @@ $getProducts = $query->fetchAll();
                 <div class="input-field col s12">
                     <input id="Image" name="Image" type="text" class="validate" required="" aria-required="true">
                     <label for="Image">Image Url</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="Quantity" name="Quantity" type="text" class="validate" required="" aria-required="true">
+                    <label for="Quantity">Quantity</label>
                 </div>
             </div>
             <div class="row">
