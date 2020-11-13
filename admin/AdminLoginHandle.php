@@ -26,7 +26,7 @@ class AdminLoginHandle
                 if (password_verify($pass, $found_admin[0]['pass'])) {
                     $_SESSION['admin_id'] = $found_admin[0]['employeeID'];
                     $_SESSION['admin'] = $found_admin[0]['email'];
-                    $redirect = new Redirector("employeeView.php");
+                    $redirect = new Redirector("../Backend/index.php");
                 } else {
 
                     // username/password combo was not found in the database

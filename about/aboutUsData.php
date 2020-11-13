@@ -1,14 +1,20 @@
 <?php
 
 require_once("../connection/dbcon.php");
+require_once("../postalcode/PostalCodeController.php");
 
 if(isset($_POST["submit"])){
     $name= $_POST["name"];
     $address= $_POST["address"];
     $postal= $_POST["postalID"];
+    $city = $_POST["city"];
     $phone= $_POST["phone"];      
     $email= $_POST["email"];
     $companyDesc= $_POST["description"];
+
+
+    $postalCon = new PostalCodeController();
+    $postalCon->CheckPostalCode($postal, $city);
 
     try{    
     $dbCon = dbCon();

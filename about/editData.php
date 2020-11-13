@@ -15,6 +15,8 @@ if (isset($_POST['companyID']) && isset($_POST['submit'])) {
     echo " ";
     echo $companyID = $_POST['companyID'];
 
+    
+
     try {
 
     $dbCon = dbCon();

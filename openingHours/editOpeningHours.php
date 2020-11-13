@@ -1,4 +1,5 @@
 <?php require_once "../connection/dbcon.php";
+require("../admin/adminHeader.php");
 if (!isset($_GET['ID'])) {
     header("Location: openingHours.php");}else{ 
 ?>

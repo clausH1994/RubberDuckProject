@@ -1,4 +1,6 @@
-<?php require_once "../connection/dbcon.php";?>
+<?php require_once "../connection/dbcon.php";
+require("../admin/adminHeader.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,13 +85,17 @@ $getData = $query->fetchAll();
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                     <input id="address" name="address" type="text" class="validate" required="" aria-required="true">
                     <label for="address">Address</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="postalId" name="postalID" type="text" class="validate" required="" aria-required="true">
                     <label for="postalId">Postalcode</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="city" name="city" type="text" class="validate" required="" aria-required="true">
+                    <label for="city">city</label>
                 </div>
             </div>
             <div class="row">

@@ -14,7 +14,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
     $log->adminLogout();
     $msg = "You are now logged out.";
 } elseif ($session->adminlogged_in()) {
-    $redirect = new Redirector("employeeView.php");
+    $redirect = new Redirector("../Backend/index.php");
 }
 // START FORM PROCESSING
 

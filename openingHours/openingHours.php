@@ -1,4 +1,5 @@
 <?php require_once "../connection/dbcon.php";
+require("../admin/adminHeader.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
