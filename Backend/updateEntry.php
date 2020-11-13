@@ -8,10 +8,10 @@ if (isset($_POST['submit']))
     $Color = $_POST['Color'];
     $Price = $_POST['Price'];
     $Image = $_POST['Image'];
+    $Quantity = $_POST['Quantity'];
     $description = $_POST['description'];
 
 
-    echo "INside if.....";
 
 
 try {  
@@ -44,7 +44,7 @@ try {
     header("Location: index.php?status=updated&ID=$ProductID");
 
 // }else{
-//     header("Location: index.php?status=0");
+//    header("Location: index.php?status=0");
 //}
 
 }
