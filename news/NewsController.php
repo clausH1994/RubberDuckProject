@@ -69,6 +69,8 @@ class NewsController
         require("../dailySpecial/DailySpecialController.php");
         $dailyCon = new DailySpecialController();
 
+        $i = 0;
+
         foreach ($row as $row) {
 
             $specials = $specialNews->getSpecialNewsByNewsId($row->newsID);
@@ -88,12 +90,22 @@ class NewsController
 
                     $dailyIndex = $dailyS[0][1];
                     echo $dailyIndex;
+
+                    $amount = count($dailyS);
+
+                    if($i <= $amount)
+                    {
+                        echo "&nbsp;" . "%" ;
+                        echo "<br>";
+                        $i++;
+                    }
                     
                 }
+                $i = 0;
             } else {
                 $dailyIndex = "";
             } 
-            echo "&nbsp;" . "%" . "</td>";
+            echo "</td>";
             echo '<td><a href="newsEditView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn" ">Edit</a></td>';
             echo '<td><a href="newsDelete.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
             echo "</tr>";
