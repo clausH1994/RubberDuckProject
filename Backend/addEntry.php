@@ -15,7 +15,7 @@ $description = $_POST['description'];
 
 try {
 
-$sql = "INSERT INTO product (`name`, `color`, `price`, `image`,`Quantity`, `description`) VALUES (:name, :color, :price, :image, :quantity, :description)";
+$sql = "INSERT INTO Product (`name`, `color`, `price`, `image`,`Quantity`, `description`) VALUES (:name, :color, :price, :image, :quantity, :description)";
 $query = dbCon()->prepare($sql);
 
 //$query = dbCon()->prepare("INSERT INTO product (`name`, `color`, `price`, `image`, `description`) VALUES ('$Name', '$Color', '$Price', '$Image', '$description')");

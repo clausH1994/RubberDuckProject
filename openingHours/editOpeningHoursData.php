@@ -1,18 +1,15 @@
 <?php
 require_once "../connection/dbcon.php";
 if (isset($_POST['openinghoursID']) && isset($_POST['submit'])) {
-    echo $weekday = $_POST['day'];
-    echo " ";
-    echo $startTime = $_POST['startTime'];
-    echo " ";
-    echo $endtime = $_POST['endtime'];
-    echo " ";
-    echo $openinghoursID = $_POST['openinghoursID'];
+    $weekday = $_POST['day'];
+    $startTime = $_POST['startTime'];
+    $endtime = $_POST['endtime'];
+    $openinghoursID = $_POST['openinghoursID'];
 
     try {
 
     $dbCon = dbCon();
-    $query = ("UPDATE openinghours SET `day`= :weekday, `startTime`= :startTime, `endtime`= :endtime WHERE openinghoursID = :openinghoursID");
+    $query = ("UPDATE OpeningHours SET `day`= :weekday, `startTime`= :startTime, `endtime`= :endtime WHERE openinghoursID = :openinghoursID");
     $handle = $dbCon->prepare($query);
     
     $sanitized_weekday = htmlspecialchars(trim($weekday));

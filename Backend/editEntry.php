@@ -16,7 +16,7 @@ if (isset($_GET['ID'])) {
     <?php
     $entryID = htmlspecialchars($_GET['ID']);
     $dbCon = dbCon();
-    $query = $dbCon->prepare("SELECT * FROM product WHERE productID=$entryID");
+    $query = $dbCon->prepare("SELECT * FROM Product WHERE productID=$entryID");
     $query->execute();
     $getProducts = $query->fetchAll();
     ?>

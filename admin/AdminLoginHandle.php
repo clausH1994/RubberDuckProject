@@ -17,7 +17,7 @@ class AdminLoginHandle
 
         $email = trim($email);
         $pass = trim($pass);
-        $query = dbCon()->prepare("SELECT employeeID, email, pass FROM employee WHERE email = '{$email}' LIMIT 1");
+        $query = dbCon()->prepare("SELECT employeeID, email, pass FROM Employee WHERE email = '{$email}' LIMIT 1");
 
         if ($query->execute()) {
             $found_admin = $query->fetchAll();

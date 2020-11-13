@@ -1,5 +1,5 @@
 <?php
-require_once("NewsDAO.php");
+require_once("newsDAO.php");
 spl_autoload_register(function ($class) {
     include "../connection/" . $class . ".php";
 });

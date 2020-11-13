@@ -1,14 +1,14 @@
 <?php
 require_once("../connection/dbcon.php");
 
-class EmployeeDAO
+class employeeDAO
 {
 
     public function readEmployeeByIdDB($emID)
     {
         $dbcon = dbCon();
 
-        $query = "SELECT * FROM employee WHERE employeeID= :employeeID";
+        $query = "SELECT * FROM Employee WHERE employeeID= :employeeID";
         $handle = $dbcon->prepare($query);
         $handle->bindParam(':employeeID', $emID);
         $handle->execute();
@@ -24,7 +24,7 @@ class EmployeeDAO
 
             $dbcon = dbCon();
 
-            $query = $dbcon->prepare('SELECT * FROM employee');
+            $query = $dbcon->prepare('SELECT * FROM Employee');
             $query->execute();
             $result = $query->fetchAll(\PDO::FETCH_OBJ);
             return $result;
@@ -38,7 +38,7 @@ class EmployeeDAO
         try {
             $dbcon = dbCon();
 
-            $query = "INSERT INTO employee (fname, lname, email, pass) VALUES (:fName, :lName, :Email, :Pass)";
+            $query = "INSERT INTO Employee (fname, lname, email, pass) VALUES (:fName, :lName, :Email, :Pass)";
             $handle = $dbcon->prepare($query);
 
             $sanitized_fname = htmlspecialchars(trim($fname));
@@ -67,7 +67,7 @@ class EmployeeDAO
 
             $dbcon = dbCon();
 
-            $query = "UPDATE employee SET fname = :fName, lname = :lName, email = :Email, pass = :Pass WHERE employeeID = :EmployeeID";
+            $query = "UPDATE Employee SET fname = :fName, lname = :lName, email = :Email, pass = :Pass WHERE employeeID = :EmployeeID";
             $handle = $dbcon->prepare($query);
 
             $sanitized_fname = htmlspecialchars(trim($fname));
@@ -94,7 +94,7 @@ class EmployeeDAO
         try {
             $dbcon = dbCon();
 
-            $query = "DELETE FROM employee WHERE employeeID = :employeeID";
+            $query = "DELETE FROM Employee WHERE employeeID = :employeeID";
             $handle = $dbcon->prepare($query);
             $handle->bindParam(':employeeID', $emID);
 

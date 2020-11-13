@@ -19,7 +19,7 @@ if(isset($_POST["submit"])){
     try{    
     $dbCon = dbCon();
 
-    $query = "INSERT INTO `company` (`name`, `address`, postalID, phone, email, `description`) 
+    $query = "INSERT INTO `Company` (`name`, `address`, postalID, phone, email, `description`) 
             VALUES (:name, :address , :postalID ,:phone,:email, :companyDesc)";
            $handle = $dbCon->prepare($query);
     

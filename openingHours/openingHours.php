@@ -14,7 +14,7 @@ require("../admin/adminHeader.php");
 
 <?php
 $dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM openinghours");
+$query = $dbCon->prepare("SELECT * FROM OpeningHours");
 $query->execute();
 $getData = $query->fetchAll();
 //var_dump($getUsers);

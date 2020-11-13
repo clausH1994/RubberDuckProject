@@ -16,7 +16,7 @@ if (!isset($_GET['ID'])) {
 <?php
 $companyID = $_GET['ID'];
 $dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM company WHERE companyID=$companyID");
+$query = $dbCon->prepare("SELECT * FROM Company WHERE companyID=$companyID");
 $query->execute();
 $getData = $query->fetchAll();
 //var_dump($getData);

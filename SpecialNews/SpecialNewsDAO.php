@@ -8,7 +8,7 @@ class SpecialNewsDAO
 
             $dbcon = dbCon();
 
-            $query = $dbcon->prepare('SELECT * FROM specialNews');
+            $query = $dbcon->prepare('SELECT * FROM SpecialNews');
             $query->execute();
             $result = $query->fetchAll(\PDO::FETCH_OBJ);
             return $result;
@@ -21,7 +21,7 @@ class SpecialNewsDAO
     {
         $dbcon = dbCon();
 
-        $query = "SELECT * FROM specialNews WHERE news= :newsID";
+        $query = "SELECT * FROM SpecialNews WHERE news= :newsID";
         $handle = $dbcon->prepare($query);
         $handle->bindParam(':newsID', $newsID);
 
@@ -37,7 +37,7 @@ class SpecialNewsDAO
         try {
             $dbcon = dbCon();
 
-            $query = "INSERT INTO specialNews (daily, news) VALUES (:dailyID ,:newsID)";
+            $query = "INSERT INTO SpecialNews (daily, news) VALUES (:dailyID ,:newsID)";
             $handle = $dbcon->prepare($query);
 
             $sanitized_title = htmlspecialchars(trim($dailyID));

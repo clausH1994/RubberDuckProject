@@ -5,7 +5,7 @@ if (isset($_GET['ID'])) {
 
 try{
     $dbCon = dbCon();
-    $query = ("DELETE FROM openinghours WHERE openinghoursID=:openinghoursID");
+    $query = ("DELETE FROM OpeningHours WHERE openinghoursID=:openinghoursID");
     $handle = $dbCon->prepare($query);
     $handle->bindParam(':openinghoursID', $openinghoursID);
     

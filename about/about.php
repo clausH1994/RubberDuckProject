@@ -10,7 +10,7 @@
 </head>
 <?php
 $dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM company");
+$query = $dbCon->prepare("SELECT * FROM Company");
 $query->execute();
 $getData = $query->fetchAll();
 ?>

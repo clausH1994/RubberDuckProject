@@ -1,18 +1,24 @@
 <?php
-
 spl_autoload_register(function ($class) {
     include "../connection/" . $class . ".php";
 });
 
 require_once("AdminLoginHandle.php");
 
-$session = new Session();
-if ($session->confirm_adminlogged_in()) {
-    $redirect = new Redirector("../admin/adminLoginView.php");
-} ?>
-
+// $session = new Session();
+//  if ($session->confirm_adminlogged_in()) {
+//      $redirect = new Redirector("../admin/adminLoginView.php");
+//  } 
+    if (isset($_POST['logout'])) {
+        $log = new adminLoginHandle();
+        $log->adminLogout();
+        $redirect = new Redirector("../admin/adminLoginView.php");
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
+    <meta http-equiv="Content-Type" content="text/html;" />
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -29,11 +35,5 @@ if ($session->confirm_adminlogged_in()) {
     <form method="post">
         <input id="btnLogout" class="grey btn" type="submit" name="logout" value="Logout" />
     </form>
-
-    <?php
-    if (isset($_POST['logout'])) {
-        $log = new adminLoginHandle();
-        $log->adminLogout();
-        $redirect = new Redirector("../admin/adminLoginView.php");
-    } ?>
 </div>
+</html>

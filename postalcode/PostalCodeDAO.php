@@ -7,7 +7,7 @@ class PostalCodeDAO
         try {
             $dbcon = dbCon();
 
-            $query = "INSERT INTO postalcode (zipcodeID, City) VALUES ('" . $zipCode . "', '" . $city . "')";
+            $query = "INSERT INTO PostalCode (zipcodeID, City) VALUES ('" . $zipCode . "', '" . $city . "')";
             $handle = $dbcon->prepare($query);
             $handle->execute();
 
@@ -21,7 +21,7 @@ class PostalCodeDAO
     {
         $dbcon = dbCon();
 
-        $query = $dbcon->prepare("SELECT * FROM postalcode WHERE zipcodeID=$postalID");
+        $query = $dbcon->prepare("SELECT * FROM PostalCode WHERE zipcodeID=$postalID");
         $query->execute();
         $result = $query->fetchAll();
       

@@ -10,7 +10,7 @@ class NewsDAO
 
             $dbcon = dbCon();
 
-            $query = $dbcon->prepare('SELECT * FROM news');
+            $query = $dbcon->prepare('SELECT * FROM News');
             $query->execute();
             $result = $query->fetchAll(\PDO::FETCH_OBJ);
             return $result;
@@ -24,7 +24,7 @@ class NewsDAO
     {
         $dbcon = dbCon();
 
-        $query = "SELECT * FROM news WHERE newsID= :newsID";
+        $query = "SELECT * FROM News WHERE newsID= :newsID";
         $handle = $dbcon->prepare($query);
         $handle->bindParam(':newsID', $newsID);
 
@@ -40,7 +40,7 @@ class NewsDAO
         try {
             $dbcon = dbCon();
 
-            $query = "INSERT INTO news (title, `description`, `date`) VALUES (:title, :description, :date)";
+            $query = "INSERT INTO News (title, `description`, `date`) VALUES (:title, :description, :date)";
             $handle = $dbcon->prepare($query);
 
             $sanitized_title = htmlspecialchars(trim($title));
@@ -68,7 +68,7 @@ class NewsDAO
         try {
             $dbcon = dbCon();
 
-            $query = "UPDATE news SET title = :title, `description` = :description, `date` = :date WHERE newsID = :newsID";
+            $query = "UPDATE News SET title = :title, `description` = :description, `date` = :date WHERE newsID = :newsID";
             $handle = $dbcon->prepare($query);
 
             $sanitized_title = htmlspecialchars(trim($title));
@@ -93,7 +93,7 @@ class NewsDAO
         try {
             $dbcon = dbCon();
 
-            $query = "DELETE FROM news WHERE newsID = :newsID";
+            $query = "DELETE FROM News WHERE newsID = :newsID";
             $handle = $dbcon->prepare($query);
             $handle->bindParam(':newsID', $newsID);
 

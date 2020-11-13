@@ -1,26 +1,20 @@
 <?php
 require_once "../connection/dbcon.php";
 if (isset($_POST['companyID']) && isset($_POST['submit'])) {
-    echo $name = $_POST['name'];
-    echo " ";
-    echo $address = $_POST['address'];
-    echo " ";
-    echo $postal = $_POST['postalID'];
-    echo " ";
-    echo $phone = $_POST['phone'];
-    echo " ";
-    echo $email = $_POST['email'];
-    echo " ";
-    echo $companyDesc = $_POST['description'];
-    echo " ";
-    echo $companyID = $_POST['companyID'];
+    $name = $_POST['name'];
+    $address = $_POST['address'];
+    $postal = $_POST['postalID'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $companyDesc = $_POST['description'];
+    $companyID = $_POST['companyID'];
 
     
 
     try {
 
     $dbCon = dbCon();
-    $query = ("UPDATE company SET `name`= :name, `address`= :address, `postalID`= :postalID, `phone`= :phone , `email`= :email , `description`= :companyDesc WHERE companyID = :companyID");
+    $query = ("UPDATE Company SET `name`= :name, `address`= :address, `postalID`= :postalID, `phone`= :phone , `email`= :email , `description`= :companyDesc WHERE companyID = :companyID");
     $handle = $dbCon->prepare($query);
     
     $sanitized_name = htmlspecialchars(trim($name));

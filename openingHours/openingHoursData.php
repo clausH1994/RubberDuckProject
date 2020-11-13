@@ -9,7 +9,7 @@ if(isset($_POST["submit"])){
     try{    
     $dbCon = dbCon();
 
-    $query = "INSERT INTO `openinghours` (day, startTime, endtime) 
+    $query = "INSERT INTO `OpeningHours` (day, startTime, endtime) 
             VALUES (:day, :startTime , :endtime)";
            $handle = $dbCon->prepare($query);
     

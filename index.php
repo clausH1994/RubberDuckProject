@@ -15,7 +15,7 @@
     <div class="row">
     <?php
     $db_handle = new DBController();
-	$product_array = $db_handle->runQuery("SELECT * FROM product ORDER BY productID ASC");
+	$product_array = $db_handle->runQuery("SELECT * FROM Product ORDER BY productID ASC");
 	if (!empty($product_array)) { 
 		foreach($product_array as $aNumber=> $value){
 	?>

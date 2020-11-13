@@ -19,7 +19,7 @@ try {
     // $query->execute();
 
     
-    $sql = "UPDATE product SET `name`=:name, `color`=:color, `price`=:price, `image`=:image, `quantity`=:quantity, `description`=:description WHERE productID=:ID";
+    $sql = "UPDATE Product SET `name`=:name, `color`=:color, `price`=:price, `image`=:image, `quantity`=:quantity, `description`=:description WHERE productID=:ID";
     //$sql = "UPDATE product SET `name`=:name WHERE productID=:ID";
     $query = dbCon()->prepare($sql);
 

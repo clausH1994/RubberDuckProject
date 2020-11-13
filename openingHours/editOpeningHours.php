@@ -1,8 +1,6 @@
 <?php require_once "../connection/dbcon.php";
 require("../admin/adminHeader.php");
-if (!isset($_GET['ID'])) {
-    header("Location: openingHours.php");}else{ 
-?>
+if (isset($_GET['ID'])) { ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +14,7 @@ if (!isset($_GET['ID'])) {
 <?php
 $openinghourID = $_GET['ID'];
 $dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM openinghours WHERE openinghoursID=$openinghourID");
+$query = $dbCon->prepare("SELECT * FROM OpeningHours WHERE openinghoursID=$openinghourID");
 $query->execute();
 $getData = $query->fetchAll();
 //var_dump($getData);
@@ -53,8 +51,11 @@ $getData = $query->fetchAll();
 </div>
 </body>
 </html>
-<?php
+<?php } else{ 
+    header("Location: openingHours.php");
 }?>
+
+
 
 <?php
 require_once "../connection/Redirector.php";

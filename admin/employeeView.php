@@ -1,20 +1,13 @@
 <?php
 require_once("employeeController.php");
-require_once("adminLoginHandle.php");
+require_once("AdminLoginHandle.php");
 require("adminHeader.php");
-
 ?>
 <?php spl_autoload_register(function ($class) {
 	include "../connection/" . $class . ".php";
 }); ?>
 
-
-
-
-
 <html>
-
-
 
 <body>
 	<div class="container">

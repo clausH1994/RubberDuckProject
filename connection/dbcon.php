@@ -1,10 +1,10 @@
 <?php
 function dbCon(){
 try {
-    $userReal = "Admin";
-    $passReal = "123456";
+    $userReal = "jonaskp_dk";
+    $passReal = "B4tt3ryH0rs3";
    
-    $dbCon = new PDO('mysql:host=localhost;dbname=rubberduckdb;charset=utf8', $userReal, $passReal);
+    $dbCon = new PDO('mysql:host=mysql37.unoeuro.com;dbname=jonaskp_dk_db;charset=utf8', $userReal, $passReal);
     $dbCon->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //$dbCon = null;
     return $dbCon;

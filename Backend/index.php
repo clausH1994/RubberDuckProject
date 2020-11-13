@@ -14,7 +14,7 @@ require("../admin/adminHeader.php");
 </head>
 <?php
 $dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM product");
+$query = $dbCon->prepare("SELECT * FROM Product");
 $query->execute();
 $getProducts = $query->fetchAll();
 //var_dump($getProducts);

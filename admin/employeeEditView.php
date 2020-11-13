@@ -1,22 +1,18 @@
-<?php
-require("adminHeader.php");
+<?php require("adminHeader.php");
 
-spl_autoload_register(function ($class) {
-    include "../connection/" . $class . ".php";
-});
-
+// spl_autoload_register(function ($class) {
+//     include "../connection/" . $class . ".php";
+// });
 
 if (!isset($_GET['ID'])) {
     $redirector = new Redirector("employeeView.php");
 }
 
 ?>
-
 <?php require_once("employeeController.php");
 
 $employeeCon = new employeeController();
 $employee = $employeeCon->readEmployeeById($_GET['ID']);
-
 ?>
 
 <div class="container">
@@ -50,5 +46,3 @@ $employee = $employeeCon->readEmployeeById($_GET['ID']);
         </form>
     </div>
 </div>
-
-<?php

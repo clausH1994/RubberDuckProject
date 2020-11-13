@@ -11,10 +11,6 @@ require_once("NewsController.php");
 
 $newsCon = new NewsController();
 $news = $newsCon->readNewsById($_GET['ID']);
-
-
-
-
 ?>
 
 

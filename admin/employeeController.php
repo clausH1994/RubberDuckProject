@@ -1,17 +1,16 @@
-
 <?php
 spl_autoload_register(function ($class) {
 	include "../connection/" . $class . ".php";
 });
 
-require_once("EmployeeDAO.php");
+require_once("employeeDAO.php");
 
 class employeeController
 {
 
 	public function readEmployeeById($emId)
 	{
-		$employeeDAO = new EmployeeDAO();
+		$employeeDAO = new employeeDAO();
 		$result = $employeeDAO->readEmployeeByIdDB($emId);
 
 		return $result;
@@ -20,7 +19,7 @@ class employeeController
 
 	public function readEmployees()
 	{
-		$employeeDAO = new EmployeeDAO();
+		$employeeDAO = new employeeDAO();
 		$employees = $employeeDAO->readEmployeeDB();
 
 		$this->templateEmployee($employees);
@@ -28,7 +27,7 @@ class employeeController
 
 	public function createEmployee($fname, $lname, $email, $pass)
 	{
-		$employeeDAO = new EmployeeDAO();
+		$employeeDAO = new employeeDAO();
 		$email = trim($email);
 		$pass = trim($pass);
 		$iterations = ['cost' => 15];
@@ -39,14 +38,14 @@ class employeeController
 
 	public function editEmployee($emID, $fname, $lname, $email, $pass)
 	{
-		$employeeDAO = new EmployeeDAO();
+		$employeeDAO = new employeeDAO();
 		$employeeDAO->UpdateEmployeeDB($emID, $fname, $lname, $email, $pass);
 		$redirect = new Redirector("employeeView.php");
 	}
 
 	public function deleteEmployee($emID)
 	{
-		$employeeDAO = new EmployeeDAO();
+		$employeeDAO = new employeeDAO();
 		$employeeDAO->deleteEmployeeDB($emID);
 		$redirect = new Redirector("employeeView.php");
 	}

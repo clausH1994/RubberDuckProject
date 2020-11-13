@@ -1,4 +1,4 @@
-<?php require_once("adminLoginHandle.php"); ?>
+<?php require_once("AdminLoginHandle.php"); ?>
 <?php spl_autoload_register(function ($class) {
     include "../connection/" . $class . ".php";
 }); ?>
@@ -14,7 +14,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
     $log->adminLogout();
     $msg = "You are now logged out.";
 } elseif ($session->adminlogged_in()) {
-    $redirect = new Redirector("../Backend/index.php");
+   $redirect = new Redirector("../Backend/index.php");
 }
 // START FORM PROCESSING
 
