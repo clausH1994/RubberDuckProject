@@ -1,5 +1,5 @@
 <?php
-include "connection/session.php" ?>
+include "shop/cartsession.php" ?>
 
 <?php include "header.php" ?>
 

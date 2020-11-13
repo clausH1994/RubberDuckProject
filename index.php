@@ -1,5 +1,5 @@
 <?php require_once "connection/dbcon.php";?>
-<?php include "connection/session.php"?>
+<?php include "shop/cartsession.php"?>
 <?php include "header.php" ?>
 
 
@@ -45,7 +45,7 @@
     </div>
 
     <?php
-    $total_items = 0;
-    $_SESSION["total-item"] = $total_items;
-    $total_items = $total_items + $_POST["quantity"];
- ?>
+//     $total_items = 0;
+//     $_SESSION["total-item"] = $total_items;
+//     $total_items = $total_items + $_POST["quantity"];
+  ?>
