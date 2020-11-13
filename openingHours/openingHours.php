@@ -31,7 +31,7 @@ $getData = $query->fetchAll();
                 </thead>
 
                 <tbody>
-                <?php
+                <?php 
                 foreach ($getData as $getData) {
                     echo "<tr>";
                     echo "<td>". $getData['day']."</td>";
@@ -72,3 +72,5 @@ $getData = $query->fetchAll();
             <a href="" class="waves-effect waves-light btn red">cancel
             </button>
         </form>
+
+        
