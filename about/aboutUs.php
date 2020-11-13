@@ -14,7 +14,7 @@ $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM company");
 $query->execute();
 $getData = $query->fetchAll();
-//var_dump($getUsers);
+
 ?>
 <body>
 
@@ -67,6 +67,7 @@ $getData = $query->fetchAll();
                     echo '<td><a href="delete.php?ID='.$getData['companyID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                     echo "</tr>";
                 }
+                
                 ?>
                 </tbody>
             </table>
