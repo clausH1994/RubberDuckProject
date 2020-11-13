@@ -1,59 +1,68 @@
-<?php require_once("../connection/functions.php"); ?>
-<?php require_once("../connection/conn.php"); ?>
+
 <?php
+spl_autoload_register(function ($class) {
+	include "../connection/" . $class . ".php";
+});
 
-function logout()
+require_once("EmployeeDAO.php");
+
+class employeeController
 {
-	// Four steps to closing a session
-	// (i.e. logging out)
 
-	// 1. Find the session
-	session_start();
+	public function readEmployeeById($emId)
+	{
+		$employeeDAO = new EmployeeDAO();
+		$result = $employeeDAO->readEmployeeByIdDB($emId);
 
-	// 2. Unset all the session variables
-	$_SESSION = array();
-
-	// 3. Destroy the session cookie
-	if (isset($_COOKIE[session_name()])) {
-		setcookie(session_name(), '', time() - 42000, '/');
+		return $result;
 	}
 
-	// 4. Destroy the session
-	session_destroy();
 
-	redirect_to("admin.php?logout=1");
-}
+	public function readEmployees()
+	{
+		$employeeDAO = new EmployeeDAO();
+		$employees = $employeeDAO->readEmployeeDB();
 
-function readEmployees($connection)
-{
-	$query = "SELECT * FROM employee";
-	$result = mysqli_query($connection, $query);
-
-	while ($row = mysqli_fetch_array($result)) {
-		echo
-			$row['fname'] . " " .
-				$row['lname'] . " " .
-				$row['email'];
-?>
-		<form method="post">
-			<input type="hidden" name="em_id" value="<?php echo $row['employeeID'] ?>">
-			<input class="btnEditEmployee" type="submit" name="edit" value="edit" />
-			<input class="btnDeleteEmployee" type="submit" name="delete" value="delete" />
-		</form>
-<?php
-		"<br>";
+		$this->templateEmployee($employees);
 	}
-}
- 
-function deleteEmployees($em_id, $connection)
-{
-	$query = "DELETE FROM `employee` WHERE `employee`.`employeeID`='$em_id'";
-	mysqli_query($connection, $query) or die('Error, query failed');
 
-	redirect_to("employeeOverview.php");
-}
+	public function createEmployee($fname, $lname, $email, $pass)
+	{
+		$employeeDAO = new EmployeeDAO();
+		$email = trim($email);
+		$pass = trim($pass);
+		$iterations = ['cost' => 15];
+		$hashed_password = password_hash($pass, PASSWORD_BCRYPT, $iterations);
+		$employeeDAO->createEmployeeDB($fname, $lname, $email, $hashed_password);
+		$redirect = new Redirector("employeeView.php");
+	}
 
-function editEmployee($em_id, $connection)
-{
-	echo "edit";
+	public function editEmployee($emID, $fname, $lname, $email, $pass)
+	{
+		$employeeDAO = new EmployeeDAO();
+		$employeeDAO->UpdateEmployeeDB($emID, $fname, $lname, $email, $pass);
+		$redirect = new Redirector("employeeView.php");
+	}
+
+	public function deleteEmployee($emID)
+	{
+		$employeeDAO = new EmployeeDAO();
+		$employeeDAO->deleteEmployeeDB($emID);
+		$redirect = new Redirector("employeeView.php");
+	}
+
+	
+	private function templateEmployee($row)
+	{
+
+		foreach ($row as $row) {
+			echo "<tr>";
+			echo "<td>" . $row->fname . " " . $row->lname . "</td>";
+			echo "<td>" . $row->email . "</td>";
+			echo '<td><a href="employeeEditView.php?ID=' . $row->employeeID . '" class="waves-effect waves-light btn" ">Edit</a></td>';
+			echo '<td><a href="employeeDelete.php?ID=' . $row->employeeID . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+			echo "</tr>";
+		}
+	}
+
 }

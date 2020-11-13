@@ -32,4 +32,11 @@
 #btnLogout
 {
     height: 50px;
+
 }
+
+#card{
+    height: 300px;
+    background-size: contain;
+}
+
