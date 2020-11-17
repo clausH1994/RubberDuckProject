@@ -1,10 +1,8 @@
-<?php
-include "shop/cartsession.php" ?>
-
+<?php require_once "shop/cartsession.php" ?>
 <?php include "header.php" ?>
 
 <div id="shopping-cart">
-<div class="heading">Shopping Cart <a id="emptyBtn" href="cart.php?action=empty">Empty Cart</a></div>
+<div class="heading">Shopping Cart <a class="waves-effect waves-light btn" id="emptyBtn" href="cart.php?action=empty">Empty Cart</a></div>
 <?php
 //Reset total cost to do recalc
 if(isset($_SESSION["cartItem"])){
@@ -46,3 +44,5 @@ if(isset($_SESSION["cartItem"])){
   <?php
 }
 ?>
+<br>
+<a class="waves-effect waves-light btn" id="checkout" href="checkout.php">checkout</a>

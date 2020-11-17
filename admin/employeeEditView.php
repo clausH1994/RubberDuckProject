@@ -1,8 +1,8 @@
 <?php require("adminHeader.php");
 
-// spl_autoload_register(function ($class) {
-//     include "../connection/" . $class . ".php";
-// });
+spl_autoload_register(function ($class) {
+    include "../connection/" . $class . ".php";
+});
 
 if (!isset($_GET['ID'])) {
     $redirector = new Redirector("employeeView.php");
@@ -30,8 +30,6 @@ $employee = $employeeCon->readEmployeeById($_GET['ID']);
                 $employeeCon->editEmployee($_GET['ID'], $_POST["fname"],  $_POST["lname"], $_POST["email"], $employee[0][4]);
             }
         }
-
-
         ?>
 
         <form action="" method="post">

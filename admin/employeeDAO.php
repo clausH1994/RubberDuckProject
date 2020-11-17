@@ -63,8 +63,6 @@ class employeeDAO
     public function UpdateEmployeeDB($emID, $fname, $lname, $email, $pass)
     {
         try {
-
-
             $dbcon = dbCon();
 
             $query = "UPDATE Employee SET fname = :fName, lname = :lName, email = :Email, pass = :Pass WHERE employeeID = :EmployeeID";
@@ -107,3 +105,4 @@ class employeeDAO
         }
     }
 }
+?>

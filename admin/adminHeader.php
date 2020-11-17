@@ -5,10 +5,10 @@ spl_autoload_register(function ($class) {
 
 require_once("AdminLoginHandle.php");
 
-// $session = new Session();
-//  if ($session->confirm_adminlogged_in()) {
-//      $redirect = new Redirector("../admin/adminLoginView.php");
-//  } 
+ $session = new Session();
+  if ($session->confirm_adminlogged_in()) {
+      $redirect = new Redirector("../admin/adminLoginView.php");
+  } 
     if (isset($_POST['logout'])) {
         $log = new adminLoginHandle();
         $log->adminLogout();
