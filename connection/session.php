@@ -17,5 +17,17 @@ class Session
 			$redirect = new Redirector("../admin/adminLoginView.php");
 		}
 	}
+
+	public function userLogged_in()
+	{
+		return isset($_SESSION['user_id']);
+	}
+
+	public function confirm_userlogged_in()
+	{
+		if (!$this->adminlogged_in()) {
+			$redirect = new Redirector("../customer/userLoginView.php");
+		}
+	}
 }
 ?>
