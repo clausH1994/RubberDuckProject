@@ -54,7 +54,7 @@ $pdf->Cell(10 ,5,'',0,0);
 $pdf->Cell(90 ,5,'[Phone]',0,1);
 
 //make a dummy empty cell as vertical spacer
-$pdf->Cell(189 ,10,'',1,1);//end of line
+$pdf->Cell(189 ,10,'',0,1);//end of line
 
 //invoice contents
 $pdf->SetFont('Arial','B',12);
