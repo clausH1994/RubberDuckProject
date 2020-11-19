@@ -79,9 +79,12 @@ $tax = 0;
 $amount = 0;
 while ($item =fetchAll($query)) {
 
-$pdf->Cell(130 ,5,'awesome rubberduck of awesome',1,0);
-$pdf->Cell(25 ,5,'-',1,0);
-$pdf->Cell(34 ,5,'500',1,1,'R');//end of line    
+$pdf->Cell(130 ,5,$item['itemName'],1,0);
+$pdf->Cell(25 ,5,$item['tax'],1,0);
+$pdf->Cell(34 ,5,$item['amount'],1,1,'R');//end of line    
+
+$tax += $tems['tax'];
+$amount += $item['amount'];
 
 }
 
@@ -90,12 +93,12 @@ $pdf->Cell(34 ,5,'500',1,1,'R');//end of line
 $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(25 ,5,'Subtotal',0,0);
 $pdf->Cell(5 ,5,'kr',1,0);
-$pdf->Cell(29 ,5,'850',1,1,'R');//end of line
+$pdf->Cell(29 ,5,number_format($amount),1,1,'R');//end of line
 
 $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(25 ,5,'Taxable',0,0);
 $pdf->Cell(5 ,5,'kr',1,0);
-$pdf->Cell(29 ,5,'0',1,1,'R');//end of line
+$pdf->Cell(29 ,5,number_format($tax),1,1,'R');//end of line
 
 $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(25 ,5,'Tax Rate',0,0);
@@ -105,7 +108,7 @@ $pdf->Cell(29 ,5,'10%',1,1,'R');//end of line
 $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(25 ,5,'Total Due',0,0);
 $pdf->Cell(5 ,5,'kr',1,0);
-$pdf->Cell(29 ,5,'850',1,1,'R');//end of line
+$pdf->Cell(29 ,5,number_format($amount + $tax),1,1,'R');//end of line
 
 
 $pdf->Output();
