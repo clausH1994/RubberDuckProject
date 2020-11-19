@@ -74,17 +74,16 @@ $pdf->SetFont('Arial','',12);
 
 //numbers are right aligned so we give 'R' after new line parameter
 
+$query = $dbCon->prepare("SELECT * FROM Order where invoiceID = '".$invoice['invoiceID']."'");
+$tax = 0;
+$amount = 0;
+while ($item =fetchAll($query)) {
+
 $pdf->Cell(130 ,5,'awesome rubberduck of awesome',1,0);
 $pdf->Cell(25 ,5,'-',1,0);
-$pdf->Cell(34 ,5,'500',1,1,'R');//end of line
+$pdf->Cell(34 ,5,'500',1,1,'R');//end of line    
 
-$pdf->Cell(130 ,5,'rubberducky of awesome',1,0);
-$pdf->Cell(25 ,5,'-',1,0);
-$pdf->Cell(34 ,5,'300',1,1,'R');//end of line
-
-$pdf->Cell(130 ,5,'red rubberducky',1,0);
-$pdf->Cell(25 ,5,'-',1,0);
-$pdf->Cell(34 ,5,'50',1,1,'R');//end of line
+}
 
 //summary
 
