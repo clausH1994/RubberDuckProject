@@ -1,8 +1,13 @@
 <?php
 require_once("DailySpecialDAO.php");
 
+
+
 class DailySpecialController
 {
+
+    
+
     /*  public function readDailySpecial()
     {
         $dailySpecialDAO = new DailySpecialDAO();
@@ -24,5 +29,11 @@ class DailySpecialController
         $dailySpecialDAO = new DailySpecialDAO();
         $dailyID = $dailySpecialDAO->createDailySpecialDB($discount);
         return $dailyID;
+    }
+
+    public function addtoDiscountProduct($discountProducts, $productID)
+    {
+       array_push($discountProducts, $productID);
+       return $discountProducts;
     }
 }
