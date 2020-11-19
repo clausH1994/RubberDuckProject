@@ -74,6 +74,7 @@ insert into Color (ColorID, `name`) values (null, 'black');
 CREATE TABLE Product
 (
     productID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `code` int NOT NULL UNIQUE, 
     `name` varchar(255) NOT NULL,
     price DECIMAL(5, 2) NOT NULL,
     `image` varchar(255),
@@ -83,9 +84,9 @@ CREATE TABLE Product
     FOREIGN KEY (color) REFERENCES Color (colorID)
 );
 
-insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Ducky', 99, 'img/duck.png', 'This is a yellow duck', 1, 10);
-insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Blue Ducky', 199, 'img/bducky.png', 'This is magical blue duck', 2, 50);
-insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Black Duck', 50, 'img/ducky.png', 'Said to bring misfortune to those who see it cross the road', 4, 20);
+insert into Product (`code`,`name`, price, `image`, `description`, color, quantity) values (0001,'Ducky', 99, 'img/duck.png', 'This is a yellow duck', 1, 10);
+insert into Product (`code`,`name`, price, `image`, `description`, color, quantity) values (0002,'Blue Ducky', 199, 'img/bducky.png', 'This is magical blue duck', 2, 50);
+insert into Product (`code`,`name`, price, `image`, `description`, color, quantity) values (0003,'Black Duck', 50, 'img/ducky.png', 'Said to bring misfortune to those who see it cross the road', 4, 20);
 
 ALTER TABLE Orderline
 ADD FOREIGN KEY (product) REFERENCES Product (productID);
