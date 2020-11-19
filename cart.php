@@ -37,7 +37,7 @@ if(isset($_SESSION["cartItem"])){
 		?>
 
 <tr>
-<td colspan="5" align=right><strong>Total:</strong> <?php echo $total_price." DKK"; ?> </td>
+<td colspan="5" ><strong>Total:</strong> <?php echo $total_price." DKK"; ?> </td>
 </tr>
 </tbody>
 </table>
