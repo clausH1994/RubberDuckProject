@@ -53,7 +53,6 @@ class DailySpecialController
             ));
 
             if (!empty($this->productArray["discountProducts"])) {
-                echo "here";
                 if (in_array($productByID[0]["productID"], array_keys($this->productArray["discountProducts"]))) {
 
                     foreach ($this->productArray["discountProducts"] as $k => $v) {
@@ -68,7 +67,6 @@ class DailySpecialController
                     $this->productArray["discountProducts"] = array_merge($this->productArray["discountProducts"], $this->newProductArray);
                 }
             } else {
-
                 $this->productArray["discountProducts"] = $this->newProductArray;
             }
         }

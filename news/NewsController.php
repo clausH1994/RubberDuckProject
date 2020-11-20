@@ -43,20 +43,25 @@ class NewsController
         $redirect = new Redirector("newsOverView.php");
     }
 
-    public function manangeCreate($title, $desc, $date, $disconunt)
+    public function manangeCreate($title, $desc, $date, $disconunt,$listOfproducts)
     {
         $newsID = $this->createNews($title, $desc, $date);
 
 
         if ($disconunt != null || $disconunt != "") {
-            require("../dailySpecial/DailySpecialController.php");
-            require("../SpecialNews/SpecialNewsController.php");
+            require_once("../dailySpecial/DailySpecialController.php");
+            require_once("../SpecialNews/SpecialNewsController.php");
+            require_once("../offer/OfferController.php");
 
             $dailySpecialDAO = new DailySpecialDAO();
             $dailyID = $dailySpecialDAO->createDailySpecialDB($disconunt);
 
             $specialNews = new SpecialNewsController();
             $specialNews->createSpecialNews($dailyID, $newsID);
+
+            $offer = new OfferController();
+            $offer->createOffer($listOfproducts, $dailyID);
+
             $redirect = new Redirector("newsOverView.php");
         }
     }
