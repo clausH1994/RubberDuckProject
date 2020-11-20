@@ -19,6 +19,7 @@ if(isset($_SESSION["cartItem"])){
 </tr>
 
 <?php	
+var_dump($_SESSION);
 	$total_items = 0;	
     foreach ($_SESSION["cartItem"] as $item){
 		?>

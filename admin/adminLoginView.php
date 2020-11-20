@@ -31,12 +31,12 @@ $log->checkforAdmin();
             }
             ?>
 
-            <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html" />
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html" />
+            <link rel="stylesheet" href="../css/style.css">
+        </head>
+        <body>
     <div class="center">
         <div>
 
