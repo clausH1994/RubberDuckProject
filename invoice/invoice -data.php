@@ -6,7 +6,7 @@ $query = $dbCon->prepare("SELECT * FROM Invoice
 innner join Order using(orderID)
 where
 invoiceID = '".$_GET['invoiceID']."'");
-$invoice = fetchAll($query);
+$invoice = $query->fetchAll();
 
 //A4 width : 219mm
 //default margin : 10mm each side
@@ -77,7 +77,7 @@ $pdf->SetFont('Arial','',12);
 $query = $dbCon->prepare("SELECT * FROM Order where invoiceID = '".$invoice['invoiceID']."'");
 $tax = 0;
 $amount = 0;
-while ($item =fetchAll($query)) {
+foreach ($item as $query) {
 
 $pdf->Cell(130 ,5,$item['itemName'],1,0);
 $pdf->Cell(25 ,5,$item['tax'],1,0);
