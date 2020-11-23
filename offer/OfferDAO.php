@@ -11,14 +11,9 @@ class OfferDAO
             $query = "INSERT INTO Offer (productID, dailyID) VALUES (:productID, :dailyID)";
             $handle = $dbcon->prepare($query);
 
-            $sanitized_productID = htmlspecialchars(trim($productID));
-            $sanitized_dailyID = htmlspecialchars(trim($dailyID));
+            $handle->bindParam(':productID', $productID);
+            $handle->bindParam(':dailyID', $dailyID);
             
-
-            $handle->bindParam(':productID', $sanitized_productID);
-            $handle->bindParam(':dailyID', $sanitized_dailyID);
-            
-
             $handle->execute();
           
             $dbcon = null;

@@ -17,4 +17,10 @@ class SpecialNewsController
 
         return $specialNews;
     }
+
+    public function deleteSpecialNewsWithNewsID($newsID)
+    {
+        $specialNewsDAO = new SpecialNewsDAO();
+        $specialNewsDAO->deleteSpecialNewsWithNewsIDDB($newsID);
+    }
 }

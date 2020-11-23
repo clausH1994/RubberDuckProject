@@ -36,6 +36,11 @@ if (!empty($_GET["action"])) {
 }
 
 
+if (isset($_POST['submit'])) { // Form has been submitted.
+    $newsCon = new NewsController();
+    $newsCon->manangeCreate($_POST["title"], $_POST["desc"], $_POST["date"], $_POST["discount"], $_SESSION["discountProducts"]);
+}
+
 ?>
 
 
@@ -108,14 +113,6 @@ if (!empty($_GET["action"])) {
 
 </body>
 
-
-<?php
-if (isset($_POST['submit'])) { // Form has been submitted.
-    $newsCon = new NewsController();
-    $newsCon->manangeCreate($_POST["title"], $_POST["desc"], $_POST["date"], $_POST["discount"], $_SESSION["discountProducts"]);
-}
-
-?>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

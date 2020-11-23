@@ -30,7 +30,7 @@ class DailySpecialController
         $dailyID = $dailySpecialDAO->createDailySpecialDB($discount);
         return $dailyID;
     }
-
+    
     public function addtoDiscountProduct($productID)
     {
 

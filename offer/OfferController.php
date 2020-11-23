@@ -7,9 +7,10 @@ class OfferController
     {
         $offerDAO = new OfferDAO();
 
-        foreach ($listOfProduct as $productID) {
-            //$offerDAO->createOfferDB($productID, $dailyID);
-          
+        foreach ($listOfProduct as $product) {
+            $productID = $product['productID'];
+            
+            $offerDAO->createOfferDB($productID, $dailyID);
         }
     }
 }

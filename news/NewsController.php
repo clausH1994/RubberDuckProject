@@ -39,11 +39,42 @@ class NewsController
     public function deleteNews($newsID)
     {
         $newsDAO = new NewsDAO();
+
         $newsDAO->deleteNewsDB($newsID);
         $redirect = new Redirector("newsOverView.php");
     }
 
-    public function manangeCreate($title, $desc, $date, $disconunt,$listOfproducts)
+    public function deleteViewData()
+    {
+        $dbcon = dbCon();
+        $query = ('SELECT * FROM NewsAndSpecialData WHERE newsID = :newsID');
+
+        $handle = $dbcon->prepare($query);
+        $handle->bindParam(':newsID', $_GET['ID']);
+        $handle->execute();
+
+        $row = $handle->fetchAll();
+
+        foreach ($row as $row) {
+
+            echo "<tr>" . "<td>" . $row['title'] . "</td>" .
+             "<td>" . $row['description'] . "</td>" .
+             "<td>" . $row['date'] . "</td>".
+             "</tr>";
+        }
+    }
+
+    public function manageDeleteOfNewsAndDiscount($newsID)
+    {
+        require_once("../SpecialNews/SpecialNewsController.php");
+        $specialNews = new SpecialNewsController();
+
+        $specialNews->deleteSpecialNewsWithNewsID($newsID);
+        $this->deleteNews($news);
+    }
+
+
+    public function manangeCreate($title, $desc, $date, $disconunt, $listOfproducts)
     {
         $newsID = $this->createNews($title, $desc, $date);
 
@@ -88,8 +119,8 @@ class NewsController
             echo "<td>";
             if ($specials != null) {
                 foreach ($specials as $special) {
-                    
-                   
+
+
 
                     $dailyS = $dailyCon->readdailySpecialByID($special[0]);
 
@@ -98,18 +129,16 @@ class NewsController
 
                     $amount = count($dailyS);
 
-                    if($i <= $amount)
-                    {
-                        echo "&nbsp;" . "%" ;
+                    if ($i <= $amount) {
+                        echo "&nbsp;" . "%";
                         echo "<br>";
                         $i++;
                     }
-                    
                 }
                 $i = 0;
             } else {
                 $dailyIndex = "";
-            } 
+            }
             echo "</td>";
             echo '<td><a href="newsEditView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn" ">Edit</a></td>';
             echo '<td><a href="newsDelete.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
