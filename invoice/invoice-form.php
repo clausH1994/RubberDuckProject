@@ -10,7 +10,7 @@ $dbCon = dbCon();
     </head>
          <body> 
             select Invoice   
-        <form method="get" action="invoice.php">
+        <form method="get" action="invoice-data.php">
             <select name="invoiceID">
             <?php
             $query = $dbCon->prepare("SELECT * FROM Invoice");
