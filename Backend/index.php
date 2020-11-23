@@ -53,15 +53,15 @@ $getProducts = $query->fetchAll();
                         <?php
                         foreach ($getProducts as $getProduct) {
                             echo "<tr>
-                            <td>" . $getProduct['productID'] . "</td>
+                            <td>" . $getProduct['ID'] . "</td>
                             <td>" . $getProduct['code'] . "</td>
                             <td>" . $getProduct['name'] . "</td>
                             <td>" . $getProduct['color'] . "</td>
                             <td>" . $getProduct['price'] . "</td>
                             <td>" . $getProduct['image'] . "</td> 
                             <td>" . $getProduct['quantity'] . "</td>";
-                            echo '<td><a href="editEntry.php?ID=' . $getProduct['productID'] . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['productID'] . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                            echo '<td><a href="editEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn" ">Edit</a></td>';
+                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                             echo "</tr>";
                         }
                         ?>

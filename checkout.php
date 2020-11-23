@@ -52,10 +52,10 @@
                 ?>
                         <tr>
                         <td><strong><?php echo $item["name"]; ?></strong></td>
-                        <td><?php echo $item["productID"]; ?></td>
+                        <td><?php echo $item["code"]; ?></td>
                         <td><?php echo $item["quantity"]; ?></td>
                         <td><?php echo $item["price"]." DKK"; ?></td>
-                        <td><a href="cart.php?action=remove&productID=<?php echo $item["productID"]; ?>" class="removeBtn">Remove</a></td>
+                        <td><a href="cart.php?action=remove&code=<?php echo $item["code"]; ?>" class="removeBtn">Remove</a></td>
                         </tr>
                         <?php
                 $total_price += ($item["price"]*$item["quantity"]);

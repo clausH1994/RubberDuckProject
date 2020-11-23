@@ -5,18 +5,10 @@ if (isset($_GET['ID'])) {
     <!DOCTYPE html>
     <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Edit entry</title>
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    </head>
     <?php
     $entryID = htmlspecialchars($_GET['ID']);
     $dbCon = dbCon();
-    $query = $dbCon->prepare("SELECT * FROM Product WHERE productID=$entryID");
+    $query = $dbCon->prepare("SELECT * FROM Product WHERE ID=$entryID");
     $query->execute();
     $getProducts = $query->fetchAll();
     ?>
@@ -26,6 +18,12 @@ if (isset($_GET['ID'])) {
         <div class="container">
             <h3>Editing product "<?php echo $getProducts[0][1]; ?>"</h3>
             <form class="col s12" name="contact" method="post" action="updateEntry.php">
+             '  <div class="row">
+                    <div class="input-field col s12">
+                        <input id="Code" name="Code" type="text" value="<?php echo $getProducts[0]['code']; ?>" class="validate" required="" aria-required="true">
+                        <label for="Code">Code</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="Name" name="Name" type="text" value="<?php echo $getProducts[0]['name']; ?>" class="validate" required="" aria-required="true">
@@ -58,7 +56,7 @@ if (isset($_GET['ID'])) {
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea name="description" id="description" class="materialize-textarea" required="" aria-required="true"><?php echo $getProducts[0]['description']; ?></textarea>
+                        <textarea name="description" id="description" class="materialize-textarea" required="" aria-required="true"><?php echo $getProducts[0]['desc']; ?></textarea>
                         <label for="description">Description</label>
                     </div>
                 </div>
