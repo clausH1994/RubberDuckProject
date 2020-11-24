@@ -38,25 +38,25 @@ class DailySpecialController
 
             $dbcon = dbCon();
 
-            $query = "SELECT  * FROM Product WHERE productID= :productID";
+            $query = "SELECT  * FROM Product WHERE ID= :productID";
             $handle = $dbcon->prepare($query);
             $handle->bindParam(':productID', $productID);
 
             $handle->execute();
             $productByID = $handle->fetchAll();
 
-            $this->newProductArray = array($productByID[0]["productID"] => array(
+            $this->newProductArray = array($productByID[0]["ID"] => array(
                 'name' => $productByID[0]["name"],
-                'productID' => $productByID[0]["productID"],
+                'productID' => $productByID[0]["ID"],
                 'quantity' => $productByID[0]["quantity"],
                 'price' => $productByID[0]["price"]
             ));
 
             if (!empty($this->productArray["discountProducts"])) {
-                if (in_array($productByID[0]["productID"], array_keys($this->productArray["discountProducts"]))) {
+                if (in_array($productByID[0]["ID"], array_keys($this->productArray["discountProducts"]))) {
 
                     foreach ($this->productArray["discountProducts"] as $k => $v) {
-                        if ($productByID[0]["productID"] == $k) {
+                        if ($productByID[0]["ID"] == $k) {
 
                             if (empty($this->itemArray["discountProducts"][$k])) {
                                 $this->itemArray["discountProducts"][$k] = 0;

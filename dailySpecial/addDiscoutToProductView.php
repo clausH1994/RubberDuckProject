@@ -126,12 +126,12 @@ if (isset($_POST['cancel'])) { // Form has been submitted.
                                     <?php
                                     foreach ($getProducts as $getProduct) {
                                         echo "<tr>";
-                                        echo "<td>" . $getProduct['productID'] . "</td>";
+                                        echo "<td>" . $getProduct['ID'] . "</td>";
                                         echo "<td>" . $getProduct['name'] . "</td>";
                                         echo "<td>" . $getProduct['color'] . "</td>";
                                         echo "<td>" . $getProduct['price'] . "</td>";
                                         echo "<td>" . $getProduct['quantity'] . "</td>";
-                                        echo '<td><a href="addDiscoutToProductView.php?action=add&ID=' . $getProduct['productID'] . '" class="waves-effect waves-light btn ")">Add</a></td>';
+                                        echo '<td><a href="addDiscoutToProductView.php?action=add&ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn ")">Add</a></td>';
                                         echo "</tr>";
                                     }
                                     ?>

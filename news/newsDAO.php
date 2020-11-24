@@ -3,11 +3,9 @@ require_once("../connection/dbcon.php");
 
 class NewsDAO
 {
-
     public function readNewsDB()
     {
         try {
-
             $dbcon = dbCon();
 
             $query = $dbcon->prepare('SELECT * FROM News');
@@ -54,10 +52,9 @@ class NewsDAO
             $handle->execute();
 
             $last_id = $dbcon->lastInsertId();
-          
+
             $dbcon = null;
             return $last_id;
-
         } catch (\PDOException $ex) {
             print($ex->getMessage());
         }
@@ -101,6 +98,57 @@ class NewsDAO
 
             //close the connection
             $dbcon = null;
+        } catch (\PDOException $ex) {
+            print($ex->getMessage());
+        }
+    }
+
+    public function NewsAndSpecialDataDB()
+    {
+        $dbcon = dbCon();
+        $query = ('SELECT * FROM NewsAndSpecialData WHERE newsID = :newsID');
+
+        $handle = $dbcon->prepare($query);
+        $handle->bindParam(':newsID', $_GET['ID']);
+        $handle->execute();
+
+        $result = $handle->fetchAll();
+
+        return $result;
+    }
+
+    public function deleteNewsAndrelevantRelationsDB($newsID)
+    {
+        require_once("../SpecialNews/SpecialNewsController.php");
+        require_once("../dailySpecial/DailySpecialController.php");
+        require_once("../offer/OfferController.php");
+        $SpecialNewsCon = new SpecialNewsController();
+        $dailySpecailCon = new DailySpecialController();
+        $offerCon = new OfferController();
+
+        try {
+            $dbcon = dbCon();
+            $query = "SELECT n.newsID, ds.dailyID, o.offer 
+            FROM News n, SpecialNews sn, DailySpecial ds, Offer o
+            WHERE n.newsID = sn.news
+            AND sn.daily = ds.dailyID
+            AND o.dailyID = ds.dailyID
+            AND n.newsID = :newsID";
+
+            $handle = $dbcon->prepare($query);
+            $handle->bindParam(':newsID', $newsID);
+            $handle->execute();
+
+
+            $result = $handle->fetchAll();
+            echo var_dump($result);
+
+            foreach($result as $res)
+            {
+
+            }
+
+            // $query2 = "DELETE FROM News WHERE newsID = :newsID";
         } catch (\PDOException $ex) {
             print($ex->getMessage());
         }

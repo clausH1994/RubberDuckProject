@@ -46,31 +46,31 @@ class NewsController
 
     public function deleteViewData()
     {
-        $dbcon = dbCon();
-        $query = ('SELECT * FROM NewsAndSpecialData WHERE newsID = :newsID');
+        $newsDAO = new NewsDAO();
+        $row = $newsDAO->NewsAndSpecialDataDB();
 
-        $handle = $dbcon->prepare($query);
-        $handle->bindParam(':newsID', $_GET['ID']);
-        $handle->execute();
-
-        $row = $handle->fetchAll();
+        for ($i = 0; $i < 1; $i++) {
+            echo
+                "<h3>" . $row[0]['title'] .  "&nbsp;".
+                 $row[0]['description']  . "&nbsp;" .
+                 $row[0]['date'] . "</h3>";
+        }
 
         foreach ($row as $row) {
 
-            echo "<tr>" . "<td>" . $row['title'] . "</td>" .
-             "<td>" . $row['description'] . "</td>" .
-             "<td>" . $row['date'] . "</td>".
-             "</tr>";
+            echo
+                "<tr>" .
+                    "<td>" . $row['dailyID'] . "</td>" .
+                    "<td>" . $row['discount'] . "</td>" .
+                    "<td>" . $row['productID'] . "</td>" .
+                    "</tr>";
         }
     }
 
-    public function manageDeleteOfNewsAndDiscount($newsID)
+    public function deleteNewsAndrelevantRelations($newsID)
     {
-        require_once("../SpecialNews/SpecialNewsController.php");
-        $specialNews = new SpecialNewsController();
-
-        $specialNews->deleteSpecialNewsWithNewsID($newsID);
-        $this->deleteNews($news);
+        $newsDAO = new NewsDAO();
+        $newsDAO->deleteNewsAndrelevantRelationsDB($newsID);
     }
 
 
@@ -141,7 +141,7 @@ class NewsController
             }
             echo "</td>";
             echo '<td><a href="newsEditView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-            echo '<td><a href="newsDelete.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+            echo '<td><a href="newsDeleteView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn red">Delete</a></td>';
             echo "</tr>";
         }
     }
