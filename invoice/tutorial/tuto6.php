@@ -11,7 +11,7 @@ var $HREF;
 function PDF($orientation='P', $unit='mm', $size='A4')
 {
 	// Call parent constructor
-	$this->FPDF($orientation,$unit,$size);
+	//$this->FPDF($orientation,$unit,$size);
 	// Initialization
 	$this->B = 0;
 	$this->I = 0;
