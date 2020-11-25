@@ -12,80 +12,96 @@ $handle->execute();
 
 $newsAndSpecialData = $handle->fetchAll();
 
+$i = 0;
 ?>
-<div class="row">
+<div style="padding: 5px 5%;">
+  <div class="row borders">
+    <h4>Projects with a discount</h1>
+      <?php
+      if (!empty($newsAndSpecialData)) {
 
-  <?php
-  if (!empty($newsAndSpecialData)) {
+        foreach ($newsAndSpecialData as $aNumber) {
 
-    foreach ($newsAndSpecialData as $aNumber) {
+          if ($i < 6) {
+            $productID = $aNumber["productID"];
+            $discountProductQuery = "SELECT * FROM Product WHERE ID = $productID limit 1";
+            $handleDiscount = $dbcon->prepare($discountProductQuery);
+            $handleDiscount->execute();
+            $discountedProduct = $handleDiscount->fetchAll();
+            
 
-      $productID = $aNumber["productID"];
-      $discountProductQuery = "SELECT * FROM Product WHERE ID = $productID LIMIT 1";
-      $discountedProduct = $dbcon->prepare($query);
-      $discountedProduct->execute();
-      
-  ?>
-      <div class="borders">
-        <form method="post" action="index.php?action=add&code=<?php echo $discountedProducts[$aNumber]["code"]; ?>">
+            $discount = ($aNumber["discount"] / 100) * $discountedProduct[0]["price"];
+            $discountedPrice =  $discountedProduct[0]["price"] - $discount;
+
+      ?>
+
+            <form method="post" action="index.php?action=add&code=<?php echo $discountedProduct[0]["code"]; ?>">
+              <div class="col s12 m2">
+                <div class="card">
+                  <span class="card-title"><?php echo $discountedProduct[0]["name"]; ?></span>
+                  <div class="card-image">
+                    <img src="<?php echo $discountedProduct[0]["image"]; ?>" id="image">
+                  </div>
+                  <div class="card-content">
+                    <p><?php echo $discountedProduct[0]["desc"]; ?></p>
+                  </div>
+                  <div>
+                    <p class="price">Price: <?php echo $discountedProduct[0]["price"]; ?>DKK</p>
+                  </div>
+                  <div>
+                    <p >Price: <?php echo $discountedPrice ?>DKK</p>
+                  </div>
+                  <div>
+                    <label for="quantity">quantity:</label>
+                    <input type="text" name="quantity" value="1" size="1" />
+                    <button class="waves-effect waves-light btn" type="submit">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+      <?php
+      $i++;
+           }
+        }
+      }
+      ?>
+
+  </div>
+
+  <div class="row">
+    <?php
+
+    if (!empty($product_array)) {
+      foreach ($product_array as $aNumber => $value) {
+    ?>
+        <form method="post" action="index.php?action=add&code=<?php echo $product_array[$aNumber]["code"]; ?>">
           <div class="col s12 m3">
             <div class="card">
-              <span class="card-title"><?php echo $discountedProducts[$aNumber]["name"]; ?></span>
+              <span class="card-title"><?php echo $product_array[$aNumber]["name"]; ?></span>
               <div class="card-image">
-                <img src="<?php echo $discountedProducts[$aNumber]["image"]; ?>" id="image">
+                <img src="<?php echo $product_array[$aNumber]["image"]; ?>" id="image">
               </div>
               <div class="card-content">
-                <p><?php echo $discountedProducts[$aNumber]["desc"]; ?></p>
+                <p><?php echo $product_array[$aNumber]["desc"]; ?></p>
               </div>
               <div>
-                <p><?php echo $discountedProducts[$aNumber]["price"]; ?></p>
+                <p>Price: <?php echo $product_array[$aNumber]["price"]; ?> DKK</p>
               </div>
               <div>
+                <label for="quantity">quantity:</label>
                 <input type="text" name="quantity" value="1" size="1" />
                 <button class="waves-effect waves-light btn" type="submit">Add to cart</button>
               </div>
             </div>
           </div>
         </form>
-      </div>
-  <?php
 
+    <?php
+
+      }
     }
-  }
-  ?>
+    ?>
+  </div>
 
-</div>
-
-<div class="row">
-  <?php
-
-  if (!empty($product_array)) {
-    foreach ($product_array as $aNumber => $value) {
-  ?>
-      <form method="post" action="index.php?action=add&code=<?php echo $product_array[$aNumber]["code"]; ?>">
-        <div class="col s12 m3">
-          <div class="card">
-            <span class="card-title"><?php echo $product_array[$aNumber]["name"]; ?></span>
-            <div class="card-image">
-              <img src="<?php echo $product_array[$aNumber]["image"]; ?>" id="image">
-            </div>
-            <div class="card-content">
-              <p><?php echo $product_array[$aNumber]["desc"]; ?></p>
-            </div>
-            <div>
-              <p>Price: <?php echo $product_array[$aNumber]["price"]; ?> DKK</p>
-            </div>
-            <div>
-              <input type="text" name="quantity" value="1" size="1" />
-              <button class="waves-effect waves-light btn" type="submit">Add to cart</button>
-            </div>
-          </div>
-        </div>
-      </form>
-
-  <?php
-
-    }
-  }
-  ?>
 </div>
