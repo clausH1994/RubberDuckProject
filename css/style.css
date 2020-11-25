@@ -31,15 +31,20 @@
     margin-left: 100vh;
 }
 
-#card{
-    height: 300px;
-    background-size: contain;
+#image{
+    max-height: 180px;
+    max-width: 200px;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;   
 }
 
-.card-image img{
-    height: 300px;
-    background-size: cover;
-    
+#card-image
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .headbutton
@@ -60,17 +65,28 @@
     float: right;
 }
 
-.addBtn{
-    background-color: #eb705b;
+/* .addBtn{
+    
     border: 0;
     padding: 3px 10px;
-    color: #ffffff;
+    color: #ffffff !important;
     margin-left: 2px;
     border-radius: 2px;
-}
+} */
 
 .cart-item {border-bottom: #79b946 1px dotted;padding: 10px;}
 
 .checkout{
     display: inline-block;
+}
+
+.card
+{
+    padding: 10px;
+}
+
+.borders
+{
+    border: 1px black solid;
+    border-radius: 5px;
 }
