@@ -5,6 +5,7 @@ require_once "../connection/dbcon.php";
 if (isset($_POST['submit'])) {
 
     
+$Code = $_POST['code'];
 $Name = $_POST['Name'];
 $Color = $_POST['Color'];
 $Price = $_POST['Price'];
@@ -15,17 +16,19 @@ $description = $_POST['description'];
 
 try {
 
-$sql = "INSERT INTO Product (`name`, `color`, `price`, `image`,`Quantity`, `description`) VALUES (:name, :color, :price, :image, :quantity, :description)";
+$sql = "INSERT INTO Product (`code`, `name`, `color`, `price`, `image`,`Quantity`, `desc`) VALUES (:code, :name, :color, :price, :image, :quantity, :description)";
 $query = dbCon()->prepare($sql);
 
 //$query = dbCon()->prepare("INSERT INTO product (`name`, `color`, `price`, `image`, `description`) VALUES ('$Name', '$Color', '$Price', '$Image', '$description')");
 
+$sanitized_code = htmlspecialchars(trim($Code));
 $sanitized_name = htmlspecialchars(trim($Name));
 $sanitized_color = htmlspecialchars(trim($Color));
 $sanitized_price = htmlspecialchars(trim($Price));
 $sanitized_image = htmlspecialchars(trim($Image));
 $sanitized_quantity = htmlspecialchars(trim($Quantity));
 $sanitized_desc = htmlspecialchars(trim($description));
+$query->bindParam(':code', $sanitized_code);
 $query->bindParam(':name', $sanitized_name);
 $query->bindParam(':color', $sanitized_color);
 $query->bindParam(':price', $sanitized_price);

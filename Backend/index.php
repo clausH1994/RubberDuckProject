@@ -1,17 +1,7 @@
 <?php require_once "../connection/dbcon.php";
 require("../admin/adminHeader.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Product Management</title>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
 <?php
 $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM Product");
@@ -48,6 +38,7 @@ $getProducts = $query->fetchAll();
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Code</th>
                             <th>Name</th>
                             <th>Color</th>
                             <th>Price</th>
@@ -61,15 +52,16 @@ $getProducts = $query->fetchAll();
                     <tbody>
                         <?php
                         foreach ($getProducts as $getProduct) {
-                            echo "<tr>";
-                            echo "<td>" . $getProduct['productID'] . "</td>";
-                            echo "<td>" . $getProduct['name'] . "</td>";
-                            echo "<td>" . $getProduct['color'] . "</td>";
-                            echo "<td>" . $getProduct['price'] . "</td>";
-                            echo "<td>" . $getProduct['image'] . "</td>";
-                            echo "<td>" . $getProduct['quantity'] . "</td>";
-                            echo '<td><a href="editEntry.php?ID=' . $getProduct['productID'] . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['productID'] . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                            echo "<tr>
+                            <td>" . $getProduct['ID'] . "</td>
+                            <td>" . $getProduct['code'] . "</td>
+                            <td>" . $getProduct['name'] . "</td>
+                            <td>" . $getProduct['color'] . "</td>
+                            <td>" . $getProduct['price'] . "</td>
+                            <td>" . $getProduct['image'] . "</td> 
+                            <td>" . $getProduct['quantity'] . "</td>";
+                            echo '<td><a href="editEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn" ">Edit</a></td>';
+                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                             echo "</tr>";
                         }
                         ?>
@@ -79,7 +71,15 @@ $getProducts = $query->fetchAll();
             <hr>
             <h3>Add new product to DB!</h3>
 
+            
+
             <form class="col s12" name="contact" method="post" action="addEntry.php">
+            <div class="row">
+                    <div class="input-field col s12">
+                        <input id="Code" name="Code" type="text" class="validate" required="" aria-required="true">
+                        <label for="Code">Code</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="Name" name="Name" type="text" class="validate" required="" aria-required="true">

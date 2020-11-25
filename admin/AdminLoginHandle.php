@@ -1,20 +1,11 @@
 <?php
-
 require_once("../connection/dbcon.php");
-
-
 class AdminLoginHandle
 {
     public $message;
 
-
-    public function __construct()
-    {
-    }
-
     public function adminLogin($email, $pass)
     {
-
         $email = trim($email);
         $pass = trim($pass);
         $query = dbCon()->prepare("SELECT employeeID, email, pass FROM Employee WHERE email = '{$email}' LIMIT 1");
@@ -28,7 +19,6 @@ class AdminLoginHandle
                     $_SESSION['admin'] = $found_admin[0]['email'];
                     $redirect = new Redirector("../Backend/index.php");
                 } else {
-
                     // username/password combo was not found in the database
                     $this->message = "Email/password combination incorrect.<br />
 					Please make sure your caps lock key is off and try again.";
@@ -74,5 +64,5 @@ class AdminLoginHandle
 			$employeeCon->createEmployee("Demo", "Acc", "demoAcc@demo.dk", "breakfast");
 		}
 	}
-
 }
+?>

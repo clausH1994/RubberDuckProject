@@ -1,4 +1,5 @@
 <?php
+require_once("Redirector.php");
 class Session
 {
 	public function __construct()

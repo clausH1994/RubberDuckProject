@@ -1,5 +1,4 @@
-
-/*DROP DATABASE IF EXISTS RubberDuckDB;*/
+-- DROP DATABASE IF EXISTS RubberDuckDB;
 CREATE DATABASE RubberDuckDB;
 USE RubberDuckDB;
 
@@ -73,22 +72,21 @@ insert into Color (ColorID, `name`) values (null, 'black');
 
 CREATE TABLE Product
 (
-    productID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` varchar(255) NOT NULL,
-    price DECIMAL(5, 2) NOT NULL,
-    `image` varchar(255),
-    `description` varchar(60000),
-    color int NOT NULL,
-    quantity int NOT null,
-    FOREIGN KEY (color) REFERENCES Color (colorID)
+  `ID` int(8) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `image` text NOT NULL,
+  `price` double(10,2) NOT NULL,
+  `color` int NOT null,
+  `desc` varchar(255),
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `product_code` (`code`),
+  FOREIGN KEY (color) REFERENCES Color (ColorID)
 );
 
-insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Ducky', 99, 'img/duck.png', 'This is a yellow duck', 1, 10);
-insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Blue Ducky', 199, 'img/bducky.png', 'This is magical blue duck', 2, 50);
-insert into Product (`name`, price, `image`, `description`, color, quantity) values ('Black Duck', 50, 'img/ducky.png', 'Said to bring misfortune to those who see it cross the road', 4, 20);
-
 ALTER TABLE Orderline
-ADD FOREIGN KEY (product) REFERENCES Product (productID);
+ADD FOREIGN KEY (product) REFERENCES Product (ID);
 
 CREATE TABLE Category
 (
@@ -101,7 +99,7 @@ CREATE TABLE ProductCategory
     product int NOT NULL,
     category int NOT NULL,
     CONSTRAINT PK_ProductCategory PRIMARY KEY (product, category),  
-    FOREIGN KEY (product) REFERENCES Product (productID),
+    FOREIGN KEY (product) REFERENCES Product (ID),
     FOREIGN KEY (category) REFERENCES Category (categoryID)  
 );
 
@@ -156,6 +154,18 @@ CREATE TABLE Offer
     offer int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     productID int NOT NULL,
     dailyID int NOT NULL,
-    FOREIGN KEY (productID) REFERENCES Product (ProductID),
+    FOREIGN KEY (productID) REFERENCES Product (ID),
     FOREIGN KEY (dailyID) REFERENCES DailySpecial (dailyID)
 );
+
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0001','Ducky', 99, 'img/duck.png', 1, 'test 1', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0002','Blue Ducky', 199, 'img/bducky.png', 2, 'test 2', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0003','Black Duck', 50, 'img/ducky.png', 4, 'test 3', 100);
+
+
+CREATE VIEW NewsAndSpecialData AS
+SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
+FROM News n, SpecialNews sn, DailySpecial ds, Offer o
+WHERE n.newsID = sn.news
+AND sn.daily = ds.dailyID
+AND o.dailyID = ds.dailyID
