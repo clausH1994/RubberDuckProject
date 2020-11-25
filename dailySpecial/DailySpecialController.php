@@ -30,33 +30,40 @@ class DailySpecialController
         $dailyID = $dailySpecialDAO->createDailySpecialDB($discount);
         return $dailyID;
     }
+
+    public function deleteDailySpecial($dailyID)
+    {
+        $dailySpecialDAO = new DailySpecialDAO();
+        $dailySpecialDAO->deleteDailySpecialDB($dailyID);
+    }
     
-    public function addtoDiscountProduct($productID)
+    public function addtoDiscountProduct($productID, $code)
     {
 
         if (!empty($productID)) {
 
             $dbcon = dbCon();
 
-            $query = "SELECT  * FROM Product WHERE ID= :productID";
+            $query = "SELECT  * FROM Product WHERE code = :code";
             $handle = $dbcon->prepare($query);
-            $handle->bindParam(':productID', $productID);
+            $handle->bindParam(':code', $code);
 
             $handle->execute();
-            $productByID = $handle->fetchAll();
-
-            $this->newProductArray = array($productByID[0]["ID"] => array(
-                'name' => $productByID[0]["name"],
-                'productID' => $productByID[0]["ID"],
-                'quantity' => $productByID[0]["quantity"],
-                'price' => $productByID[0]["price"]
+            $productByCode = $handle->fetchAll();
+            
+            $this->newProductArray = array($productByCode[0]["code"] => array(
+                'productID' => $productByCode[0]['ID'],
+                'name' => $productByCode[0]["name"],
+                'code' => $productByCode[0]["code"],
+                'quantity' => $productByCode[0]["quantity"],
+                'price' => $productByCode[0]["price"]
             ));
 
             if (!empty($this->productArray["discountProducts"])) {
-                if (in_array($productByID[0]["ID"], array_keys($this->productArray["discountProducts"]))) {
+                if (in_array($productByCode[0]["code"], array_keys($this->productArray["discountProducts"]))) {
 
                     foreach ($this->productArray["discountProducts"] as $k => $v) {
-                        if ($productByID[0]["ID"] == $k) {
+                        if ($productByCode[0]["code"] == $k) {
 
                             if (empty($this->itemArray["discountProducts"][$k])) {
                                 $this->itemArray["discountProducts"][$k] = 0;
@@ -72,11 +79,11 @@ class DailySpecialController
         }
     }
 
-    public function removeDiscountProduct($productID)
+    public function removeDiscountProduct($code)
     {
         if (!empty($this->productArray["discountProducts"])) {
             foreach ($this->productArray["discountProducts"] as $k => $v) {
-                if ($productID == $k)
+                if ($code == $k)
                     unset($this->productArray["discountProducts"][$k]);
                 if (empty($this->productArray["discountProducts"]))
                     unset($this->productArray["discountProducts"]);

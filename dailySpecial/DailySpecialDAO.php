@@ -58,4 +58,23 @@ class DailySpecialDAO
             print($ex->getMessage());
         }
     }
+
+    public function deleteDailySpecialDB($dailyID)
+    {
+        try {
+            $dbcon = dbCon();
+
+            $query = "DELETE FROM DailySpecial WHERE dailyID = :dailyID";
+            $handle = $dbcon->prepare($query);
+            $handle->bindParam(':dailyID', $dailyID);
+
+            $handle->execute();
+
+            //close the connection
+            $dbcon = null;
+        } catch (\PDOException $ex) {
+            print($ex->getMessage());
+        }
+    }
+
 }

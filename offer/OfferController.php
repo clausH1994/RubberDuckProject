@@ -13,4 +13,10 @@ class OfferController
             $offerDAO->createOfferDB($productID, $dailyID);
         }
     }
+
+    public function deleteOffer($offerID)
+    {
+        $offerDAO = new OfferDAO();
+        $offerDAO->deleteOfferDB($offerID);
+    }
 }

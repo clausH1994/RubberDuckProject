@@ -17,13 +17,16 @@ if (!empty($_GET["action"])) {
     if (isset($_GET['ID'])) {
         $productID = $_GET['ID'];
     }
+    if (isset($_GET['code'])) {
+        $code = $_GET['code'];
+    }
 
     //start the switch/case
     switch ($_GET["action"]) {
             //adding items to cart
         case "add":
 
-            $dailyCon->addtoDiscountProduct($productID);
+            $dailyCon->addtoDiscountProduct($productID , $code);
 
             $adminId =  $_SESSION['admin_id'];
             $admin = $_SESSION['admin'];
@@ -36,7 +39,7 @@ if (!empty($_GET["action"])) {
             break;
             //Remove item from cart
         case "remove":
-            $dailyCon->removeDiscountProduct($productID);
+            $dailyCon->removeDiscountProduct($code);
 
             $adminId =  $_SESSION['admin_id'];
             $admin = $_SESSION['admin'];
@@ -97,7 +100,7 @@ if (isset($_POST['cancel'])) { // Form has been submitted.
                                             echo "<td>" . $getDiscountProduct['name'] . "</td>";
                                             echo "<td>" . $getDiscountProduct['price'] . "</td>";
                                             echo "<td>" . $getDiscountProduct['quantity'] . "</td>";
-                                            echo '<td><a href="addDiscoutToProductView.php?action=remove&ID=' . $getDiscountProduct['productID'] . '" class=" btn red" onclick="return confirm(\'Remove! are you sure?\')">Remove</a></td>';
+                                            echo '<td><a href="addDiscoutToProductView.php?action=remove&code=' . $getDiscountProduct['code'] . '" class=" btn red" onclick="return confirm(\'Remove! are you sure?\')">Remove</a></td>';
                                             echo "</tr>";
                                         }
                                         ?>
@@ -131,7 +134,7 @@ if (isset($_POST['cancel'])) { // Form has been submitted.
                                         echo "<td>" . $getProduct['color'] . "</td>";
                                         echo "<td>" . $getProduct['price'] . "</td>";
                                         echo "<td>" . $getProduct['quantity'] . "</td>";
-                                        echo '<td><a href="addDiscoutToProductView.php?action=add&ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn ")">Add</a></td>';
+                                        echo '<td><a href="addDiscoutToProductView.php?action=add&ID=' . $getProduct['ID'] . '&code='. $getProduct['code'] .'" class="waves-effect waves-light btn ")">Add</a></td>';
                                         echo "</tr>";
                                     }
                                     ?>

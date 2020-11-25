@@ -3,7 +3,7 @@ require_once("../connection/dbcon.php");
 
 class OfferDAO
 {
-    public function CreateOfferDB($productID, $dailyID)
+    public function createOfferDB($productID, $dailyID)
     {
         try {
             $dbcon = dbCon();
@@ -13,11 +13,28 @@ class OfferDAO
 
             $handle->bindParam(':productID', $productID);
             $handle->bindParam(':dailyID', $dailyID);
-            
-            $handle->execute();
-          
-            $dbcon = null;
 
+            $handle->execute();
+
+            $dbcon = null;
+        } catch (\PDOException $ex) {
+            print($ex->getMessage());
+        }
+    }
+
+    public function deleteOfferDB($offerID)
+    {
+        try {
+            $dbcon = dbCon();
+
+            $query = "DELETE FROM Offer WHERE offer = :offerID";
+            $handle = $dbcon->prepare($query);
+            $handle->bindParam(':offerID', $offerID);
+
+            $handle->execute();
+
+            //close the connection
+            $dbcon = null;
         } catch (\PDOException $ex) {
             print($ex->getMessage());
         }

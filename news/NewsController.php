@@ -71,6 +71,7 @@ class NewsController
     {
         $newsDAO = new NewsDAO();
         $newsDAO->deleteNewsAndrelevantRelationsDB($newsID);
+        $redirect = new Redirector("newsOverView.php");
     }
 
 

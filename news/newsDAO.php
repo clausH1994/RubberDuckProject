@@ -122,7 +122,7 @@ class NewsDAO
         require_once("../SpecialNews/SpecialNewsController.php");
         require_once("../dailySpecial/DailySpecialController.php");
         require_once("../offer/OfferController.php");
-        $SpecialNewsCon = new SpecialNewsController();
+        $specialNewsCon = new SpecialNewsController();
         $dailySpecailCon = new DailySpecialController();
         $offerCon = new OfferController();
 
@@ -141,12 +141,18 @@ class NewsDAO
 
 
             $result = $handle->fetchAll();
-            echo var_dump($result);
 
-            foreach($result as $res)
-            {
-
+            foreach ($result as $row) {
+                $offerCon->deleteOffer($row['offer']);
             }
+
+            foreach($result as $row)
+            {
+                $specialNewsCon->deleteSpecialNewsWithNewsID($row['newsID']);
+                $dailySpecailCon->deleteDailySpecial($row['dailyID']);
+                $this->deleteNewsDB($row['newsID']);
+            }
+
 
             // $query2 = "DELETE FROM News WHERE newsID = :newsID";
         } catch (\PDOException $ex) {
