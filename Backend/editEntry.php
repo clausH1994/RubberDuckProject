@@ -11,6 +11,14 @@ if (isset($_GET['ID'])) {
     $query = $dbCon->prepare("SELECT * FROM Product WHERE ID=$entryID");
     $query->execute();
     $getProducts = $query->fetchAll();
+
+    $coloQuery = $dbCon->prepare("SELECT * FROM Color");
+    $coloQuery->execute();
+    $getColors = $coloQuery->fetchAll();
+
+    $select_attribute = '';
+
+
     ?>
 
     <body>
@@ -18,7 +26,7 @@ if (isset($_GET['ID'])) {
         <div class="container">
             <h3>Editing product "<?php echo $getProducts[0][1]; ?>"</h3>
             <form class="col s12" name="contact" method="post" action="updateEntry.php">
-             '  <div class="row">
+                ' <div class="row">
                     <div class="input-field col s12">
                         <input id="Code" name="Code" type="text" value="<?php echo $getProducts[0]['code']; ?>" class="validate" required="" aria-required="true">
                         <label for="Code">Code</label>
@@ -32,8 +40,18 @@ if (isset($_GET['ID'])) {
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="Color" name="Color" type="text" value="<?php echo $getProducts[0]['color']; ?>" class="validate" required="" aria-required="true">
-                        <label for="Color">Color</label>
+                        <p>Color:</p>
+                        <select name="Color" class="browser-default">
+                            <?php
+                            foreach ($getColors as $getColor) {
+                                if ($getColor['colorID'] == $getProducts[0]['color']) {
+                                    $select_attribute = 'selected';
+                                }
+                                echo "<option value='" . $getColor['colorID'] . "' $select_attribute>" . $getColor['name'] . " </option>";
+                                $select_attribute = "";
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="row">

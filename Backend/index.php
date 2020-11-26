@@ -7,7 +7,11 @@ $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM Product");
 $query->execute();
 $getProducts = $query->fetchAll();
-//var_dump($getProducts);
+
+$coloQuery = $dbCon->prepare("SELECT * FROM Color");
+$coloQuery->execute();
+$getColors = $coloQuery->fetchAll();
+
 ?>
 
 <body>
@@ -71,10 +75,10 @@ $getProducts = $query->fetchAll();
             <hr>
             <h3>Add new product to DB!</h3>
 
-            
+
 
             <form class="col s12" name="contact" method="post" action="addEntry.php">
-            <div class="row">
+                <div class="row">
                     <div class="input-field col s12">
                         <input id="Code" name="Code" type="text" class="validate" required="" aria-required="true">
                         <label for="Code">Code</label>
@@ -88,8 +92,14 @@ $getProducts = $query->fetchAll();
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="Color" name="Color" type="text" class="validate" required="" aria-required="true">
-                        <label for="Color">Color</label>
+                        <p>Color:</p>
+                        <select name="Color" class="browser-default">
+                            <?php
+                            foreach ($getColors as $getColor) {
+                                echo "<option value='" . $getColor['colorID'] . "'>" . $getColor['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -100,8 +110,8 @@ $getProducts = $query->fetchAll();
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="Image" name="Image" type="text" class="validate" required="" aria-required="true">
-                        <label for="Image">Image Url</label>
+                        <p>Image Url:</p>
+                        <input id="Image" name="Image" type="file" class="validate" required="" aria-required="true">
                     </div>
                 </div>
                 <div class="row">

@@ -3,10 +3,24 @@
 <?php include "header.php" ?>
 <?php
 $db_handle = new DBController();
-$product_array = $db_handle->runQuery("SELECT * FROM Product ORDER BY ID ASC");
+$product_array = $db_handle->runQuery("SELECT * FROM Product p ORDER BY ID ASC");
+
 
 $dbcon = dbCon();
-$query = "SELECT * FROM NewsAndSpecialData ORDER BY newsID DESC";
+
+
+
+$newQuery = "SELECT * FROM News n, SpecialNews sn, DailySpecial ds
+WHERE n.newsID = sn.news 
+AND sn.daily = ds.dailyID
+ORDER BY newsID DESC";
+$newsHandle = $dbcon->prepare($newQuery);
+$newsHandle->execute();
+$lastNews = $newsHandle->fetchAll();
+
+$newsID = $lastNews[0]["newsID"];
+
+$query = "SELECT * FROM NewsAndSpecialData WHERE newsID = $newsID ORDER BY productID DESC";
 $handle = $dbcon->prepare($query);
 $handle->execute();
 
@@ -16,64 +30,100 @@ $i = 0;
 ?>
 <div style="padding: 5px 5%;">
   <div class="row borders">
-    <h4>Projects with a discount</h1>
-      <?php
-      if (!empty($newsAndSpecialData)) {
+    <h4>Projects with a discount</h4>
+    <div class="col s12 m3">
+      <p>Latest News</p>
+      <div class="card">
 
-        foreach ($newsAndSpecialData as $aNumber) {
+        <span class="card-title"><?php echo $lastNews[0]["title"] ?></span>
 
-          if ($i < 6) {
-            $productID = $aNumber["productID"];
-            $discountProductQuery = "SELECT * FROM Product WHERE ID = $productID limit 1";
-            $handleDiscount = $dbcon->prepare($discountProductQuery);
-            $handleDiscount->execute();
-            $discountedProduct = $handleDiscount->fetchAll();
-            
+        <hr>
+        <div class="card-content">
+          <p><?php echo $lastNews[0]["description"]; ?></p>
+        </div>
+        <div style="display: flex;">
+          <p><?php echo $lastNews[0]["date"]; ?></p>
+          <p style="margin-left:40%">discount <?php echo $lastNews[0]["discount"]; ?> %</p>
+        </div>
+      </div>
 
-            $discount = ($aNumber["discount"] / 100) * $discountedProduct[0]["price"];
-            $discountedPrice =  $discountedProduct[0]["price"] - $discount;
+    </div>
 
-      ?>
+    <?php
+    if (!empty($newsAndSpecialData)) {
 
-            <form method="post" action="index.php?action=add&code=<?php echo $discountedProduct[0]["code"]; ?>">
-              <div class="col s12 m2">
-                <div class="card">
-                  <span class="card-title"><?php echo $discountedProduct[0]["name"]; ?></span>
-                  <div class="card-image">
-                    <img src="<?php echo $discountedProduct[0]["image"]; ?>" id="image">
-                  </div>
-                  <div class="card-content">
-                    <p><?php echo $discountedProduct[0]["desc"]; ?></p>
-                  </div>
-                  <div>
-                    <p class="price">Price: <?php echo $discountedProduct[0]["price"]; ?>DKK</p>
-                  </div>
-                  <div>
-                    <p >Price: <?php echo $discountedPrice ?>DKK</p>
-                  </div>
-                  <div>
-                    <label for="quantity">quantity:</label>
-                    <input type="text" name="quantity" value="1" size="1" />
-                    <button class="waves-effect waves-light btn" type="submit">Add to cart</button>
-                  </div>
+      foreach ($newsAndSpecialData as $aNumber) {
+
+        if ($i < 6) {
+          $productID = $aNumber["productID"];
+          $discountProductQuery = "SELECT * FROM Product WHERE ID = $productID limit 1";
+          $handleDiscount = $dbcon->prepare($discountProductQuery);
+          $handleDiscount->execute();
+          $discountedProduct = $handleDiscount->fetchAll();
+
+
+          $discount = ($aNumber["discount"] / 100) * $discountedProduct[0]["price"];
+          $discountedPrice =  $discountedProduct[0]["price"] - $discount;
+
+
+          $colorID = $discountedProduct[0]["color"];
+          $colorQuery = "SELECT * FROM Color WHERE colorID = $colorID limit 1";
+          $handleColor = $dbcon->prepare($colorQuery);
+          $handleColor->execute();
+          $color = $handleColor->fetchAll();
+
+    ?>
+
+          <form method="post" action="index.php?action=add&code=<?php echo $discountedProduct[0]["code"]; ?>">
+            <div class="col s12 m3">
+              <div class="card">
+                <span class="card-title"><?php echo $discountedProduct[0]["name"]; ?></span>
+                <div class="card-image">
+                  <img src="<?php echo $discountedProduct[0]["image"]; ?>" id="image">
+                </div>
+                <div class="card-content">
+                  <p><?php echo $discountedProduct[0]["desc"]; ?></p>
+                </div>
+                <div>
+                  <p> Color: <?php echo $color[0]['name']; ?></p>
+                </div>
+                <div>
+                  <p class="price">Price: <?php echo $discountedProduct[0]["price"]; ?>DKK</p>
+                </div>
+                <div>
+                  <p>Price: <?php echo $discountedPrice ?>DKK</p>
+                </div>
+                <div>
+                  <label for="quantity">quantity:</label>
+                  <input type="text" name="quantity" value="1" size="1" />
+                  <button class="waves-effect waves-light btn" type="submit">Add to cart</button>
                 </div>
               </div>
-            </form>
+            </div>
+          </form>
 
-      <?php
-      $i++;
-           }
+    <?php
+          $i++;
         }
       }
-      ?>
+    }
+    ?>
 
   </div>
-
+  <h4>All products</h4>
   <div class="row">
     <?php
 
     if (!empty($product_array)) {
       foreach ($product_array as $aNumber => $value) {
+
+        $colorID = $product_array[$aNumber]["color"];
+        $colorQuery = "SELECT * FROM Color WHERE colorID = $colorID limit 1";
+        $handleColor = $dbcon->prepare($colorQuery);
+        $handleColor->execute();
+        $color = $handleColor->fetchAll();
+
+
     ?>
         <form method="post" action="index.php?action=add&code=<?php echo $product_array[$aNumber]["code"]; ?>">
           <div class="col s12 m3">
@@ -84,6 +134,9 @@ $i = 0;
               </div>
               <div class="card-content">
                 <p><?php echo $product_array[$aNumber]["desc"]; ?></p>
+              </div>
+              <div>
+                <p> Color: <?php echo $color[0]['name']; ?></p>
               </div>
               <div>
                 <p>Price: <?php echo $product_array[$aNumber]["price"]; ?> DKK</p>

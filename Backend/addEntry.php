@@ -12,7 +12,8 @@ $Price = $_POST['Price'];
 $Image = $_POST['Image'];
 $Quantity = $_POST['Quantity'];
 $description = $_POST['description'];
-}
+
+
 
 try {
 
