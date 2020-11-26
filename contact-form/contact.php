@@ -34,63 +34,15 @@ $getData = $query->fetchAll();
     }
     ?>
     <div class="row">
-        <div class="row">
-            <table class="highlight">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Postalcode</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Description</th>
-                </tr>
-                </thead>
+        <h3>Customer support</h3>
 
-                <tbody>
-                <?php
-                foreach ($getData as $getData) {
-                    echo "<tr>";
-                    echo "<td>". $getData['name']."</td>";
-                    echo "<td>". $getData['address']. "</td>";
-                    echo "<td>". $getData['postalID']."</td>";
-                    echo "<td>". $getData['phone']."</td>";
-                    echo "<td>". $getData['email']."</td>";
-                    echo "<td>". $getData['description']."</td>";
-                    echo "<td>";
-                    echo "</td>";
-                    echo '<td><a href="edit.php?ID='.$getData['companyID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
-                    echo '<td><a href="delete.php?ID='.$getData['companyID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
-                    echo "</tr>";
-                }
-                
-                ?>
-                </tbody>
-            </table>
-        </div>
-        <hr>
-        <h3>companyinfo DB!</h3>
-
-        <form class="col s12" name="contact" method="post" action="aboutUsData.php">
+        <form class="col s12" name="contact" method="post" action="">
             <div class="row">
                 <div class="input-field col s12">
                     <input id="name" name="name" type="text" class="validate" required="" aria-required="true">
                     <label for="name">Name</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="address" name="address" type="text" class="validate" required="" aria-required="true">
-                    <label for="address">Address</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="postalId" name="postalID" type="text" class="validate" required="" aria-required="true">
-                    <label for="postalId">Postalcode</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="city" name="city" type="text" class="validate" required="" aria-required="true">
-                    <label for="city">city</label>
-                </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
@@ -106,7 +58,7 @@ $getData = $query->fetchAll();
             <div class="row">
                 <div class="input-field col s12">
                     <textarea name="description" id="description" class="materialize-textarea" required="" aria-required="true"></textarea>
-                    <label for="description">Description</label>
+                    <label for="description">Message</label>
                 </div>
             </div>
             <button class="btn waves-effect waves-light" type="submit" name="submit">Add
