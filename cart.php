@@ -5,7 +5,6 @@
 <div class="heading">Shopping Cart <a class="waves-effect waves-light btn" id="emptyBtn" href="cart.php?action=empty">Empty Cart</a></div>
 <?php
 //Reset total cost to do recalc
-var_dump($_SESSION['user_id']);
 if(isset($_SESSION["cartItem"])){
 	$total_price = 0;
 ?>	

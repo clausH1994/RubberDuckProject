@@ -5,7 +5,7 @@ require_once "../connection/dbcon.php";
 if (isset($_POST['submit'])) {
 
     
-$Code = $_POST['code'];
+$Code = $_POST['Code'];
 $Name = $_POST['Name'];
 $Color = $_POST['Color'];
 $Price = $_POST['Price'];

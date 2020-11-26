@@ -4,7 +4,7 @@ $userID = 0;
 spl_autoload_register(function ($class)
 	{include $class.".php";});
 
-	require_once("connection/Session.php");
+	require_once("connection/session.php");
 	$session = new Session();
 
 	$cartController = new CartController();

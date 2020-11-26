@@ -1,12 +1,11 @@
 <?php 
-  require_once "shop/cartsession.php"; 
   require_once "connection/dbcon.php";
   require_once "connection/Redirector.php";
   include "header.php" 
   ?>
 
 <?php $total_price=0; 
-var_dump($_SESSION['user_id']);
+var_dump($_SESSION['cartItem']);
 
 if (isset($_SESSION['user_id'])) {
 
@@ -18,8 +17,8 @@ if (isset($_SESSION['user_id'])) {
     
     ?>
 
-<div class="row" class="checkout" method="post" action="shop/checkfunc.php">
-    <form class="col s6">
+<div class="row" class="checkout">
+    <form class="col s6" method="post" action="shop/checkfunc.php">
     <div class="row">
         <div class="input-field col s12">
           <input type="text" value="<?php echo $getCustomer[0]['email']; ?>" class="validate">
@@ -58,10 +57,10 @@ if (isset($_SESSION['user_id'])) {
           <label for="by">By</label>
         </div>
       </div>
-      </div>
+      </div>      
+      <button class="btn waves-effect waves-light" type="submit" name="submit">Køb</button>
     </form>
     <input type="hidden" name="customerID" value="<?php echo $customerID; ?>">
-      <button class="btn waves-effect waves-light" type="submit" name="submit">Køb</button>
     </div>
   <?php } 
   

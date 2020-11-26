@@ -4,6 +4,7 @@ require_once "../connection/dbcon.php";
 if (isset($_POST['submit'])) 
 {
     $entryID = $_POST['entryID'];
+    $Code = $_POST['Code'];
     $Name = $_POST['Name'];
     $Color = $_POST['Color'];
     $Price = $_POST['Price'];
