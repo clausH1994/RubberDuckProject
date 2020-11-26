@@ -34,8 +34,20 @@ $getData = $query->fetchAll();
     }
     ?>
     <div class="row">
-        <h3>Customer support</h3>
-
+        <h2>Customer support</h2>
+        <br>
+        <h4>Opening hours</h4>
+        
+        <tr >
+                    <th>Monday-Friday: 08:00-21:00</th>
+                    <br>
+                    <th>Saturday: 10:00-16:00</th>
+                    <br>
+                    <th>Sunday: 10:00-13:00</th>
+                </tr>
+        <hr>
+        <h3>Contact form</h3>
+        <br>
         <form class="col s12" name="contact" method="post" action="">
             <div class="row">
                 <div class="input-field col s12">
@@ -64,6 +76,8 @@ $getData = $query->fetchAll();
             <button class="btn waves-effect waves-light" type="submit" name="submit">Submit
             </button>
         </form>
+
+
     </div>
 </div>
 </body>
