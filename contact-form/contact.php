@@ -1,5 +1,5 @@
 <?php require_once "../connection/dbcon.php";
-require("../admin/adminHeader.php");
+require "../header.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +61,7 @@ $getData = $query->fetchAll();
                     <label for="description">Message</label>
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="submit">Add
+            <button class="btn waves-effect waves-light" type="submit" name="submit">Submit
             </button>
         </form>
     </div>
