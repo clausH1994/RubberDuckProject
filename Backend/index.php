@@ -30,6 +30,9 @@ $getColors = $coloQuery->fetchAll();
             } elseif ($_GET['status'] == "added") {
                 echo "The new entry has been successfully added!";
                 echo "<script>M.toast({html: 'Added!'})</script>";
+            } elseif ($_GET['status'] == "toBig") {
+                echo "Something went wrong with the Image - please upload image under 3MB!";
+                echo "<script>M.toast({html: 'Access denied!'})</script>";
             } elseif ($_GET['status'] == 0) {
                 echo "Forbidden access - redirected to home!";
                 echo "<script>M.toast({html: 'Access denied!'})</script>";
@@ -77,7 +80,7 @@ $getColors = $coloQuery->fetchAll();
 
 
 
-            <form class="col s12" name="contact" method="post" action="addEntry.php">
+            <form class="col s12" name="contact" method="post" action="addEntry.php" enctype="multipart/form-data">
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="Code" name="Code" type="text" class="validate" required="" aria-required="true">
@@ -110,7 +113,7 @@ $getColors = $coloQuery->fetchAll();
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <p>Image Url:</p>
+                        <p>Image Url(max:3MB):</p>
                         <input id="Image" name="Image" type="file" class="validate" required="" aria-required="true">
                     </div>
                 </div>
