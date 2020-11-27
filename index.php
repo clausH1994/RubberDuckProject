@@ -8,8 +8,6 @@ $product_array = $db_handle->runQuery("SELECT * FROM Product p ORDER BY ID ASC")
 
 $dbcon = dbCon();
 
-
-
 $newQuery = "SELECT * FROM News n, SpecialNews sn, DailySpecial ds
 WHERE n.newsID = sn.news 
 AND sn.daily = ds.dailyID
@@ -18,17 +16,26 @@ $newsHandle = $dbcon->prepare($newQuery);
 $newsHandle->execute();
 $lastNews = $newsHandle->fetchAll();
 
-$newsID = $lastNews[0]["newsID"];
+$colorAllSQU = "SELECT * FROM Color";
+$handleAllColor = $dbcon->prepare($colorAllSQU);
+$handleAllColor->execute();
+$allColor = $handleAllColor->fetchAll();
 
-$query = "SELECT * FROM NewsAndSpecialData WHERE newsID = $newsID ORDER BY productID DESC";
-$handle = $dbcon->prepare($query);
-$handle->execute();
 
-$newsAndSpecialData = $handle->fetchAll();
+if (!empty($lastNews)) {
+  $newsID = $lastNews[0]["newsID"];
 
-$i = 0;
+  $query = "SELECT * FROM NewsAndSpecialData WHERE newsID = $newsID ORDER BY productID DESC";
+  $handle = $dbcon->prepare($query);
+  $handle->execute();
+
+  $newsAndSpecialData = $handle->fetchAll();
+
+
+
+  $i = 0;
 ?>
-<div style="padding: 5px 5%;">
+
   <div class="row borders">
     <h4>Projects with a discount</h4>
     <div class="col s12 m3">
@@ -102,16 +109,50 @@ $i = 0;
             </div>
           </form>
 
-    <?php
+  <?php
           $i++;
         }
       }
     }
-    ?>
+  }
+  ?>
 
   </div>
-  <h4>All products</h4>
   <div class="row">
+    <form method="post" action="filteredProducts.php" ?>
+      <div class="input-field col s2" style="padding:40px; padding-bottom:0;">
+        <h5>Filter products:</h5>
+      </div>
+      <div class="input-field col s1">
+        <p>Color:</p>
+        <select name="filteredColor" class="browser-default">
+          <?php
+          echo "<option value='' selected disabled hidden>Choose here</option>";
+          foreach ($allColor as $Color) {
+            echo "<option value='" . $Color['colorID'] . "'>" . $Color['name'] . "</option>";
+          }
+          ?>
+        </select>
+      </div>
+      <div class="input-field col s1">
+        <p>Category:</p>
+        <select name="filteredCategory" class="browser-default">
+          <?php
+          echo "<option value='' selected disabled hidden>Choose here</option>";
+          foreach ($allCategory as $category) {
+            echo "<option value='" . $category['categoryID'] . "'>" . $category['name'] . "</option>";
+          }
+          ?>
+        </select>
+      </div>
+      <div class="input-field col s1" style="padding:55px; padding-bottom:0;">
+        <button class="btn waves-effect waves-light" type="submit" name="filter">filter</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <h4>All products</h4>
     <?php
 
     if (!empty($product_array)) {
@@ -149,12 +190,9 @@ $i = 0;
             </div>
           </div>
         </form>
-
     <?php
 
       }
     }
     ?>
   </div>
-
-</div>

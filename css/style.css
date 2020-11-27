@@ -96,3 +96,7 @@
 {
     text-decoration: line-through;
 }
+.row
+{
+   padding: 5px 5% !important;
+}
