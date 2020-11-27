@@ -13,7 +13,6 @@
 
     <div class="row">
     <?php
-    var_dump($_SESSION['cartItem']);
     $db_handle = new DBController();
 	$product_array = $db_handle->runQuery("SELECT * FROM Product ORDER BY ID ASC");
 	if (!empty($product_array)) { 

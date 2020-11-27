@@ -1,6 +1,8 @@
 <?php 
 require_once("shop/cartsession.php");
 
+if(isset($_SESSION['cartItem'])){
+
 $iq = 0;
 	
     foreach ($_SESSION["cartItem"] as $item){
@@ -8,7 +10,13 @@ $iq = 0;
 				$item["quantity"];
 		$iq += $item["quantity"];
 		
-		}
+    }
+    
+  }
+
+  else {
+    $iq = 0;
+  }
 
 ?><!DOCTYPE html>
 <html lang="en">

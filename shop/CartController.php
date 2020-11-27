@@ -15,6 +15,7 @@ class CartController
         if (!empty($quantity)) {
             $productByCode = $db_handle->runQuery("SELECT * FROM Product WHERE code='" . $code . "'");
             $this->newItemArray = array($productByCode[0]["code"] => array(
+                'id' => $productByCode[0]['ID'],
                 'name' => $productByCode[0]["name"],
                 'code' => $productByCode[0]["code"],
                 'quantity' => $_POST["quantity"],

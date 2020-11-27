@@ -53,7 +53,7 @@ CREATE TABLE Orderline
 (
     orderlineID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     price DECIMAL(5, 2) NOT NULL,
-    quanity INT NOT NULL,
+    quantity INT NOT NULL,
     `order` INT NOT NULL,
     product INT NOT NULL,
     FOREIGN KEY (`order`) REFERENCES `Order` (orderID)
