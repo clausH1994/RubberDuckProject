@@ -1,4 +1,8 @@
 <?php 
+require_once("connection/session.php");
+
+$session = new Session();
+
 require_once("shop/cartsession.php");
 
 if(isset($_SESSION['cartItem'])){

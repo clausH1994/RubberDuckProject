@@ -1,6 +1,6 @@
 <?php require_once "connection/dbcon.php";?>
-<?php include "shop/cartsession.php"?>
 <?php include "header.php" ?>
+<?php include "shop/cartsession.php"?>
 
  <?php
 //$dbCon = dbCon();
