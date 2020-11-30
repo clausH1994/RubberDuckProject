@@ -13,7 +13,7 @@ require "../header.php"
 </head>
 <?php
 $dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM Company");
+$query = $dbCon->prepare("SELECT * FROM OpeningHours");
 $query->execute();
 $getData = $query->fetchAll();
 
@@ -39,12 +39,14 @@ $getData = $query->fetchAll();
         <h4>Opening hours</h4>
         
         <tr >
-                    <th>Monday-Friday: 08:00-21:00</th>
-                    <br>
-                    <th>Saturday: 10:00-16:00</th>
-                    <br>
-                    <th>Sunday: 10:00-13:00</th>
-                </tr>
+    <?php
+    foreach($getData as $openingHour){
+        echo $openingHour['day']. ": ". $openingHour['startTime']. "-". $openingHour['endtime']. "<br>";
+    }
+
+
+    ?>
+        </tr>
         <hr>
         <h3>Contact form</h3>
         <br>
