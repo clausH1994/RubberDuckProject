@@ -39,7 +39,6 @@ while ($row = $handle->fetch()) {
     $phone = $row["phonenumber"];  
 }
 
-
 //var_dump($sql);
 //A4 width : 219mm
 //default margin : 10mm each side

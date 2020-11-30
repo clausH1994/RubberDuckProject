@@ -10,7 +10,7 @@
 </head>
 <?php
 $dbCon = dbCon();
-$query = $dbCon->prepare("SELECT * FROM Company");
+$query = $dbCon->prepare("SELECT * FROM Company, PostalCode");
 $query->execute();
 $getData = $query->fetchAll();
 ?>
@@ -25,6 +25,7 @@ $getData['postalID'];
 $getData['phone'];
 $getData['email'];
 $getData['description'];
+$getData['City'];
 }
 ?>
 
@@ -53,7 +54,7 @@ $getData['description'];
             <br>
           <h3>Address</h3>
                 <p> <?php echo $getData['address'] ;?> </p>
-                <p> <?php echo $getData['postalID'] ;?> </p>
+                <p> <?php echo $getData['postalID']. " ". $getData['City'] ;?> </p>
         </div>
     </div>
                
