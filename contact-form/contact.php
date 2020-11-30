@@ -48,7 +48,7 @@ $getData = $query->fetchAll();
         <hr>
         <h3>Contact form</h3>
         <br>
-        <form action="contactData.php.php" method="post">
+        <form action="contactData.php" method="post">
         Name: <input type="text" name="name" size="30">
         Email: <input type="text" name="email" size="30">
         Subject: <input type="text" name="subject" size="30">
