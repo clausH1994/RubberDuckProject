@@ -1,6 +1,6 @@
 <?php
 require_once "../connection/dbcon.php";
-
+$dbcon = dbCon();
 
 if (isset($_POST['submit'])) {
 
@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
   $Quantity = $_POST['Quantity'];
   $description = $_POST['description'];
 
+  $category = $_POST['category'];
 
   if (($_FILES['Image']['type'] == "image/jpeg" ||
     $_FILES['Image']['type'] == "image/pjpeg" ||
@@ -33,15 +34,15 @@ if (isset($_POST['submit'])) {
           "../img/" . $_FILES['Image']['name']
         );
         echo "stored in: img/" . $_FILES['Image']['name'];
-        
-        $Image = "img/".$_FILES['Image']['name'];
+
+        $Image = "img/" . $_FILES['Image']['name'];
 
         try {
 
           $sql = "INSERT INTO Product (`code`, `name`, `color`, `price`, `image`,`Quantity`, `desc`) VALUES (:code, :name, :color, :price, :image, :quantity, :description)";
-          $query = dbCon()->prepare($sql);
-        
-        
+          $query = $dbcon->prepare($sql);
+
+
           $sanitized_code = htmlspecialchars(trim($Code));
           $sanitized_name = htmlspecialchars(trim($Name));
           $sanitized_color = htmlspecialchars(trim($Color));
@@ -56,14 +57,25 @@ if (isset($_POST['submit'])) {
           $query->bindParam(':image', $sanitized_image);
           $query->bindParam(':quantity', $sanitized_quantity);
           $query->bindParam(':description', $sanitized_desc);
-        
+
           $query->execute();
-          header("Location: index.php?status=added");
-        
-        
+
           echo "The item has been added.";
-        
-        
+
+          $productID = $dbcon->lastInsertId();
+
+          $categorySql = "INSERT INTO ProductCategory(product, category) VALUES (:productId, :categoryId)";
+          $categoryQuery = $dbcon->prepare($categorySql);
+
+          $sanitized_productId = htmlspecialchars(trim($productID));
+          $categoryQuery->bindParam(':productId', $sanitized_productId);
+
+          $sanitized_category = htmlspecialchars(trim($category));
+          $categoryQuery->bindParam(':categoryId', $sanitized_category);
+
+          $categoryQuery->execute();
+
+          header("Location: index.php?status=added");
         } catch (\Throwable $ex) {
           echo "Error:" . $ex->getMessage();
         }
@@ -73,5 +85,3 @@ if (isset($_POST['submit'])) {
     header("Location: index.php?status=toBig");
   }
 }
-
- 

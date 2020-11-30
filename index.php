@@ -16,11 +16,15 @@ $newsHandle = $dbcon->prepare($newQuery);
 $newsHandle->execute();
 $lastNews = $newsHandle->fetchAll();
 
-$colorAllSQU = "SELECT * FROM Color";
-$handleAllColor = $dbcon->prepare($colorAllSQU);
+$colorAllSql = "SELECT * FROM Color";
+$handleAllColor = $dbcon->prepare($colorAllSql);
 $handleAllColor->execute();
 $allColor = $handleAllColor->fetchAll();
 
+$categoryAllSql = "SELECT * FROM Category";
+$handleAllCategory = $dbcon->prepare($categoryAllSql);
+$handleAllCategory->execute();
+$allCategory = $handleAllCategory->fetchAll();
 
 if (!empty($lastNews)) {
   $newsID = $lastNews[0]["newsID"];

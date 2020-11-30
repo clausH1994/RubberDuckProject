@@ -12,6 +12,10 @@ $coloQuery = $dbCon->prepare("SELECT * FROM Color");
 $coloQuery->execute();
 $getColors = $coloQuery->fetchAll();
 
+$coloQuery = $dbCon->prepare("SELECT * FROM Category");
+$coloQuery->execute();
+$getCategory = $coloQuery->fetchAll();
+
 ?>
 
 <body>
@@ -94,12 +98,22 @@ $getColors = $coloQuery->fetchAll();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <p>Color:</p>
                         <select name="Color" class="browser-default">
                             <?php
                             foreach ($getColors as $getColor) {
                                 echo "<option value='" . $getColor['colorID'] . "'>" . $getColor['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>Category:</p>
+                        <select name="category" class="browser-default">
+                            <?php
+                            foreach ($getCategory as $category) {
+                                echo "<option value='" . $category['categoryID'] . "'>" . $category['name'] . "</option>";
                             }
                             ?>
                         </select>

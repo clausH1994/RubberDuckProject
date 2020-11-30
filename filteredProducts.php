@@ -5,26 +5,47 @@ include "shop/cartsession.php";
 
 $dbcon = dbCon();
 
-$colorAllSQU = "SELECT * FROM Color";
-$handleAllColor = $dbcon->prepare($colorAllSQU);
+$colorAllSql = "SELECT * FROM Color";
+$handleAllColor = $dbcon->prepare($colorAllSql);
 $handleAllColor->execute();
 $allColor = $handleAllColor->fetchAll();
+
+$categoryAllSql = "SELECT * FROM Category";
+$handleAllCategory = $dbcon->prepare($categoryAllSql);
+$handleAllCategory->execute();
+$allCategory = $handleAllCategory->fetchAll();
+
+
+if (isset($_POST['filteredColor'])) {
+    $filteredColor = $_POST['filteredColor'];
+}
+if (isset($_POST['filteredCategory'])) {
+    $filteredCategory = $_POST['filteredCategory'];
+}
 
 
 if (isset($_POST['filter'])) {
     if (isset($_POST['filteredColor']) && isset($_POST['filteredCategory'])) {
-        echo "1";
-        $filteredColor = $_POST['filteredColor'];
-        $filteredCategory = $_POST['filteredCategory'];
+
+        $query = $dbcon->prepare("SELECT DISTINCT p.* FROM Product p, ProductCategory pc WHERE pc.category = :category 
+        AND pc.product = p.ID
+        AND color = :color");
+
+        $sanitized_category = htmlspecialchars(trim($filteredCategory));
+        $query->bindParam(':category', $sanitized_category);
+
+        $sanitized_color = htmlspecialchars(trim($filteredColor));
+        $query->bindParam(':color', $sanitized_color);
     } elseif (isset($_POST['filteredColor'])) {
-        echo "2";
-         $filteredColor = $_POST['filteredColor'];
+
         $query = $dbcon->prepare("SELECT * FROM Product p WHERE color = :color ORDER BY ID ASC");
         $sanitized_filteredColor = htmlspecialchars(trim($filteredColor));
         $query->bindParam(':color', $sanitized_filteredColor);
     } elseif (isset($_POST['filteredCategory'])) {
-        echo "3";
-        $filteredCategory = $_POST['filteredCategory'];
+
+        $query = $dbcon->prepare("SELECT DISTINCT p.* FROM Product p, ProductCategory pc WHERE pc.category = :category AND pc.product = p.ID");
+        $sanitized_category = htmlspecialchars(trim($filteredCategory));
+        $query->bindParam(':category', $sanitized_category);
     } else {
         $redirect = new Redirector("index.php");
     }
@@ -45,10 +66,13 @@ if (!empty($query)) {
             <p>Color:</p>
             <select name="filteredColor" class="browser-default">
                 <?php
-                echo "<option value=''  disabled hidden>Choose here</option>";
-                foreach ($allColor as $Color) {
-
-                    echo "<option value='" . $Color['colorID'] . "'>" . $Color['name'] . "</option>";
+                echo "<option value='' disabled hidden>Choose here</option>";
+                foreach ($allColor as $color) {
+                    if ($color['colorID'] == $filteredColor) {
+                        $select_attribute = 'selected';
+                    }
+                    echo "<option value='" . $color['colorID'] . "' $select_attribute>" . $color['name'] . "</option>";
+                    $select_attribute = "";
                 }
                 ?>
             </select>
@@ -59,7 +83,11 @@ if (!empty($query)) {
                 <?php
                 echo "<option value='' selected disabled hidden>Choose here</option>";
                 foreach ($allCategory as $category) {
-                    echo "<option value='" . $category['categoryID'] . "'>" . $category['name'] . "</option>";
+                    if ($category['categoryID'] == $filteredCategory) {
+                        $select_attribute = 'selected';
+                    }
+                    echo "<option value='" . $category['categoryID'] . "' $select_attribute>" . $category['name'] . "</option>";
+                    $select_attribute = "";
                 }
                 ?>
             </select>
