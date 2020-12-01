@@ -31,7 +31,7 @@ CREATE TABLE Customer (
     fname varchar(100) NOT NULL,
     lname varchar(100)  NOT NULL,
     pass varchar(255) NOT NULL,
-    phonenumber int NOT NULL,
+    phonenumber varchar(100) NOT NULL,
     email varchar(100) NOT NULL,
     `address` varchar(100) NOT NULL, 
     postalID int NOT NULL,
@@ -169,3 +169,19 @@ FROM News n, SpecialNews sn, DailySpecial ds, Offer o
 WHERE n.newsID = sn.news
 AND sn.daily = ds.dailyID
 AND o.dailyID = ds.dailyID
+
+CREATE VIEW InvoiceOrderData AS SELECT o.orderID, o.date, ol.product, p.name, p.price, o.invoice, o.numberOfProducts,
+c.customerID, c.fname, c.lname, c.phonenumber, c.address, c.postalID, pc.zipcodeID, pc.City
+FROM `Order` o, Orderline ol, Product p, Customer c, PostalCode pc
+WHERE o.orderID = ol.order
+AND ol.product = p.ID
+AND c.postalID = pc.zipcodeID
+
+DELIMITER //
+Create Trigger after_insert_Orderline AFTER INSERT ON Orderline FOR EACH ROW
+BEGIN
+UPDATE Product pt
+SET pt.quantity = pt.quantity - NEW.quantity
+WHERE pt.ID = NEW.product;
+END //
+DELIMITER ;
