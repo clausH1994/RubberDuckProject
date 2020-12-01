@@ -2,6 +2,12 @@
 <?php include "shop/cartsession.php" ?>
 <?php include "header.php" ?>
 <?php
+
+if (isset($_GET['status'])) {
+  if ($_GET['status'] == "accountUpdated") {    
+    echo "<script>M.toast({html: 'The Account has been successfully Updated!'})</script>";
+  }
+}
 $db_handle = new DBController();
 $product_array = $db_handle->runQuery("SELECT * FROM Product p ORDER BY ID ASC");
 

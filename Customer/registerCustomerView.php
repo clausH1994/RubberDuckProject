@@ -72,3 +72,4 @@ if (isset($_POST['submit'])) { // Form has been submitted.
             </div>
         </div>
     </div>
+</body>

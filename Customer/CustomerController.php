@@ -70,4 +70,21 @@ class CustomerController
         $CustomerDAO->createCustomerDB($fname, $lname, $phone, $address, $zipcode, $email, $hashed_password);
         $redirect = new Redirector("CustomerLoginView.php?status=registered");
     }
+
+    public function readCustomerById($customerID)
+    {
+        $customerDAO = new customerDAO();
+		$result = $customerDAO->readCustomerByIdDB($customerID);
+
+		return $result;
+    }
+
+    public function updateCustomer($fname, $lname, $pass, $phone, $email, $address, $postal, $customerID, $city)
+    {
+        $postalCon = new PostalCodeController();
+        $postalCon->CheckPostalCode($postal, $city);
+        $customerDAO = new customerDAO();
+		$customerDAO->updateCustomerDB($fname, $lname, $pass, $phone, $email, $address, $postal, $customerID);
+		$redirect = new Redirector("../index.php?status=accountUpdated");
+    }
 }
