@@ -22,6 +22,9 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+
 </head>
 
 <body>
@@ -58,9 +61,17 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
                 <input type="text" name="email" maxlength="30" required />
                 Password:
                 <input type="password" name="pass" maxlength="30" required />
+                <button class="g-recaptcha" data-sitekey="6LcuufQZAAAAAMU21o2A8a6GozK8GdXFKdcIGr78" data-callback='onSubmit' data-action='submit'>Verify</button>
+                <br><br>
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Login</button>
                 <a style="margin-left:70%" href="registerCustomerView.php">Register as Customer</a>
             </form>
         </div>
     </div>
 </body>
+
+<script>
+    function onSubmit(token) {
+        document.getElementById("demo-form").submit();
+    }
+</script>

@@ -27,6 +27,8 @@ $log->checkforAdmin();
 <head>
     <meta http-equiv="Content-Type" content="text/html" />
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
 </head>
 
 <body>
@@ -59,6 +61,9 @@ $log->checkforAdmin();
                 <input type="text" name="email" maxlength="30" required />
                 Password:
                 <input type="password" name="pass" maxlength="30" required />
+                <br><br>
+                <button class="g-recaptcha" data-sitekey="6LcuufQZAAAAAMU21o2A8a6GozK8GdXFKdcIGr78" data-callback='onSubmit' data-action='submit'>Verify</button>
+                <br><br>
                 <input type="submit" name="submit" value="Login" />
             </form>
         </div>
@@ -66,3 +71,9 @@ $log->checkforAdmin();
 </body>
 
 </html>
+
+<script>
+   function onSubmit(token) {
+     document.getElementById("demo-form").submit();
+   }
+ </script>
