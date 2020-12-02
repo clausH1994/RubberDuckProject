@@ -93,20 +93,23 @@ $pdf->Cell(189 ,10,'',0,1);//end of line
 //invoice contents
 $pdf->SetFont('Arial','B',12);
 
-$pdf->Cell(155 ,5,'Description',1,0);
+$pdf->Cell(121 ,5,'Description',1,0);
+$pdf->Cell(34 ,5,'Quantity',1,0);
 $pdf->Cell(34 ,5,'Amount',1,1);//end of line
 
 $pdf->SetFont('Arial','',12);
 
 //numbers are right aligned so we give 'R' after new line parameter
 $price = 0;
+$totalPrice = 0;
 $handle->execute(); 
 while ($item = $handle->fetch()) {
+$price = $item['price'] * $item['quantity'];
+$pdf->Cell(121 ,5,$item['name'],1,0);
+$pdf->Cell(34 ,5,$item['quantity'],1,0);
+$pdf->Cell(34 ,5,$price,1,1,'R');//end of line    
 
-$pdf->Cell(155 ,5,$item['name'],1,0);
-$pdf->Cell(34 ,5,$item['price'],1,1,'R');//end of line    
-
-$price += $item['price'];
+$totalPrice += $price;
 
 }
 
@@ -115,7 +118,7 @@ $price += $item['price'];
 $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(25 ,5,'Total Due',0,0);
 $pdf->Cell(5 ,5,'kr',1,0);
-$pdf->Cell(29 ,5,number_format($price),1,1,'R');//end of line
+$pdf->Cell(29 ,5,number_format($totalPrice),1,1,'R');//end of line
 
 
 $pdf->Output();
