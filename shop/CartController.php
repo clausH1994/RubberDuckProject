@@ -18,7 +18,9 @@ class CartController
                 'name' => $productByCode[0]["name"],
                 'code' => $productByCode[0]["code"],
                 'quantity' => $_POST["quantity"],
-                'price' => $productByCode[0]["price"]));
+                'price' => $productByCode[0]["price"],
+                'color' => $productByCode[0]["color"]
+            ));
 
             if (!empty($this->itemArray["cartItem"])) {
                 if (in_array($productByCode[0]["code"], array_keys($this->itemArray["cartItem"]))) {
