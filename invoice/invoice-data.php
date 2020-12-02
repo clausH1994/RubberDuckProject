@@ -20,6 +20,7 @@ $cData->execute();
 //$invoice = $handle->fetchAll();
 //var_dump($invoice);
 $getCompany = $cData->fetchAll();
+
 $invoiceID;
 
 while ($row = $handle->fetch()) {

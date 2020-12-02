@@ -32,6 +32,7 @@ require_once("AdminLoginHandle.php");
     <a href="../news/newsOverView.php" class="waves-effect waves-light btn grey headButton">News</a>
     <a href="../about/aboutUs.php" class="waves-effect waves-light btn grey headButton">About</a>
     <a href="../openingHours/openingHours.php" class="waves-effect waves-light btn grey headButton">openingHours</a>
+    <a href="../invoice/invoice-overview.php" class="waves-effect waves-light btn grey headButton">Invoices</a>
     <form method="post">
         <input id="btnLogout" class="grey btn" type="submit" name="logout" value="Logout" />
     </form>
