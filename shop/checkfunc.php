@@ -1,6 +1,5 @@
 <?php
 require_once("../connection/dbcon.php");
-require_once("../header.php");
 require_once("cartsession.php");
 
 function killsession() {

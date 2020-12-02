@@ -1,6 +1,12 @@
 <?php
 require ('fpdf.php');
 require ('../connection/dbcon.php');
+require_once ("../connection/session.php");
+
+$session = new Session();
+
+$session->confirm_adminlogged_in();
+
 $dbCon = dbCon();
 
 
