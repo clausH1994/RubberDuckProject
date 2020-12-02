@@ -13,7 +13,7 @@ AND c.postalID = pc.zipcodeID
 AND o.invoice = :invoiceID";
 
 $handle = $dbCon->prepare($sql);
-$handle->bindParam(':invoiceID', $_GET['invoiceID']); //$_GET['invoiceID'];
+$handle->bindParam(':invoiceID', $_GET['ID']); //$_GET['invoiceID'];
 $handle->execute();
 
 $query = "SELECT co.name, co.address, co.postalID, co.phone, co.email, pc.zipcodeID, pc.City 

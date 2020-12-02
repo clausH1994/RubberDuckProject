@@ -1,11 +1,10 @@
 <?php 
   require_once "connection/dbcon.php";
   require_once "connection/Redirector.php";
-  include "header.php" 
+  require_once "shop/cartsession.php"
   ?>
 
 <?php $total_price=0; 
-var_dump($_SESSION['cartItem']);
 
 if (isset($_SESSION['user_id'])) {
 

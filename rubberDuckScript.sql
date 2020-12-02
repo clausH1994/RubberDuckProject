@@ -176,6 +176,7 @@ FROM `Order` o, Orderline ol, Product p, Customer c, PostalCode pc
 WHERE o.orderID = ol.order
 AND ol.product = p.ID
 AND c.postalID = pc.zipcodeID
+AND o.customer = c.customerID
 
 DELIMITER //
 Create Trigger after_insert_Orderline AFTER INSERT ON Orderline FOR EACH ROW

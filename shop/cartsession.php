@@ -1,5 +1,6 @@
 <?php
 
+include "header.php";
 
 $user = '0';
 $userID = 0;
