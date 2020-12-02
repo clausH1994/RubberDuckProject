@@ -4,13 +4,8 @@ require ('../connection/dbcon.php');
 $dbCon = dbCon();
 
 
-$sql = "SELECT o.orderID, o.date, ol.product, p.name, p.price, o.invoice, o.numberOfProducts, 
-c.customerID, c.fname, c.lname, c.phonenumber, c.address, c.postalID, pc.zipcodeID, pc.City
-FROM `Order` o, Orderline ol, Product p, Customer c, PostalCode pc
-WHERE o.orderID = ol.order
-AND ol.product = p.ID
-AND c.postalID = pc.zipcodeID
-AND o.invoice = :invoiceID";
+$sql = "SELECT * FROM InvoiceOrderData
+WHERE invoice = :invoiceID";
 
 $handle = $dbCon->prepare($sql);
 $handle->bindParam(':invoiceID', $_GET['invoiceID']); //$_GET['invoiceID'];
