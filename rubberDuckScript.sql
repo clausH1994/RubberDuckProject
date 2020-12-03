@@ -15,7 +15,7 @@ CREATE TABLE Employee (
 CREATE TABLE Invoice (
     invoiceID int AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `date` date NOT NULL,
-    details varchar(60000) NULl,
+    details varchar(60000) NULL,
     `status` boolean NOT NULL
 );
 
