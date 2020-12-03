@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php 
+require_once("connection/session.php");
+
+$session = new Session();
+
+require_once("shop/cartsession.php");
+
+if(isset($_SESSION['cartItem'])){
+
+$iq = 0;
+	
+    foreach ($_SESSION["cartItem"] as $item){
+		
+ 				$item["quantity"];
+ 		$iq += $item["quantity"];
+		
+     }
+    
+   }
+
+   else {
+     $iq = 0;
+   }
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +38,7 @@
     <div class="nav-wrapper">
       <a href="index.php" class="brand-logo">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="cart.php">Cart</a></li>
+        <li><a href="cart.php"> Cart</a></li>
       </ul>
     </div>
   </nav>

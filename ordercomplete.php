@@ -1,11 +1,9 @@
 <?php
-require ('fpdf.php');
-require ('../connection/dbcon.php');
-require_once ("../connection/session.php");
+require ('invoice/fpdf.php');
+require ('connection/dbcon.php');
+require_once ("connection/session.php");
 
 $session = new Session();
-
-$session->confirm_adminlogged_in();
 
 $dbCon = dbCon();
 
@@ -14,7 +12,7 @@ $sql = "SELECT * FROM InvoiceOrderData
 WHERE invoice = :invoiceID";
 
 $handle = $dbCon->prepare($sql);
-$handle->bindParam(':invoiceID', $_GET['ID']); //$_GET['invoiceID'];
+$handle->bindParam(':invoiceID', $_SESSION['invoice']); //$_GET['invoiceID'];
 $handle->execute();
 
 $query = "SELECT co.name, co.address, co.postalID, co.phone, co.email, pc.zipcodeID, pc.City 
@@ -38,7 +36,8 @@ while ($row = $handle->fetch()) {
     $cName = $row["fname"] . " " . $row["lname"];
     $address = $row["address"];
     $city = $row["zipcodeID"] . " " . $row["City"];
-    $phone = $row["phonenumber"];  
+    $phone = $row["phonenumber"];
+    $cemail = $row['email'];  
 }
 
 //var_dump($sql);
@@ -127,6 +126,87 @@ $pdf->Cell(25 ,5,'Total Due',0,0);
 $pdf->Cell(5 ,5,'kr',1,0);
 $pdf->Cell(29 ,5,number_format($totalPrice),1,1,'R');//end of line
 
+$strint = strval($_SESSION['invoice']);
 
-$pdf->Output();
+$print = "invoices/" . $strint . ".pdf";
+
+$pdf->Output($print,"f");
+
+
+
+
+$cusmail = $cemail;
+$name = $cName;
+$email = $getCompany[0]["email"];
+$subject = "Your order has been confirmed";
+$msg = "We have recived your order and are now working on shipping it to you";
+
+$RegXp = "";
+
+
+// Recipient 
+$to = $cusmail; 
+ 
+// Sender 
+$from = $email; 
+$fromName = 'Rubber Duck Shop'; 
+ 
+// Email subject 
+$subject = 'Din Ordre er komplet';  
+ 
+// Attachment file 
+$file = $print; 
+ 
+// Email body content 
+$htmlContent = ' 
+    <h3>Linje 1</h3> 
+    <p>Linje 2</p> 
+'; 
+ 
+// Header for sender info 
+$headers = "From: $fromName"." <".$from.">"; 
+ 
+// Boundary  
+$semi_rand = md5(time());  
+$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";  
+ 
+// Headers for attachment  
+$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
+ 
+// Multipart boundary  
+$message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" . 
+"Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n";  
+ 
+// Preparing attachment 
+if(!empty($file) > 0){ 
+    if(is_file($file)){ 
+        $message .= "--{$mime_boundary}\n"; 
+        $fp =    @fopen($file,"rb"); 
+        $data =  @fread($fp,filesize($file)); 
+ 
+        @fclose($fp); 
+        $data = chunk_split(base64_encode($data)); 
+        $message .= "Content-Type: application/octet-stream; name=\"".basename($file)."\"\n" .  
+        "Content-Description: ".basename($file)."\n" . 
+        "Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" .  
+        "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n"; 
+    } 
+} 
+$message .= "--{$mime_boundary}--"; 
+$returnpath = "-f" . $from; 
+ 
+// Send email 
+$mail = @mail($to, $subject, $message, $headers, $returnpath);  
+ 
+// Email sending status 
+echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>"
+
+
+// if(isset($print)){
+//     $body = $msg;
+//     mail($cusmail,$subject,$body,"From: $email\n");
+//     echo "Email sendt";
+// }
+
+
 ?>

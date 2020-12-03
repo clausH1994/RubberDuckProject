@@ -1,7 +1,6 @@
-<?php require_once "connection/dbcon.php"; ?>
-<?php include "shop/cartsession.php" ?>
-<?php include "header.php" ?>
-<?php
+<?php require_once "connection/dbcon.php";?>
+<?php include "header.php"
+?>
 
 if (isset($_GET['status'])) {
   if ($_GET['status'] == "accountUpdated") {    
