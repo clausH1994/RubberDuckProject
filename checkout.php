@@ -1,21 +1,16 @@
 <?php 
   require_once "connection/dbcon.php";
   require_once "connection/Redirector.php";
-  require_once "header.php"
-  ?>
-
-<?php $total_price=0; 
+  require_once "header.php";
+  $total_price=0; 
 
 if (isset($_SESSION['user_id'])) {
-
     $customerID = htmlspecialchars($_SESSION['user_id']);
     $dbCon = dbCon();
     $query = $dbCon->prepare("SELECT * FROM Customer, PostalCode WHERE CustomerID=$customerID AND PostalCode.zipcodeID=Customer.postalID");
     $query->execute();
     $getCustomer = $query->fetchAll();
-    
     ?>
-
 <div class="row" class="checkout">
     <form class="col s6" method="post" action="shop/checkfunc.php">
     <div class="row">
@@ -61,13 +56,7 @@ if (isset($_SESSION['user_id'])) {
     </form>
     <input type="hidden" name="customerID" value="<?php echo $customerID; ?>">
     </div>
-  <?php } 
   
-  else {
-    $redirect = new Redirector('customer/CustomerLoginView.php');
-   } ?>
-
-
   <div class="row" class="checkout">
     <form class="col s6">
     <table cellpadding="10" cellspacing="1">
@@ -94,10 +83,7 @@ if (isset($_SESSION['user_id'])) {
                         <?php
                 $total_price += ($item["price"]*$item["quantity"]);
                 
-                }
-
-                ?>
-
+                }?>
         <tr>
         <td colspan="5" ><strong>Total:</strong> <?php echo $total_price." DKK"; ?> </td>
         </tr>
@@ -106,3 +92,7 @@ if (isset($_SESSION['user_id'])) {
     </form>
     </div>
     </html>
+    <?php } 
+  else {
+    $redirect = new Redirector('customer/CustomerLoginView.php');
+   } ?>
