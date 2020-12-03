@@ -170,8 +170,8 @@ WHERE n.newsID = sn.news
 AND sn.daily = ds.dailyID
 AND o.dailyID = ds.dailyID
 
-CREATE VIEW InvoiceOrderData AS SELECT o.orderID, o.date, ol.product, p.name, p.price, o.invoice, o.numberOfProducts,
-c.customerID, c.fname, c.lname, c.phonenumber, c.address, c.postalID, pc.zipcodeID, pc.City
+CREATE VIEW InvoiceOrderData AS SELECT o.orderID, o.date, ol.product, ol.quantity, p.name, p.price, o.invoice, o.numberOfProducts,
+c.customerID, c.fname, c.lname, c.phonenumber, c.address, c.postalID, c.email, pc.zipcodeID, pc.City
 FROM `Order` o, Orderline ol, Product p, Customer c, PostalCode pc
 WHERE o.orderID = ol.order
 AND ol.product = p.ID

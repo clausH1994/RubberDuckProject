@@ -1,23 +1,21 @@
 <?php require_once "../connection/dbcon.php";
 require("../admin/adminHeader.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Product Management</title>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
 <?php
 $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM Product");
 $query->execute();
 $getProducts = $query->fetchAll();
-//var_dump($getProducts);
+
+$coloQuery = $dbCon->prepare("SELECT * FROM Color");
+$coloQuery->execute();
+$getColors = $coloQuery->fetchAll();
+
+$coloQuery = $dbCon->prepare("SELECT * FROM Category");
+$coloQuery->execute();
+$getCategory = $coloQuery->fetchAll();
+
 ?>
 
 <body>
@@ -36,6 +34,9 @@ $getProducts = $query->fetchAll();
             } elseif ($_GET['status'] == "added") {
                 echo "The new entry has been successfully added!";
                 echo "<script>M.toast({html: 'Added!'})</script>";
+            } elseif ($_GET['status'] == "toBig") {
+                echo "Something went wrong with the Image - please upload image under 3MB!";
+                echo "<script>M.toast({html: 'Access denied!'})</script>";
             } elseif ($_GET['status'] == 0) {
                 echo "Forbidden access - redirected to home!";
                 echo "<script>M.toast({html: 'Access denied!'})</script>";
@@ -48,6 +49,7 @@ $getProducts = $query->fetchAll();
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Code</th>
                             <th>Name</th>
                             <th>Color</th>
                             <th>Price</th>
@@ -61,15 +63,16 @@ $getProducts = $query->fetchAll();
                     <tbody>
                         <?php
                         foreach ($getProducts as $getProduct) {
-                            echo "<tr>";
-                            echo "<td>" . $getProduct['productID'] . "</td>";
-                            echo "<td>" . $getProduct['name'] . "</td>";
-                            echo "<td>" . $getProduct['color'] . "</td>";
-                            echo "<td>" . $getProduct['price'] . "</td>";
-                            echo "<td>" . $getProduct['image'] . "</td>";
-                            echo "<td>" . $getProduct['quantity'] . "</td>";
-                            echo '<td><a href="editEntry.php?ID=' . $getProduct['productID'] . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['productID'] . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                            echo "<tr>
+                            <td>" . $getProduct['ID'] . "</td>
+                            <td>" . $getProduct['code'] . "</td>
+                            <td>" . $getProduct['name'] . "</td>
+                            <td>" . $getProduct['color'] . "</td>
+                            <td>" . $getProduct['price'] . "</td>
+                            <td>" . $getProduct['image'] . "</td> 
+                            <td>" . $getProduct['quantity'] . "</td>";
+                            echo '<td><a href="editEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn" ">Edit</a></td>';
+                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                             echo "</tr>";
                         }
                         ?>
@@ -79,7 +82,15 @@ $getProducts = $query->fetchAll();
             <hr>
             <h3>Add new product to DB!</h3>
 
-            <form class="col s12" name="contact" method="post" action="addEntry.php">
+
+
+            <form class="col s12" name="contact" method="post" action="addEntry.php" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="Code" name="Code" type="text" class="validate" required="" aria-required="true">
+                        <label for="Code">Code</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="Name" name="Name" type="text" class="validate" required="" aria-required="true">
@@ -87,9 +98,25 @@ $getProducts = $query->fetchAll();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
-                        <input id="Color" name="Color" type="text" class="validate" required="" aria-required="true">
-                        <label for="Color">Color</label>
+                    <div class="input-field col s6">
+                        <p>Color:</p>
+                        <select name="Color" class="browser-default">
+                            <?php
+                            foreach ($getColors as $getColor) {
+                                echo "<option value='" . $getColor['colorID'] . "'>" . $getColor['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>Category:</p>
+                        <select name="category" class="browser-default">
+                            <?php
+                            foreach ($getCategory as $category) {
+                                echo "<option value='" . $category['categoryID'] . "'>" . $category['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -100,8 +127,8 @@ $getProducts = $query->fetchAll();
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="Image" name="Image" type="text" class="validate" required="" aria-required="true">
-                        <label for="Image">Image Url</label>
+                        <p>Image Url(max:3MB):</p>
+                        <input id="Image" name="Image" type="file" class="validate" required="" aria-required="true">
                     </div>
                 </div>
                 <div class="row">

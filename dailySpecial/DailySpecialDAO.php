@@ -23,7 +23,7 @@ class DailySpecialDAO
     {
         $dbcon = dbCon();
 
-        $query = "SELECT * FROM dailySpecial WHERE dailyID= :dailyID";
+        $query = "SELECT * FROM DailySpecial WHERE dailyID= :dailyID";
         $handle = $dbcon->prepare($query);
         $handle->bindParam(':dailyID', $dailyID);
 
@@ -38,7 +38,7 @@ class DailySpecialDAO
         try {
             $dbcon = dbCon();
 
-            $query = "INSERT INTO dailySpecial (discount) VALUES (:discount)";
+            $query = "INSERT INTO DailySpecial (discount) VALUES (:discount)";
             $handle = $dbcon->prepare($query);
 
             $sanitized_discount = htmlspecialchars(trim($discount));
@@ -58,4 +58,23 @@ class DailySpecialDAO
             print($ex->getMessage());
         }
     }
+
+    public function deleteDailySpecialDB($dailyID)
+    {
+        try {
+            $dbcon = dbCon();
+
+            $query = "DELETE FROM DailySpecial WHERE dailyID = :dailyID";
+            $handle = $dbcon->prepare($query);
+            $handle->bindParam(':dailyID', $dailyID);
+
+            $handle->execute();
+
+            //close the connection
+            $dbcon = null;
+        } catch (\PDOException $ex) {
+            print($ex->getMessage());
+        }
+    }
+
 }

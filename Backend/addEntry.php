@@ -1,52 +1,87 @@
 <?php
 require_once "../connection/dbcon.php";
-
+$dbcon = dbCon();
 
 if (isset($_POST['submit'])) {
 
-    
-$Name = $_POST['Name'];
-$Color = $_POST['Color'];
-$Price = $_POST['Price'];
-$Image = $_POST['Image'];
-$Quantity = $_POST['Quantity'];
-$description = $_POST['description'];
-}
 
-try {
+  $Code = $_POST['Code'];
+  $Name = $_POST['Name'];
+  $Color = $_POST['Color'];
+  $Price = $_POST['Price'];
+  $Quantity = $_POST['Quantity'];
+  $description = $_POST['description'];
 
-$sql = "INSERT INTO Product (`name`, `color`, `price`, `image`,`Quantity`, `description`) VALUES (:name, :color, :price, :image, :quantity, :description)";
-$query = dbCon()->prepare($sql);
+  $category = $_POST['category'];
 
-//$query = dbCon()->prepare("INSERT INTO product (`name`, `color`, `price`, `image`, `description`) VALUES ('$Name', '$Color', '$Price', '$Image', '$description')");
+  if (($_FILES['Image']['type'] == "image/jpeg" ||
+    $_FILES['Image']['type'] == "image/pjpeg" ||
+    $_FILES['Image']['type'] == "image/gif" ||
+    $_FILES['Image']['type'] == "image/jpg" ||
+    $_FILES['Image']['type'] == "image/png") && ($_FILES['Image']['size'] < 3000000)) {
+    if ($_FILES['Image']['error'] > 0) {
+      echo "Error: " . $_FILES['Image']['error'];
+    } else {
+      echo "Name: " . $_FILES['Image']['name'] . "<br>";
+      echo "Type: " . $_FILES['Image']['type'] . "<br>";
+      echo "Size: " . ($_FILES['Image']['size'] / 1024) . "<br>";
+      echo "Tmp_name: " . $_FILES['Image']['tmp_name'] . "<br>";
+      if (file_exists("../img/" . $_FILES['Image']['name'])) {
+        echo "can't upload: " . $_FILES['Image']['name'] . " Exists";
+      } else {
+        move_uploaded_file(
+          $_FILES['Image']['tmp_name'],
+          "../img/" . $_FILES['Image']['name']
+        );
+        echo "stored in: img/" . $_FILES['Image']['name'];
 
-$sanitized_name = htmlspecialchars(trim($Name));
-$sanitized_color = htmlspecialchars(trim($Color));
-$sanitized_price = htmlspecialchars(trim($Price));
-$sanitized_image = htmlspecialchars(trim($Image));
-$sanitized_quantity = htmlspecialchars(trim($Quantity));
-$sanitized_desc = htmlspecialchars(trim($description));
-$query->bindParam(':name', $sanitized_name);
-$query->bindParam(':color', $sanitized_color);
-$query->bindParam(':price', $sanitized_price);
-$query->bindParam(':image', $sanitized_image);
-$query->bindParam(':quantity', $sanitized_quantity);
-$query->bindParam(':description', $sanitized_desc);
+        $Image = "img/" . $_FILES['Image']['name'];
 
-$query->execute();
-  header("Location: index.php?status=added");
+        try {
+
+          $sql = "INSERT INTO Product (`code`, `name`, `color`, `price`, `image`,`Quantity`, `desc`) VALUES (:code, :name, :color, :price, :image, :quantity, :description)";
+          $query = $dbcon->prepare($sql);
 
 
-echo "The item has been added.";
+          $sanitized_code = htmlspecialchars(trim($Code));
+          $sanitized_name = htmlspecialchars(trim($Name));
+          $sanitized_color = htmlspecialchars(trim($Color));
+          $sanitized_price = htmlspecialchars(trim($Price));
+          $sanitized_image = htmlspecialchars(trim($Image));
+          $sanitized_quantity = htmlspecialchars(trim($Quantity));
+          $sanitized_desc = htmlspecialchars(trim($description));
+          $query->bindParam(':code', $sanitized_code);
+          $query->bindParam(':name', $sanitized_name);
+          $query->bindParam(':color', $sanitized_color);
+          $query->bindParam(':price', $sanitized_price);
+          $query->bindParam(':image', $sanitized_image);
+          $query->bindParam(':quantity', $sanitized_quantity);
+          $query->bindParam(':description', $sanitized_desc);
 
-//}
+          $query->execute();
 
-// else{
-//    header("Location: index.php?status=0");
-// }
+          echo "The item has been added.";
 
-}
+          $productID = $dbcon->lastInsertId();
 
-catch(\Throwable $ex){
-  echo "Error:" . $ex->getMessage();
+          $categorySql = "INSERT INTO ProductCategory(product, category) VALUES (:productId, :categoryId)";
+          $categoryQuery = $dbcon->prepare($categorySql);
+
+          $sanitized_productId = htmlspecialchars(trim($productID));
+          $categoryQuery->bindParam(':productId', $sanitized_productId);
+
+          $sanitized_category = htmlspecialchars(trim($category));
+          $categoryQuery->bindParam(':categoryId', $sanitized_category);
+
+          $categoryQuery->execute();
+
+          header("Location: index.php?status=added");
+        } catch (\Throwable $ex) {
+          echo "Error:" . $ex->getMessage();
+        }
+      }
+    }
+  } else {
+    header("Location: index.php?status=toBig");
+  }
 }

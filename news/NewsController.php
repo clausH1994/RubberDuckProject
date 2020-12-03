@@ -39,24 +39,61 @@ class NewsController
     public function deleteNews($newsID)
     {
         $newsDAO = new NewsDAO();
+
         $newsDAO->deleteNewsDB($newsID);
         $redirect = new Redirector("newsOverView.php");
     }
 
-    public function manangeCreate($title, $desc, $date, $disconunt)
+    public function deleteViewData()
+    {
+        $newsDAO = new NewsDAO();
+        $row = $newsDAO->NewsAndSpecialDataDB();
+
+        for ($i = 0; $i < 1; $i++) {
+            echo
+                "<h3>" . $row[0]['title'] .  "&nbsp;".
+                 $row[0]['description']  . "&nbsp;" .
+                 $row[0]['date'] . "</h3>";
+        }
+
+        foreach ($row as $row) {
+
+            echo
+                "<tr>" .
+                    "<td>" . $row['dailyID'] . "</td>" .
+                    "<td>" . $row['discount'] . "</td>" .
+                    "<td>" . $row['productID'] . "</td>" .
+                    "</tr>";
+        }
+    }
+
+    public function deleteNewsAndrelevantRelations($newsID)
+    {
+        $newsDAO = new NewsDAO();
+        $newsDAO->deleteNewsAndrelevantRelationsDB($newsID);
+        $redirect = new Redirector("newsOverView.php");
+    }
+
+
+    public function manangeCreate($title, $desc, $date, $disconunt, $listOfproducts)
     {
         $newsID = $this->createNews($title, $desc, $date);
 
 
         if ($disconunt != null || $disconunt != "") {
-            require("../dailySpecial/DailySpecialController.php");
-            require("../SpecialNews/SpecialNewsController.php");
+            require_once("../dailySpecial/DailySpecialController.php");
+            require_once("../SpecialNews/SpecialNewsController.php");
+            require_once("../offer/OfferController.php");
 
             $dailySpecialDAO = new DailySpecialDAO();
             $dailyID = $dailySpecialDAO->createDailySpecialDB($disconunt);
 
             $specialNews = new SpecialNewsController();
             $specialNews->createSpecialNews($dailyID, $newsID);
+
+            $offer = new OfferController();
+            $offer->createOffer($listOfproducts, $dailyID);
+
             $redirect = new Redirector("newsOverView.php");
         }
     }
@@ -83,8 +120,8 @@ class NewsController
             echo "<td>";
             if ($specials != null) {
                 foreach ($specials as $special) {
-                    
-                   
+
+
 
                     $dailyS = $dailyCon->readdailySpecialByID($special[0]);
 
@@ -93,21 +130,19 @@ class NewsController
 
                     $amount = count($dailyS);
 
-                    if($i <= $amount)
-                    {
-                        echo "&nbsp;" . "%" ;
+                    if ($i <= $amount) {
+                        echo "&nbsp;" . "%";
                         echo "<br>";
                         $i++;
                     }
-                    
                 }
                 $i = 0;
             } else {
                 $dailyIndex = "";
-            } 
+            }
             echo "</td>";
             echo '<td><a href="newsEditView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-            echo '<td><a href="newsDelete.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+            echo '<td><a href="newsDeleteView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn red">Delete</a></td>';
             echo "</tr>";
         }
     }

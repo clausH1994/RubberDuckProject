@@ -19,29 +19,29 @@ try {
     // $query->execute();
 
     
-    $sql = "UPDATE Product SET `name`=:name, `color`=:color, `price`=:price, `image`=:image, `quantity`=:quantity, `description`=:description WHERE productID=:ID";
+    $sql = "UPDATE Product SET `code`=:code, `name`=:name, `color`=:color, `price`=:price, `image`=:image, `quantity`=:quantity, `desc`=:description WHERE ID=:ID";
     //$sql = "UPDATE product SET `name`=:name WHERE productID=:ID";
     $query = dbCon()->prepare($sql);
 
     $sanitized_id = htmlspecialchars(trim($entryID));
+    $sanitized_code = htmlspecialchars(trim($Code));
     $sanitized_name = htmlspecialchars(trim($Name));
     $sanitized_color = htmlspecialchars(trim($Color));
     $sanitized_price = htmlspecialchars(trim($Price));
     $sanitized_image = htmlspecialchars(trim($Image));
     $sanitized_quantity = htmlspecialchars(trim($Quantity));
     $sanitized_desc = htmlspecialchars(trim($description));
-    $query->bindParam(':ID', $sanitized_id);
+    $query->bindParam(':code', $sanitized_code);
     $query->bindParam(':name', $sanitized_name);
     $query->bindParam(':color', $sanitized_color);
     $query->bindParam(':price', $sanitized_price);
     $query->bindParam(':image', $sanitized_image);
     $query->bindParam(':quantity', $sanitized_quantity);
     $query->bindParam(':description', $sanitized_desc);
-    
 
     $query->execute();
     
-    header("Location: index.php?status=updated&ID=$ProductID");
+    header("Location: index.php?status=updated&ID=$ID");
 
 // }else{
 //    header("Location: index.php?status=0");

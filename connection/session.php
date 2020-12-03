@@ -26,8 +26,8 @@ class Session
 
 	public function confirm_userlogged_in()
 	{
-		if (!$this->adminlogged_in()) {
-			$redirect = new Redirector("../customer/userLoginView.php");
+		if (!$this->userlogged_in()) {
+			$redirect = new Redirector("../customer/customerLoginView.php");
 		}
 	}
 }

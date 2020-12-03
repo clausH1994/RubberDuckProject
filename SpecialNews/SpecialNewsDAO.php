@@ -53,4 +53,22 @@ class SpecialNewsDAO
             print($ex->getMessage());
         }
     }
+
+    public function deleteSpecialNewsWithNewsIDDB($newsID)
+    {
+        try {
+            $dbcon = dbCon();
+
+            $query = "DELETE FROM SpecialNews WHERE news = :newsID";
+            $handle = $dbcon->prepare($query);
+            $handle->bindParam(':newsID', $newsID);
+
+            $handle->execute();
+
+            //close the connection
+            $dbcon = null;
+        } catch (\PDOException $ex) {
+            print($ex->getMessage());
+        }
+    }
 }

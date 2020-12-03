@@ -1,5 +1,6 @@
 <?php require_once("../admin/adminHeader.php");
 require_once("NewsController.php");
+unset($_SESSION["discountProducts"]);
 ?>
 
 <body>
