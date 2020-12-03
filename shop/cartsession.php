@@ -1,7 +1,5 @@
 <?php
 
-include "header.php";
-
 $user = '0';
 $userID = 0;
 spl_autoload_register(function ($class)

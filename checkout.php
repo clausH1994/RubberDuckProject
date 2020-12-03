@@ -1,7 +1,7 @@
 <?php 
   require_once "connection/dbcon.php";
   require_once "connection/Redirector.php";
-  require_once "shop/cartsession.php"
+  require_once "header.php"
   ?>
 
 <?php $total_price=0; 

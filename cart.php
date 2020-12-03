@@ -1,4 +1,4 @@
-<?php require_once "shop/cartsession.php" ?>
+<?php require_once "header.php" ?>
 
 <div id="shopping-cart">
 <div class="heading">Shopping Cart <a class="waves-effect waves-light btn" id="emptyBtn" href="cart.php?action=empty">Empty Cart</a></div>

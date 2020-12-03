@@ -1,6 +1,6 @@
 <?php
 require_once("../connection/dbcon.php");
-require_once("cartsession.php");
+require_once("../header.php");
 
 function killsession() {
 	unset($_SESSION["cartItem"]);
@@ -38,6 +38,8 @@ $query->execute();
 
 $last_id = $dbcon->lastInsertId(); 
 
+$_SESSION['invoice'] = $last_id;
+
 $sql = "INSERT INTO `Order` (`date`, `numberOfProducts`, `customer`, `invoice`) VALUES (:date, :numberOfProducts, :customer, :invoice)";
 $query = $dbcon->prepare($sql);
 
@@ -68,12 +70,13 @@ foreach ($_SESSION["cartItem"] as $items){
 			$query->execute();
 	
 		}
-	}
+	} 
 
 catch(\Throwable $ex){
   var_dump($query);
     echo "Error:" . $ex->getMessage();
   }
+
 killsession();
 
-header("Location: ../index.php?status=bought");
+header("Location: ../ordercomplete.php");
