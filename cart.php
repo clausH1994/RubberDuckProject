@@ -17,8 +17,9 @@ $dbcon = dbCon();
 		$cartItem = $_SESSION["cartItem"];
 		$amountOfproducts = count($cartItem);
 		$amountOfproductsMinustwo = $amountOfproducts - 2;
-		$x = 0;
-		$rand = rand(0, $amountOfproductsMinustwo);
+	
+		
+		
 	?>
 		<table cellpadding="10" cellspacing="1">
 			<tbody>
@@ -31,6 +32,8 @@ $dbcon = dbCon();
 				</tr>
 
 				<?php
+				$x = 0;
+				$rand = rand(0, $amountOfproductsMinustwo);
 				foreach ($_SESSION["cartItem"] as $item) {
 				?>
 					<tr>
@@ -43,15 +46,16 @@ $dbcon = dbCon();
 				<?php
 
 					$total_price += ($item["price"] * $item["quantity"]);
+					if ($rand == $x) {
+						$recommendedColor2 = $item["color"];
+				    }
 					if ($x == $amountOfproducts - 1) {
 						$recommendedColor = $item["color"];
 					}
-					if ($x == $rand) {
-						$recommendedColor2 = $item["color"];
-					}
+				
 					$x++;
 				}
-
+				$x= 0;
 				?>
 
 				<tr>

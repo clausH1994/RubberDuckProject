@@ -28,7 +28,7 @@ try {
     $sanitized_code = htmlspecialchars(trim($Code));
     $sanitized_name = htmlspecialchars(trim($Name));
     $sanitized_color = htmlspecialchars(trim($Color));
-    $sanitized_price = htmlspecialchars(trim($Price));
+    $sanitized_price = htmlspecialchars(trim($Price)); 
     $sanitized_image = htmlspecialchars(trim($Image));
     $sanitized_quantity = htmlspecialchars(trim($Quantity));
     $sanitized_desc = htmlspecialchars(trim($description));
@@ -39,6 +39,8 @@ try {
     $query->bindParam(':image', $sanitized_image);
     $query->bindParam(':quantity', $sanitized_quantity);
     $query->bindParam(':description', $sanitized_desc);
+    $query->bindParam(':ID', $sanitized_id);
+
 
     $query->execute();
     

@@ -22,7 +22,8 @@ $iq = 0;
      $iq = 0;
    }
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +39,7 @@ $iq = 0;
     <div class="nav-wrapper">
       <a href="index.php" class="brand-logo">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="cart.php"> Cart</a></li>
+        <li><a href="cart.php"> <?php echo $iq ?> Cart</a></li>
       </ul>
     </div>
   </nav>

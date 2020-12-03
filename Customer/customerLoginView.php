@@ -12,9 +12,31 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
     $redirect = new Redirector("../index.php");
 }
 
+
+
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == "registered") {
+        echo "<script>M.toast({html:'The acount has been Registered!'})</script>";
+    }
+}
+
+if (isset($_POST['submit'])) { // Form has been submitted.
+
+    $regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
+    if (!preg_match($regexp, $_POST['email'])) {
+        echo "<p style='color: red; font-size: 20px'>please enter a valid mail</p>";
+    } else {
+
+        $cusCon->customerLogin($_POST['email'], $_POST['pass']);
+        $msg = $cusCon->message;
+    }
+}
+if (!empty($msg)) {
+    echo "<p>" . $msg . "</p>";
+}
+
 ?>
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html" />
     <!-- Compiled and minified CSS -->
@@ -30,31 +52,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
 <body>
     <div class="container">
         <div class="container" style="margin-top:25vh;">
-            <?php
-
-            if (isset($_GET['status'])) {
-                if ($_GET['status'] == "registered") {
-                    echo "<script>M.toast({html:'The acount has been Registered!'})</script>";
-                }
-            }
-
-            if (isset($_POST['submit'])) { // Form has been submitted.
-
-                $regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
-                if (!preg_match($regexp, $_POST['email'])) {
-                    echo "<p style='color: red; font-size: 20px'>please enter a valid mail</p>";
-                } else {
-
-                    $cusCon->customerLogin($_POST['email'], $_POST['pass']);
-                    $msg = $cusCon->message;
-                }
-            }
-            if (!empty($msg)) {
-                echo "<p>" . $msg . "</p>";
-            }
-
-
-            ?>
+   
             <h2>Please Login As Customer</h2>
             <form method="post">
                 Email:

@@ -20,12 +20,12 @@ if (isset($_POST['submit'])) {
     $_FILES['Image']['type'] == "image/jpg" ||
     $_FILES['Image']['type'] == "image/png") && ($_FILES['Image']['size'] < 3000000)) {
     if ($_FILES['Image']['error'] > 0) {
-      echo "Error: " . $_FILES['Image']['error'];
+      "Error: " . $_FILES['Image']['error'];
     } else {
-      echo "Name: " . $_FILES['Image']['name'] . "<br>";
-      echo "Type: " . $_FILES['Image']['type'] . "<br>";
-      echo "Size: " . ($_FILES['Image']['size'] / 1024) . "<br>";
-      echo "Tmp_name: " . $_FILES['Image']['tmp_name'] . "<br>";
+      "Name: " . $_FILES['Image']['name'] . "<br>";
+      "Type: " . $_FILES['Image']['type'] . "<br>";
+      "Size: " . ($_FILES['Image']['size'] / 1024) . "<br>";
+      "Tmp_name: " . $_FILES['Image']['tmp_name'] . "<br>";
       if (file_exists("../img/" . $_FILES['Image']['name'])) {
         echo "can't upload: " . $_FILES['Image']['name'] . " Exists";
       } else {
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
           $_FILES['Image']['tmp_name'],
           "../img/" . $_FILES['Image']['name']
         );
-        echo "stored in: img/" . $_FILES['Image']['name'];
+        "stored in: img/" . $_FILES['Image']['name'];
 
         $Image = "img/" . $_FILES['Image']['name'];
 
@@ -59,8 +59,6 @@ if (isset($_POST['submit'])) {
           $query->bindParam(':description', $sanitized_desc);
 
           $query->execute();
-
-          echo "The item has been added.";
 
           $productID = $dbcon->lastInsertId();
 

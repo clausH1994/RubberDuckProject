@@ -62,8 +62,7 @@ if (isset($_GET['ID'])) {
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="Image" name="Image" type="text" value="<?php echo $getProducts[0]['image']; ?>" class="validate" required="" aria-required="true">
-                        <label for="Image">image location</label>
+                        <input id="Image" name="Image" type="hidden" value="<?php echo $getProducts[0]['image']; ?>" class="validate" required="" aria-required="true">
                     </div>
                 </div>
                 <div class="row">

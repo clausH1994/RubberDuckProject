@@ -1,8 +1,9 @@
 <?php 
   require_once "connection/dbcon.php";
   require_once "connection/Redirector.php";
-  require_once "header.php";
   $total_price=0; 
+
+  require_once "header.php";
 
 if (isset($_SESSION['user_id'])) {
     $customerID = htmlspecialchars($_SESSION['user_id']);
@@ -10,6 +11,8 @@ if (isset($_SESSION['user_id'])) {
     $query = $dbCon->prepare("SELECT * FROM Customer, PostalCode WHERE CustomerID=$customerID AND PostalCode.zipcodeID=Customer.postalID");
     $query->execute();
     $getCustomer = $query->fetchAll();
+
+    
     ?>
 <div class="row" class="checkout">
     <form class="col s6" method="post" action="shop/checkfunc.php">
@@ -94,5 +97,5 @@ if (isset($_SESSION['user_id'])) {
     </html>
     <?php } 
   else {
-    $redirect = new Redirector('customer/CustomerLoginView.php');
+    $redirect = new Redirector('Customer/customerLoginView.php');
    } ?>

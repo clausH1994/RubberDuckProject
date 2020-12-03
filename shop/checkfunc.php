@@ -1,6 +1,9 @@
 <?php
 require_once("../connection/dbcon.php");
-require_once("../header.php");
+require_once("../connection/session.php");
+
+$session = new Session();
+//require_once("../header.php");
 
 function killsession() {
 	unset($_SESSION["cartItem"]);

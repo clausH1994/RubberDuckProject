@@ -1,6 +1,6 @@
 <?php
 require_once("CustomerDAO.php");
-require_once("../postalcode/POstalCodeController.php");
+require_once("../postalcode/PostalCodeController.php");
 require_once("../connection/Redirector.php");
 
 class CustomerController
@@ -9,7 +9,6 @@ class CustomerController
 
     public function customerLogin($email, $pass)
     {
-
         $email = htmlspecialchars(trim($email));
         $pass = htmlspecialchars(trim($pass));
         $query = dbCon()->prepare("SELECT customerID, email, pass FROM Customer WHERE email = '{$email}' LIMIT 1");
@@ -68,7 +67,7 @@ class CustomerController
 
         $CustomerDAO = new CustomerDAO();
         $CustomerDAO->createCustomerDB($fname, $lname, $phone, $address, $zipcode, $email, $hashed_password);
-        $redirect = new Redirector("CustomerLoginView.php?status=registered");
+        $redirect = new Redirector("customerLoginView.php?status=registered");
     }
 
     public function readCustomerById($customerID)
