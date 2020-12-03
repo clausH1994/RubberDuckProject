@@ -7,8 +7,15 @@ class PostalCodeDAO
         try {
             $dbcon = dbCon();
 
-            $query = "INSERT INTO PostalCode (zipcodeID, City) VALUES ('" . $zipCode . "', '" . $city . "')";
+            $query = "INSERT INTO PostalCode (zipcodeID, City) VALUES (:zipcode, :city)";
             $handle = $dbcon->prepare($query);
+
+            $sanitized_zipcode = htmlspecialchars(trim($zipCode));
+            $sanitized_city = htmlspecialchars(trim($city));
+
+            $handle->bindParam(':zipcode', $sanitized_zipcode);
+            $handle->bindParam(':city', $sanitized_city);
+
             $handle->execute();
 
             $dbcon = null;
