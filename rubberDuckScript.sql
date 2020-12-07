@@ -183,7 +183,12 @@ INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Sunday','12.0
 INSERT INTO `Order`(`date`, `numberOfProducts`, `customer`, `invoice`) VALUES ('2020-12-04','15','1','2');
 INSERT INTO `Order`(`date`, `numberOfProducts`, `customer`, `invoice`) VALUES ('2020-12-07','9','1','3');
 
+INSERT INTO `PostalCode`(`zipcodeID`, `City`) VALUES ('6715','Esbjerg N');
+INSERT INTO `PostalCode`(`zipcodeID`, `City`) VALUES ('5000','Odense');
+INSERT INTO `PostalCode`(`zipcodeID`, `City`) VALUES ('6700','Esbjerg');
 
+INSERT INTO `Orderline`(`price`, `quantity`, `order`, `product`) VALUES ('75.00','3','1','2');
+INSERT INTO `Orderline`(`price`, `quantity`, `order`, `product`) VALUES ('100.00','2','2','3');
 
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
