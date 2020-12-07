@@ -199,15 +199,16 @@ INSERT INTO `DailySpecial`(`discount`) VALUES ('50');
 INSERT INTO `DailySpecial`(`discount`) VALUES ('66');
 INSERT INTO `DailySpecial`(`discount`) VALUES ('75');
 
-INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('3','2')
-INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('1','3')
-INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('2','1')
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('3','2');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('1','3');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('2','1');
 
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','3')
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','4')
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('3','4')
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','3');
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','4');
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('3','4');
 
-INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','3')
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','3');
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','4')
 
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
