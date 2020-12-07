@@ -190,6 +190,15 @@ INSERT INTO `PostalCode`(`zipcodeID`, `City`) VALUES ('6700','Esbjerg');
 INSERT INTO `Orderline`(`price`, `quantity`, `order`, `product`) VALUES ('75.00','3','1','2');
 INSERT INTO `Orderline`(`price`, `quantity`, `order`, `product`) VALUES ('100.00','2','2','3');
 
+INSERT INTO `Category`(`name`) VALUES ('big');
+INSERT INTO `Category`(`name`) VALUES ('medium');
+INSERT INTO `Category`(`name`) VALUES ('small');
+
+INSERT INTO `DailySpecial`(`discount`) VALUES ('33');
+INSERT INTO `DailySpecial`(`discount`) VALUES ('50');
+INSERT INTO `DailySpecial`(`discount`) VALUES ('66');
+INSERT INTO `DailySpecial`(`discount`) VALUES ('75');
+
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
 FROM News n, SpecialNews sn, DailySpecial ds, Offer o
