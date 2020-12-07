@@ -26,7 +26,7 @@ if (!empty($_GET["action"])) {
             //adding items to cart
         case "add":
 
-            $dailyCon->addtoDiscountProduct($productID , $code);
+            $dailyCon->addtoDiscountProduct($productID, $code);
 
             $adminId =  $_SESSION['admin_id'];
             $admin = $_SESSION['admin'];
@@ -128,13 +128,13 @@ if (isset($_POST['cancel'])) { // Form has been submitted.
                                 <tbody>
                                     <?php
                                     foreach ($getProducts as $getProduct) {
-                                        echo "<tr>";
-                                        echo "<td>" . $getProduct['ID'] . "</td>";
-                                        echo "<td>" . $getProduct['name'] . "</td>";
-                                        echo "<td>" . $getProduct['color'] . "</td>";
-                                        echo "<td>" . $getProduct['price'] . "</td>";
-                                        echo "<td>" . $getProduct['quantity'] . "</td>";
-                                        echo '<td><a href="addDiscoutToProductView.php?action=add&ID=' . $getProduct['ID'] . '&code='. $getProduct['code'] .'" class="waves-effect waves-light btn ")">Add</a></td>';
+                                        echo "<tr>" .
+                                            "<td>" . $getProduct['ID'] . "</td>" .
+                                            "<td>" . $getProduct['name'] . "</td>" .
+                                            "<td>" . $getProduct['color'] . "</td>" .
+                                            "<td>" . $getProduct['price'] . "</td>" .
+                                            "<td>" . $getProduct['quantity'] . "</td>" .
+                                            '<td><a href="addDiscoutToProductView.php?action=add&ID=' . $getProduct['ID'] . '&code=' . $getProduct['code'] . '" class="waves-effect waves-light btn ")">Add</a></td>';
                                         echo "</tr>";
                                     }
                                     ?>

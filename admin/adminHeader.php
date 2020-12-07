@@ -14,7 +14,13 @@ if (isset($_POST['logout'])) {
     $log->adminLogout();
     $redirect = new Redirector("../admin/adminLoginView.php");
 }
+
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$token = $_SESSION['token'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

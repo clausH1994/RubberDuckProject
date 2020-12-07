@@ -27,7 +27,16 @@ $employee = $employeeCon->readEmployeeById($_GET['ID']);
         ?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
         <?php
             } else {
-                $employeeCon->editEmployee($_GET['ID'], $_POST["fname"],  $_POST["lname"], $_POST["email"], $employee[0][4]);
+                if (!empty($_POST['token'])) {
+                    if (hash_equals($_SESSION['token'], $_POST['token'])) {
+                        unset($_SESSION['token']);
+                        $employeeCon->editEmployee($_GET['ID'], $_POST["fname"],  $_POST["lname"], $_POST["email"], $employee[0][4]);
+                    } else {
+                        die('CSRF VALIDATION FAILED');
+                    }
+                } else {
+                    die('CSRF TOKEN NOT FOUND. ABORT');
+                }
             }
         }
         ?>
@@ -39,6 +48,7 @@ $employee = $employeeCon->readEmployeeById($_GET['ID']);
             <input type="text" name="lname" value="<?php echo $employee[0][2]; ?>" required />
             Email:
             <input type="text" name="email" maxlength="30" value="<?php echo $employee[0][3]; ?>" required />
+            <input type="text" name="token" value="<?php echo $token; ?>" />
             <button class="btn waves-effect waves-light" type="submit" name="submit">Update Employee</button>
             <a href="employeeView.php" class="waves-effect waves-light btn red">Cancel</a>
         </form>

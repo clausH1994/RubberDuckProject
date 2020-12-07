@@ -46,13 +46,15 @@ if (isset($_GET['action'])) {
 
 <nav>
   <div class="nav-wrapper">
-    <a href="index.php" class="brand-logo">Logo</a>
+    <a href="index.php" class="brand-logo">RubberDuckShop</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="cart.php"> <?php echo $iq ?> Cart</a></li>
       <li><a href="about.php">About Us</a></li>
+      <li><a href="contact.php">Support</a></li>
       <?php
       if ($session->userLogged_in()) {
-        echo "<li><a href='index.php?action=logout'>Logout</a></li>";
+        echo "<li><a href='Customer/customerUpdateView.php'>Update Profile</a></li>" . 
+        "<li><a href='index.php?action=logout'>Logout</a></li>" ;
       } else {
         echo "<li><a href='customer/customerLoginView.php'>Login</a></li>";
       }

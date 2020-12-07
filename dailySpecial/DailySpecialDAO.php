@@ -25,7 +25,9 @@ class DailySpecialDAO
 
         $query = "SELECT * FROM DailySpecial WHERE dailyID= :dailyID";
         $handle = $dbcon->prepare($query);
-        $handle->bindParam(':dailyID', $dailyID);
+
+        $sanitized_id = htmlspecialchars(trim($dailyID));
+        $handle->bindParam(':dailyID', $sanitized_id);
 
         $handle->execute();
         $result = $handle->fetchAll();
@@ -66,7 +68,8 @@ class DailySpecialDAO
 
             $query = "DELETE FROM DailySpecial WHERE dailyID = :dailyID";
             $handle = $dbcon->prepare($query);
-            $handle->bindParam(':dailyID', $dailyID);
+            $sanitized_id = htmlspecialchars(trim($dailyID));
+            $handle->bindParam(':dailyID', $sanitized_id);
 
             $handle->execute();
 

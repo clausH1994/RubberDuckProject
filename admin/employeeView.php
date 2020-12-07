@@ -26,7 +26,7 @@ require("adminHeader.php");
 					<tbody>
 						<?php
 						$employeeCon = new employeeController();
-						$employeeCon->readEmployees();
+						$employeeCon->readEmployees($token);
 						?>
 					</tbody>
 				</table>
@@ -48,7 +48,16 @@ require("adminHeader.php");
 						?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
 						<?php
 							} else {
-								$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
+								if (!empty($_POST['token'])) {
+									if (hash_equals($_SESSION['token'], $_POST['token'])) {
+										unset($_SESSION['token']);
+										$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
+									} else {
+										die('CSRF VALIDATION FAILED');
+									}
+								} else {
+									die('CSRF TOKEN NOT FOUND. ABORT');
+								}
 							}
 						}
 
@@ -64,6 +73,7 @@ require("adminHeader.php");
 							<input type="text" name="email" maxlength="30" value="" required />
 							Password:
 							<input type="password" name="pass" maxlength="30" value="" required />
+							<input type="hidden" name="token" value="<?php echo $token; ?>" />
 							<button class="btn waves-effect waves-light" type="submit" name="submit" value="Create">ADD Employee</button>
 						</form>
 					</div>

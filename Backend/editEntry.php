@@ -78,6 +78,7 @@ if (isset($_GET['ID'])) {
                     </div>
                 </div>
                 <input type="hidden" name="entryID" value="<?php echo $entryID; ?>">
+                <input type="hidden" name="token" value="<?php echo $token; ?>" />
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Update
                 </button>
             </form>

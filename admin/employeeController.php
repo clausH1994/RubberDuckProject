@@ -17,12 +17,12 @@ class employeeController
 	}
 
 
-	public function readEmployees()
+	public function readEmployees($token)
 	{
 		$employeeDAO = new employeeDAO();
 		$employees = $employeeDAO->readEmployeeDB();
 
-		$this->templateEmployee($employees);
+		$this->templateEmployee($employees, $token);
 	}
 
 	public function createEmployee($fname, $lname, $email, $pass)
@@ -51,7 +51,7 @@ class employeeController
 	}
 
 	
-	private function templateEmployee($row)
+	private function templateEmployee($row, $token)
 	{
 
 		foreach ($row as $row) {
@@ -59,7 +59,7 @@ class employeeController
 			echo "<td>" . $row->fname . " " . $row->lname . "</td>";
 			echo "<td>" . $row->email . "</td>";
 			echo '<td><a href="employeeEditView.php?ID=' . $row->employeeID . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-			echo '<td><a href="employeeDelete.php?ID=' . $row->employeeID . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+			echo '<td><a href="employeeDelete.php?ID=' . $row->employeeID . '&token='. $token . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
 			echo "</tr>";
 		}
 	}
