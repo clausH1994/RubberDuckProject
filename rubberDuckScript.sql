@@ -170,8 +170,20 @@ INSERT INTO `Customer`( `fname`, `lname`, `pass`, `phonenumber`, `email`, `addre
 INSERT INTO `Employee`(`fname`, `lname`, `email`, `pass`) VALUES ('Bobby','Back','BBack@gmail.com','BB4ck2132');
 INSERT INTO `Employee`(`fname`, `lname`, `email`, `pass`) VALUES ('Brody','Clay','BClay@gmail.com','BCl4y5432');
 
-INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-12','This is the products ordered','1')
-INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-13','This is the products ordered','0')
+INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-12','This is the products ordered','1');
+INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-13','This is the products ordered','0');
+
+INSERT INTO `News`( `title`, `description`, `date`) VALUES ('Awesome sale','Massive discount on selected ducks','2020-12-15');
+INSERT INTO `News`( `title`, `description`, `date`) VALUES ('lefterover sale','We got leftover ducks from black friday, now even cheaper','2020-12-9');
+
+INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Monday-Friday','10.00','18.00');
+INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Saturday','12.00','16.00');
+INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Sunday','12.00','15.00');
+
+INSERT INTO `Order`(`date`, `numberOfProducts`, `customer`, `invoice`) VALUES ('2020-12-04','15','1','2');
+INSERT INTO `Order`(`date`, `numberOfProducts`, `customer`, `invoice`) VALUES ('2020-12-07','9','1','3');
+
+
 
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
