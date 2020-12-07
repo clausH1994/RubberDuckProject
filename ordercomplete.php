@@ -138,8 +138,6 @@ $pdf->Output($print,"f");
 $cusmail = $cemail;
 $name = $cName;
 $email = $getCompany[0]["email"];
-$subject = "Your order has been confirmed";
-$msg = "We have recived your order and are now working on shipping it to you";
 
 $RegXp = "";
 
@@ -159,8 +157,9 @@ $file = $print;
  
 // Email body content 
 $htmlContent = ' 
-    <h3>Linje 1</h3> 
-    <p>Linje 2</p> 
+    <h3>Din ordre er modtaget</h3> 
+    <p>Vi har modtaget din ordre og er i gange med at bearbejde den.</p> </br>
+    <p>Vi forventer der går et par uger før vi sender den</p> 
 '; 
  
 // Header for sender info 
@@ -199,14 +198,6 @@ $returnpath = "-f" . $from;
 $mail = @mail($to, $subject, $message, $headers, $returnpath);  
  
 // Email sending status 
-echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>"
-
-
-// if(isset($print)){
-//     $body = $msg;
-//     mail($cusmail,$subject,$body,"From: $email\n");
-//     echo "Email sendt";
-// }
-
+$mail?header("thankyou.php"):header("index.php");
 
 ?>

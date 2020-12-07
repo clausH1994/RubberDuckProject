@@ -1,11 +1,7 @@
 <?php
-require_once("../admin/adminHeader.php");
 require_once("NewsController.php");
 
 $newsCon = new NewsController();
-
-
-
 
 if (isset($_GET['ID'])) {
     $newsID = $_GET['ID'];
@@ -17,6 +13,7 @@ if (isset($_GET['ID'])) {
         }
     } else {
 
+    require_once("../admin/adminHeader.php");
 
 ?>
 

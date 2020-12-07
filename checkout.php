@@ -2,8 +2,10 @@
   require_once "connection/dbcon.php";
   require_once "connection/Redirector.php";
   $total_price=0; 
+ 
+  require_once "connection/session.php";
 
-  require_once "header.php";
+  $session = new Session();
 
 if (isset($_SESSION['user_id'])) {
     $customerID = htmlspecialchars($_SESSION['user_id']);
@@ -12,6 +14,7 @@ if (isset($_SESSION['user_id'])) {
     $query->execute();
     $getCustomer = $query->fetchAll();
 
+    require_once "header.php";
     
     ?>
 <div class="row" class="checkout">

@@ -1,7 +1,9 @@
 <?php
-require_once("../admin/adminHeader.php");
 require_once("NewsController.php");
 require_once("../dailySpecial/DailySpecialController.php");
+require("../connection/session.php");
+
+$session = new Session();
 
 $dailyCon = new DailySpecialController();
 
@@ -40,6 +42,8 @@ if (isset($_POST['submit'])) { // Form has been submitted.
     $newsCon = new NewsController();
     $newsCon->manangeCreate($_POST["title"], $_POST["desc"], $_POST["date"], $_POST["discount"], $_SESSION["discountProducts"]);
 }
+
+require_once("../admin/adminHeader.php");
 
 ?>
 

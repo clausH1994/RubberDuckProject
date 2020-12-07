@@ -16,7 +16,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
 
 if (isset($_GET['status'])) {
     if ($_GET['status'] == "registered") {
-        echo "<script>M.toast({html:'The acount has been Registered!'})</script>";
+        "<script>M.toast({html:'The acount has been Registered!'})</script>";
     }
 }
 
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) { // Form has been submitted.
     }
 }
 if (!empty($msg)) {
-    echo "<p>" . $msg . "</p>";
+   echo "<p>" . $msg . "</p>";
 }
 
 ?>

@@ -1,13 +1,29 @@
 <?php
 require_once("employeeController.php");
 require_once("AdminLoginHandle.php");
-require("adminHeader.php");
-?>
-<?php spl_autoload_register(function ($class) {
-	include "../connection/" . $class . ".php";
-}); ?>
 
-<html>
+ spl_autoload_register(function ($class) {
+	include "../connection/" . $class . ".php";
+}); 
+
+
+
+$employeeCon = new employeeController();
+
+// START FORM PROCESSING
+if (isset($_POST['submit'])) { // Form has been submitted.
+	$regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
+	if (!preg_match($regexp, $_POST['email'])) {
+?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
+<?php
+	} else {
+		$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
+	}
+}
+
+require("adminHeader.php");
+
+?>
 
 <body>
 	<div class="container">
@@ -25,7 +41,6 @@ require("adminHeader.php");
 
 					<tbody>
 						<?php
-						$employeeCon = new employeeController();
 						$employeeCon->readEmployees();
 						?>
 					</tbody>
@@ -39,21 +54,6 @@ require("adminHeader.php");
 					<div>
 						<h2>Create New Employee</h2>
 
-						<?php
-
-						// START FORM PROCESSING
-						if (isset($_POST['submit'])) { // Form has been submitted.
-							$regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
-							if (!preg_match($regexp, $_POST['email'])) {
-						?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
-						<?php
-							} else {
-								$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
-							}
-						}
-
-
-						?>
 
 						<form action="" method="post">
 							First Name:

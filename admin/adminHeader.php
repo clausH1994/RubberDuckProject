@@ -38,5 +38,3 @@ if (isset($_POST['logout'])) {
         <input id="btnLogout" class="grey btn" type="submit" name="logout" value="Logout" />
     </form>
 </div>
-
-</html>

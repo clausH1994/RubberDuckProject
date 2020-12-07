@@ -1,6 +1,9 @@
 <?php
-require_once("../admin/adminHeader.php");
 require_once("DailySpecialController.php");
+
+require("../connection/session.php");
+
+$session = new Session();
 
 $dbCon = dbCon();
 $query = $dbCon->prepare("SELECT * FROM Product");
@@ -64,6 +67,7 @@ if (isset($_POST['cancel'])) { // Form has been submitted.
     $redirect = new Redirector("../news/newsCreateView.php");
 }
 
+require_once("../admin/adminHeader.php");
 
 ?>
 

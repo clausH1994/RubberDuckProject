@@ -1,5 +1,4 @@
-<?php require("adminHeader.php");
-
+<?php
 spl_autoload_register(function ($class) {
     include "../connection/" . $class . ".php";
 });
@@ -7,30 +6,28 @@ spl_autoload_register(function ($class) {
 if (!isset($_GET['ID'])) {
     $redirector = new Redirector("employeeView.php");
 }
-
-?>
-<?php require_once("employeeController.php");
+require_once("employeeController.php");
 
 $employeeCon = new employeeController();
 $employee = $employeeCon->readEmployeeById($_GET['ID']);
+
+// START FORM PROCESSING
+if (isset($_POST['submit'])) { // Form has been submitted.
+    $regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
+    if (!preg_match($regexp, $_POST['email'])) {
+?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
+<?php
+    } else {
+        $employeeCon->editEmployee($_GET['ID'], $_POST["fname"],  $_POST["lname"], $_POST["email"], $employee[0][4]);
+    }
+}
+
+require("adminHeader.php");
 ?>
 
 <div class="container">
     <div>
         <h2>Edit Employee</h2>
-        <?php
-
-        // START FORM PROCESSING
-        if (isset($_POST['submit'])) { // Form has been submitted.
-            $regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
-            if (!preg_match($regexp, $_POST['email'])) {
-        ?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
-        <?php
-            } else {
-                $employeeCon->editEmployee($_GET['ID'], $_POST["fname"],  $_POST["lname"], $_POST["email"], $employee[0][4]);
-            }
-        }
-        ?>
 
         <form action="" method="post">
             First Name:
