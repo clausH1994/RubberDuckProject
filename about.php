@@ -1,4 +1,5 @@
-<?php require_once "../connection/dbcon.php"; ?>
+<?php require_once "connection/dbcon.php"; ?>
+<?php require_once "header.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
