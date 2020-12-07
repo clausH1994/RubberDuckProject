@@ -162,6 +162,53 @@ insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0002','Blue Ducky', 199, 'img/bducky.png', 2, 'test 2', 100);
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0003','Black Duck', 50, 'img/ducky.png', 4, 'test 3', 100);
 
+INSERT INTO `Company`(`name`, `address`, `postalID`, `phone`, `email`, `description`) VALUES ('TheRubberDuckShop', 'OceanAlley 23', '6715', '12345678', 'Info@jonaskp.dk', 'this is the greatest place to find your rubberducks we sell all kinds of ducks in all colors and sizes whatever you need we got it');
+
+INSERT INTO `Customer`( `fname`, `lname`, `pass`, `phonenumber`, `email`, `address`,`postalID`) VALUES ('Justin','Adams','JAdams135','13579246','JAdams@gmail.com','Adamsstreet 123','6715');
+INSERT INTO `Customer`( `fname`, `lname`, `pass`, `phonenumber`, `email`, `address`,`postalID`) VALUES ('Allan','Jacobs','TheAjacobs120','10579246','AllanJacobs@gmail.com','graceway 12','5000');
+
+INSERT INTO `Employee`(`fname`, `lname`, `email`, `pass`) VALUES ('Bobby','Back','BBack@gmail.com','BB4ck2132');
+INSERT INTO `Employee`(`fname`, `lname`, `email`, `pass`) VALUES ('Brody','Clay','BClay@gmail.com','BCl4y5432');
+
+INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-12','This is the products ordered','1');
+INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-13','This is the products ordered','0');
+
+INSERT INTO `News`( `title`, `description`, `date`) VALUES ('Awesome sale','Massive discount on selected ducks','2020-12-15');
+INSERT INTO `News`( `title`, `description`, `date`) VALUES ('lefterover sale','We got leftover ducks from black friday, now even cheaper','2020-12-9');
+
+INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Monday-Friday','10.00','18.00');
+INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Saturday','12.00','16.00');
+INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Sunday','12.00','15.00');
+
+INSERT INTO `Order`(`date`, `numberOfProducts`, `customer`, `invoice`) VALUES ('2020-12-04','15','1','2');
+INSERT INTO `Order`(`date`, `numberOfProducts`, `customer`, `invoice`) VALUES ('2020-12-07','9','1','3');
+
+INSERT INTO `PostalCode`(`zipcodeID`, `City`) VALUES ('6715','Esbjerg N');
+INSERT INTO `PostalCode`(`zipcodeID`, `City`) VALUES ('5000','Odense');
+INSERT INTO `PostalCode`(`zipcodeID`, `City`) VALUES ('6700','Esbjerg');
+
+INSERT INTO `Orderline`(`price`, `quantity`, `order`, `product`) VALUES ('75.00','3','1','2');
+INSERT INTO `Orderline`(`price`, `quantity`, `order`, `product`) VALUES ('100.00','2','2','3');
+
+INSERT INTO `Category`(`name`) VALUES ('big');
+INSERT INTO `Category`(`name`) VALUES ('medium');
+INSERT INTO `Category`(`name`) VALUES ('small');
+
+INSERT INTO `DailySpecial`(`discount`) VALUES ('33');
+INSERT INTO `DailySpecial`(`discount`) VALUES ('50');
+INSERT INTO `DailySpecial`(`discount`) VALUES ('66');
+INSERT INTO `DailySpecial`(`discount`) VALUES ('75');
+
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('3','2');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('1','3');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('2','1');
+
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','3');
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','4');
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('3','4');
+
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','3');
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','4')
 
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
