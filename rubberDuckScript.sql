@@ -162,6 +162,16 @@ insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0002','Blue Ducky', 199, 'img/bducky.png', 2, 'test 2', 100);
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0003','Black Duck', 50, 'img/ducky.png', 4, 'test 3', 100);
 
+INSERT INTO `Company`(`name`, `address`, `postalID`, `phone`, `email`, `description`) VALUES ('TheRubberDuckShop', 'OceanAlley 23', '6715', '12345678', 'Info@jonaskp.dk', 'this is the greatest place to find your rubberducks we sell all kinds of ducks in all colors and sizes whatever you need we got it');
+
+INSERT INTO `Customer`( `fname`, `lname`, `pass`, `phonenumber`, `email`, `address`,`postalID`) VALUES ('Justin','Adams','JAdams135','13579246','JAdams@gmail.com','Adamsstreet 123','6715');
+INSERT INTO `Customer`( `fname`, `lname`, `pass`, `phonenumber`, `email`, `address`,`postalID`) VALUES ('Allan','Jacobs','TheAjacobs120','10579246','AllanJacobs@gmail.com','graceway 12','5000');
+
+INSERT INTO `Employee`(`fname`, `lname`, `email`, `pass`) VALUES ('Bobby','Back','BBack@gmail.com','BB4ck2132');
+INSERT INTO `Employee`(`fname`, `lname`, `email`, `pass`) VALUES ('Brody','Clay','BClay@gmail.com','BCl4y5432');
+
+INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-12','This is the products ordered','1')
+INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-13','This is the products ordered','0')
 
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
