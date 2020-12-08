@@ -28,11 +28,15 @@ class PostalCodeDAO
     {
         $dbcon = dbCon();
 
-        $query = $dbcon->prepare("SELECT * FROM PostalCode WHERE zipcodeID=$postalID");
+        $query = $dbcon->prepare("SELECT * FROM PostalCode WHERE zipcodeID=:id");
+
+        $sanitized_id = htmlspecialchars(trim($postalID));
+
+        $query->bindParam(':id', $sanitized_id);
+
         $query->execute();
         $result = $query->fetchAll();
       
         return $result;
     }
-
 }

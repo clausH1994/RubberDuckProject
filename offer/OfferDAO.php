@@ -11,8 +11,11 @@ class OfferDAO
             $query = "INSERT INTO Offer (productID, dailyID) VALUES (:productID, :dailyID)";
             $handle = $dbcon->prepare($query);
 
-            $handle->bindParam(':productID', $productID);
-            $handle->bindParam(':dailyID', $dailyID);
+            $sanitized_productID = htmlspecialchars(trim($productID));
+            $sanitized_dailyID = htmlspecialchars(trim($dailyID));
+
+            $handle->bindParam(':productID', $sanitized_productID);
+            $handle->bindParam(':dailyID', $sanitized_dailyID);
 
             $handle->execute();
 
@@ -29,7 +32,9 @@ class OfferDAO
 
             $query = "DELETE FROM Offer WHERE offer = :offerID";
             $handle = $dbcon->prepare($query);
-            $handle->bindParam(':offerID', $offerID);
+
+            $sanitized_ID = htmlspecialchars(trim($offerID));
+            $handle->bindParam(':offerID', $sanitized_ID);
 
             $handle->execute();
 

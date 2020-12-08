@@ -74,7 +74,7 @@ require("adminHeader.php");
 							Password:
 							<input type="password" name="pass" maxlength="30" value="" required />
 							<input type="hidden" name="token" value="<?php echo $token; ?>" />
-							<button class="btn waves-effect waves-light" type="submit" name="submit" value="Create">ADD Employee</button>
+							<button class="btn waves-effect waves-light" type="submit" name="submit">ADD Employee</button>
 						</form>
 					</div>
 				</div>
