@@ -212,6 +212,12 @@ INSERT INTO `DailySpecial`(`discount`) VALUES ('33');
 INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('3','2');
 INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('1','3');
 INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('2','1');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('4','1');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('5','1');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('6','2');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('7','2');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('8','3');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('9','3');
 
 INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','3');
 INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','4');
