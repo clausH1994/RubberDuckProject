@@ -1,4 +1,5 @@
 <?php
+require_once ("connection/Redirector.php");
 require ('invoice/fpdf.php');
 require ('connection/dbcon.php');
 require_once ("connection/session.php");
@@ -198,6 +199,12 @@ $returnpath = "-f" . $from;
 $mail = @mail($to, $subject, $message, $headers, $returnpath);  
  
 // Email sending status 
-$mail?header("thankyou.php"):header("index.php");
+if ($mail=true){
+    $redirect = new Redirector("thankyou.php");
+}
+
+else {
+    $redirect = new Redirector("index.php");
+}
 
 ?>
