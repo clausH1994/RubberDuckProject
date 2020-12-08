@@ -65,10 +65,7 @@ CREATE TABLE Color
     `name` varchar(100) NOT NULL
 );
 
-insert into Color (ColorID, `name`) values (null, 'yellow');
-insert into Color (ColorID, `name`) values (null, 'blue');
-insert into Color (ColorID, `name`) values (null, 'pink');
-insert into Color (ColorID, `name`) values (null, 'black');
+
 
 CREATE TABLE Product
 (
@@ -158,9 +155,25 @@ CREATE TABLE Offer
     FOREIGN KEY (dailyID) REFERENCES DailySpecial (dailyID)
 );
 
+insert into Color (ColorID, `name`) values (null, 'yellow');
+insert into Color (ColorID, `name`) values (null, 'blue');
+insert into Color (ColorID, `name`) values (null, 'pink');
+insert into Color (ColorID, `name`) values (null, 'black');
+insert into Color (ColorID, `name`) values (null, 'green');
+insert into Color (ColorID, `name`) values (null, 'white');
+insert into Color (ColorID, `name`) values (null, 'red');
+insert into Color (ColorID, `name`) values (null, 'grey');
+insert into Color (ColorID, `name`) values (null, 'purple');
+
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0001','Ducky', 99, 'img/duck.png', 1, 'test 1', 100);
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0002','Blue Ducky', 199, 'img/bducky.png', 2, 'test 2', 100);
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0003','Black Duck', 50, 'img/ducky.png', 4, 'test 3', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0004','Pink Duck', 29, 'img/pinkducky.jpg', 3, 'test 4', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0005','Green Duck', 40, 'img/greenduck.jpg', 5, 'test 5', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','White Duck', 100, 'img/whiteduck.jpg', 6, 'test 6', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Red Duck', 100, 'img/redduck.jpg', 7, 'test 7', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Grey Duck', 100, 'img/greyduck.jpg', 8, 'test 8', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Red Duck', 100, 'img/purpleduck.jpg', 9, 'test 9', 100);
 
 INSERT INTO `Company`(`name`, `address`, `postalID`, `phone`, `email`, `description`) VALUES ('TheRubberDuckShop', 'OceanAlley 23', '6715', '12345678', 'Info@jonaskp.dk', 'this is the greatest place to find your rubberducks we sell all kinds of ducks in all colors and sizes whatever you need we got it');
 
@@ -174,7 +187,6 @@ INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-12','This is
 INSERT INTO `Invoice`(`date`, `details`, `status`) VALUES ('2020-12-13','This is the products ordered','0');
 
 INSERT INTO `News`( `title`, `description`, `date`) VALUES ('Awesome sale','Massive discount on selected ducks','2020-12-15');
-INSERT INTO `News`( `title`, `description`, `date`) VALUES ('lefterover sale','We got leftover ducks from black friday, now even cheaper','2020-12-9');
 
 INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Monday-Friday','10.00','18.00');
 INSERT INTO `OpeningHours`(`day`, `startTime`, `endtime`) VALUES ('Saturday','12.00','16.00');
@@ -195,20 +207,21 @@ INSERT INTO `Category`(`name`) VALUES ('medium');
 INSERT INTO `Category`(`name`) VALUES ('small');
 
 INSERT INTO `DailySpecial`(`discount`) VALUES ('33');
-INSERT INTO `DailySpecial`(`discount`) VALUES ('50');
-INSERT INTO `DailySpecial`(`discount`) VALUES ('66');
-INSERT INTO `DailySpecial`(`discount`) VALUES ('75');
 
-INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('3','2');
-INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('1','3');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('1','1');
 INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('2','1');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('3','1');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('4','2');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('5','2');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('6','2');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('7','3');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('8','3');
+INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('9','3');
 
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','3');
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','4');
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('3','4');
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('1','1');
 
-INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','3');
-INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','4')
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','1');
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('2','1');
 
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
