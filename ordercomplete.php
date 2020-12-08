@@ -204,7 +204,7 @@ if ($mail=true){
 }
 
 else {
-    $redirect = new Redirector("index.php");
+    $redirect = new Redirector("error.php");
 }
 
 ?>

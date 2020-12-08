@@ -171,9 +171,9 @@ insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0004','Pink Duck', 29, 'img/pinkducky.jpg', 3, 'test 4', 100);
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0005','Green Duck', 40, 'img/greenduck.jpg', 5, 'test 5', 100);
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','White Duck', 100, 'img/whiteduck.jpg', 6, 'test 6', 100);
-insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Red Duck', 100, 'img/redduck.jpg', 7, 'test 7', 100);
-insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Grey Duck', 100, 'img/greyduck.jpg', 8, 'test 8', 100);
-insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Red Duck', 100, 'img/purpleduck.jpg', 9, 'test 9', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0007','Red Duck', 100, 'img/redduck.jpg', 7, 'test 7', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0008','Grey Duck', 100, 'img/greyduck.jpg', 8, 'test 8', 100);
+insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0009','Red Duck', 100, 'img/purpleduck.jpg', 9, 'test 9', 100);
 
 INSERT INTO `Company`(`name`, `address`, `postalID`, `phone`, `email`, `description`) VALUES ('TheRubberDuckShop', 'OceanAlley 23', '6715', '12345678', 'Info@jonaskp.dk', 'this is the greatest place to find your rubberducks we sell all kinds of ducks in all colors and sizes whatever you need we got it');
 
@@ -244,5 +244,14 @@ BEGIN
 UPDATE Product pt
 SET pt.quantity = pt.quantity - NEW.quantity
 WHERE pt.ID = NEW.product;
+END //
+DELIMITER ;
+
+DELIMITER //
+Create Trigger after_Order AFTER INSERT ON `Order` FOR EACH ROW
+BEGIN
+UPDATE Invoice iv
+SET `status` = 1
+WHERE iv.invoiceID = NEW.`invoice`;
 END //
 DELIMITER ;
