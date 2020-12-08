@@ -26,6 +26,16 @@ if (isset($_POST['submit'])) { // Form has been submitted.
         $msg = $log->message;
     }
 }
+
+$secret = "6LeuRP4ZAAAAAN9mLfTK-Zobdg9T_HSNjzyRUWcy";
+
+$response = $_POST["g-recaptcha-response"];
+
+$getstuff = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$response);
+
+$success = json_decode($getstuff,true);
+
+    if($success['success']){}
 ?>
 
 <html>
@@ -52,9 +62,11 @@ if (isset($_POST['submit'])) { // Form has been submitted.
                 Password:
                 <input type="password" name="pass" maxlength="30" required />
                 <br><br>
-                <button class="g-recaptcha" data-sitekey="6LcuufQZAAAAAMU21o2A8a6GozK8GdXFKdcIGr78" data-callback='onSubmit' data-action='submit'>Verify</button>
-                <br><br>
-                <input type="submit" name="submit" value="Login" />
+                <form action="?" method="POST">
+                    <div class="g-recaptcha" data-sitekey="6LeuRP4ZAAAAAANkHDXiiy7BfX-wB-TKUCWvqO58"></div>
+                    <br/>
+                    <input type="submit" value="Submit" type="submit" name="submit">
+                </form>
             </form>
         </div>
     </div>

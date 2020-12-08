@@ -35,6 +35,16 @@ if (!empty($msg)) {
    echo "<p>" . $msg . "</p>";
 }
 
+$secret = "6LeuRP4ZAAAAAN9mLfTK-Zobdg9T_HSNjzyRUWcy";
+
+$response = $_POST["g-recaptcha-response"];
+
+$getstuff = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$response);
+
+$success = json_decode($getstuff,true);
+
+    if($success['success']){}
+
 ?>
 <html>
 <head>
@@ -59,17 +69,24 @@ if (!empty($msg)) {
                 <input type="text" name="email" maxlength="30" required />
                 Password:
                 <input type="password" name="pass" maxlength="30" required />
-                <button class="g-recaptcha" data-sitekey="6LcuufQZAAAAAMU21o2A8a6GozK8GdXFKdcIGr78" data-callback='onSubmit' data-action='submit'>Verify</button>
+                
+                <form action="?" method="POST">
+                    <div class="g-recaptcha" data-sitekey="6LeuRP4ZAAAAAANkHDXiiy7BfX-wB-TKUCWvqO58"></div>
+                    <br/>
+                    <input type="submit" value="Submit" type="submit" name="submit">
+                </form>
+                
+                <!-- <button class="g-recaptcha" data-sitekey="6LcuufQZAAAAAMU21o2A8a6GozK8GdXFKdcIGr78" data-callback='onSubmit' data-action='submit'>Verify</button>
                 <br><br>
-                <button class="btn waves-effect waves-light" type="submit" name="submit">Login</button>
+                <button class="btn waves-effect waves-light" type="submit" name="submit">Login</button> -->
                 <a style="margin-left:70%" href="registerCustomerView.php">Register as Customer</a>
             </form>
         </div>
     </div>
 </body>
 
-<script>
+<!-- <script>
     function onSubmit(token) {
         document.getElementById("demo-form").submit();
     }
-</script>
+</script> -->

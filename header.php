@@ -54,7 +54,7 @@ if (isset($_GET['action'])) {
       if ($session->userLogged_in()) {
         echo "<li><a href='index.php?action=logout'>Logout</a></li>";
       } else {
-        echo "<li><a href='customer/customerLoginView.php'>Login</a></li>";
+        echo "<li><a href='Customer/customerLoginView.php'>Login</a></li>";
       }
       ?>
     </ul>
