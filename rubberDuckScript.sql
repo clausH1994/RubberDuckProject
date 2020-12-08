@@ -175,7 +175,6 @@ insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Grey Duck', 100, 'img/greyduck.jpg', 8, 'test 8', 100);
 insert into Product (`code`,`name`, `price`, `image`, `color`, `desc`, `quantity`) values ('D0006','Red Duck', 100, 'img/purpleduck.jpg', 9, 'test 9', 100);
 
-
 INSERT INTO `Company`(`name`, `address`, `postalID`, `phone`, `email`, `description`) VALUES ('TheRubberDuckShop', 'OceanAlley 23', '6715', '12345678', 'Info@jonaskp.dk', 'this is the greatest place to find your rubberducks we sell all kinds of ducks in all colors and sizes whatever you need we got it');
 
 INSERT INTO `Customer`( `fname`, `lname`, `pass`, `phonenumber`, `email`, `address`,`postalID`) VALUES ('Justin','Adams','JAdams135','13579246','JAdams@gmail.com','Adamsstreet 123','6715');
@@ -219,12 +218,10 @@ INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('7','3');
 INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('8','3');
 INSERT INTO `ProductCategory`(`product`, `category`) VALUES ('9','3');
 
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','3');
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('4','4');
-INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('3','4');
+INSERT INTO `SpecialNews`(`daily`, `news`) VALUES ('1','1');
 
-INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','3');
-INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','4')
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('1','1');
+INSERT INTO `Offer`(`productID`, `dailyID`) VALUES ('2','1');
 
 CREATE VIEW NewsAndSpecialData AS
 SELECT n.newsID, n.title, n.description, n.date, ds.dailyID, ds.discount, o.productID
