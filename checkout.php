@@ -59,7 +59,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
       </div>
   </div>
-  <input type="text" name="token" value="<?php echo $token; ?>" />
+  <input type="hidden" name="token" value="<?php echo $token; ?>" />
   <button class="btn waves-effect waves-light" type="submit" name="submit">Køb</button>
   </form>
   </div>
