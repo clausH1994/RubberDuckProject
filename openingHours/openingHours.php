@@ -40,7 +40,7 @@ $getData = $query->fetchAll();
                     echo "<td>". $getData['endtime']."</td>";
                     echo "</td>";
                     echo '<td><a href="editOpeningHours.php?ID='.$getData['openinghoursID'].'" class="waves-effect waves-light btn" ">Edit</a></td>';
-                    echo '<td><a href="deleteOpeningHours.php?ID='.$getData['openinghoursID'].'" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                    echo '<td><a href="deleteOpeningHours.php?ID='.$getData['openinghoursID']. '&token=' . $token . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                     echo "</tr>";
                 }
                 ?>
@@ -68,7 +68,8 @@ $getData = $query->fetchAll();
                     <label for="endtime">closing hour</label>
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="submit">Add
+            <input type="hidden" name="token" value="<?php echo $token; ?>" />
+            <button class="waves-effect waves-light btn" type="submit" name="submit">Add
             </button>
             <a href="" class="waves-effect waves-light btn red">cancel
             </button>

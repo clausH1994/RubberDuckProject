@@ -39,8 +39,17 @@ if (!empty($_GET["action"])) {
 
 
 if (isset($_POST['submit'])) { // Form has been submitted.
-    $newsCon = new NewsController();
-    $newsCon->manangeCreate($_POST["title"], $_POST["desc"], $_POST["date"], $_POST["discount"], $_SESSION["discountProducts"]);
+    if (!empty($_POST['token'])) {
+        if (hash_equals($_SESSION['token'], $_POST['token'])) {
+            unset($_SESSION['token']);
+            $newsCon = new NewsController();
+            $newsCon->manangeCreate($_POST["title"], $_POST["desc"], $_POST["date"], $_POST["discount"], $_SESSION["discountProducts"]);
+        } else {
+            die('CSRF VALIDATION FAILED');
+        }
+    } else {
+        die('CSRF TOKEN NOT FOUND. ABORT');
+    }
 }
 
 require_once("../admin/adminHeader.php");
@@ -96,13 +105,13 @@ require_once("../admin/adminHeader.php");
                                 <tbody>
                                     <?php
                                     foreach ($_SESSION["discountProducts"] as $getProduct) {
-                                        echo "<tr>";
-                                        echo "<td>" . $getProduct['productID'] . "</td>";
-                                        echo "<td>" . $getProduct['name'] . "</td>";
-                                        echo "<td>" . $getProduct['price'] . "</td>";
-                                        echo "<td>" . $getProduct['quantity'] . "</td>";
-                                        echo '<td><a href="newsCreateView.php?action=remove&ID=' . $getProduct['productID'] . '" class="btn red" onclick="return confirm(\'Remove! are you sure?\')">Remove</a></td>';
-                                        echo "</tr>";
+                                        echo "<tr>"
+                                            . "<td>" . $getProduct['productID'] . "</td>" .
+                                            "<td>" . $getProduct['name'] . "</td>" .
+                                            "<td>" . $getProduct['price'] . "</td>" .
+                                            "<td>" . $getProduct['quantity'] . "</td>" .
+                                            '<td><a href="newsCreateView.php?action=remove&ID=' . $getProduct['productID'] . '" class="btn red" onclick="return confirm(\'Remove! are you sure?\')">Remove</a></td>';
+                                        "</tr>";
                                     }
                                     ?>
                                 </tbody>
@@ -110,7 +119,7 @@ require_once("../admin/adminHeader.php");
                         </table>
                     </div>
                 </div>
-
+                <input type="hidden" name="token" value="<?php echo $token; ?>" />
             </form>
         </div>
     </div>

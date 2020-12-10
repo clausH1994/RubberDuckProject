@@ -1,9 +1,14 @@
 <?php
-require_once("../header.php");
 require_once("../connection/session.php");
 require_once("CustomerController.php");
+require_once("../header.php");
 
-$session = new Session();
+
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$token = $_SESSION['token'];
+
 $cusCon = new CustomerController();
 
 
@@ -16,7 +21,16 @@ $customer = $cusCon->readCustomerById($loggedInUser);
 
 
 if (isset($_POST['submit'])) { // Form has been submitted.
-    $cusCon->updateCustomer($_POST["fname"], $_POST["lname"], $_POST["pass"], $_POST["phone"], $_POST["email"], $_POST["address"], $_POST["zipcode"], $loggedInUser, $_POST["city"]);
+    if (!empty($_POST['token'])) {
+        if (hash_equals($_SESSION['token'], $_POST['token'])) {
+            unset($_SESSION['token']);
+            $cusCon->updateCustomer($_POST["fname"], $_POST["lname"], $_POST["pass"], $_POST["phone"], $_POST["email"], $_POST["address"], $_POST["zipcode"], $loggedInUser, $_POST["city"]);
+        } else {
+            die('CSRF VALIDATION FAILED');
+        }
+    } else {
+        die('CSRF TOKEN NOT FOUND. ABORT');
+    }
 }
 
 ?>
@@ -66,10 +80,10 @@ if (isset($_POST['submit'])) { // Form has been submitted.
                         </div>
                         <input type="hidden" name="pass" value="<?php echo $customer[0][3]; ?>">
                         <br>
+                        <input type="hidden" name="token" value="<?php echo $token; ?>" />
                         <button class="btn waves-effect waves-light" type="submit" name="submit">Update Account</button>
                         <a class="btn red" style="margin-left:62%" href="../index.php">Cancel</a>
                     </div>
-
                 </form>
             </div>
         </div>

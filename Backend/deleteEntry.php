@@ -1,17 +1,29 @@
 <?php
 require_once "../connection/dbcon.php";
+require_once "../connection/session.php";
+
+$session = new Session();
+
 if (isset($_GET['ID'])) {
-    $entryID = $_GET['ID'];
-    $dbCon = dbCon();
+    if (!empty($_GET['token'])) {
+        if (hash_equals($_SESSION['token'], $_GET['token'])) {
+            unset($_SESSION['token']);
+            $entryID = $_GET['ID'];
+            $dbCon = dbCon();
+            $query = $dbCon->prepare("DELETE FROM Product WHERE ID=:ID");
 
-    $delete = $dbCon->prepare("DELETE FROM ProductCategory WHERE product=$entryID");
+            $sanitized_id = htmlspecialchars(trim($entryID));
+            $query->bindParam(':ID', $sanitized_id);
 
-    $delete->execute();
+            $query->execute();
 
-    $query = $dbCon->prepare("DELETE FROM Product WHERE ID=$entryID");
-    $query->execute();
-
-    header("Location: index.php?status=deleted&ID=$entryID");
-}else{
+            header("Location: index.php?status=deleted&ID=$entryID");
+        } else {
+            die('CSRF VALIDATION FAILED');
+        }
+    } else {
+        die('CSRF TOKEN NOT FOUND. ABORT');
+    }
+} else {
     header("Location: index.php?status=0");
 }

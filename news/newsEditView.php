@@ -29,6 +29,7 @@ $news = $newsCon->readNewsById($_GET['ID']);
                     Date:
                     <input type="date" name="date" maxlength="30" value="<?php echo $news[0][3]; ?>" required />
                     <br><br>
+                    <input type="hidden" name="token" value="<?php echo $token; ?>" />
                     <button class="btn waves-effect waves-light" type="submit" name="submit">Update News</button>
                     <a href="newsOverView.php" class="waves-effect waves-light btn red">Cancel</a>
                 </form>
@@ -46,5 +47,14 @@ $news = $newsCon->readNewsById($_GET['ID']);
 
 // START FORM PROCESSING
 if (isset($_POST['submit'])) { // Form has been submitted.
-    $newsCon->editNews($_GET['ID'], $_POST['title'], $_POST['desc'],  $_POST['date'],);
+    if (!empty($_POST['token'])) {
+        if (hash_equals($_SESSION['token'], $_POST['token'])) {
+            unset($_SESSION['token']);
+            $newsCon->editNews($_GET['ID'], $_POST['title'], $_POST['desc'],  $_POST['date'],);
+        } else {
+            die('CSRF VALIDATION FAILED');
+        }
+    } else {
+        die('CSRF TOKEN NOT FOUND. ABORT');
+    }
 }

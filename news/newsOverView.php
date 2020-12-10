@@ -20,7 +20,7 @@ unset($_SESSION["discountProducts"]);
                     <tbody>
                         <?php
                         $newsCon = new NewsController();
-                        $newsCon->readNews();
+                        $newsCon->readNews($token);
                         ?>
                     </tbody>
                 </table>

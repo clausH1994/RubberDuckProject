@@ -1,8 +1,26 @@
 <?php
+require_once("../connection/session.php");
+
+$session = new Session();
+
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$token = $_SESSION['token'];
+
 if (isset($_POST['submit'])) { // Form has been submitted.
-    require_once("CustomerController.php");
-    $customerCon = new CustomerController();
-    $customerCon->registerCustomer($_POST["fname"], $_POST["lname"], $_POST["phone"], $_POST["address"],  $_POST["zipcode"],  $_POST["city"], $_POST["email"],  $_POST["pass"]);
+    if (!empty($_POST['token'])) {
+        if (hash_equals($_SESSION['token'], $_POST['token'])) {
+            unset($_SESSION['token']);
+            require_once("CustomerController.php");
+            $customerCon = new CustomerController();
+            $customerCon->registerCustomer($_POST["fname"], $_POST["lname"], $_POST["phone"], $_POST["address"],  $_POST["zipcode"],  $_POST["city"], $_POST["email"],  $_POST["pass"]);
+        } else {
+            die('CSRF VALIDATION FAILED');
+        }
+    } else {
+        die('CSRF TOKEN NOT FOUND. ABORT');
+    }
 }
 ?>
 
@@ -64,6 +82,7 @@ if (isset($_POST['submit'])) { // Form has been submitted.
                             <input type="password" name="pass" maxlength="30" value="" />
                         </div>
                         <br>
+                        <input type="hidden" name="token" value="<?php echo $token; ?>" />
                         <button class="btn waves-effect waves-light" type="submit" name="submit" value="Create">Register As Customer</button>
                         <a class="btn red" style="margin-left:62%" href="customerLoginView.php">Cancel</a>
                     </div>

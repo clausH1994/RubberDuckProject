@@ -45,7 +45,9 @@ class CustomerDAO
         $query = "SELECT * FROM Customer c, PostalCode p WHERE c.customerID= :customerID 
         AND c.postalID = p.zipcodeID";
         $handle = $dbcon->prepare($query);
-        $handle->bindParam(':customerID', $customerId);
+
+        $sanitized_id = htmlspecialchars(trim($customerId));
+        $handle->bindParam(':customerID', $sanitized_id);
         $handle->execute();
 
         $result = $handle->fetchAll();
@@ -71,6 +73,10 @@ class CustomerDAO
             $sanitized_address = htmlspecialchars(trim($address));
             $sanitized_postal = htmlspecialchars(trim($postal));
 
+            $sanitized_id = htmlspecialchars(trim($customerID));
+
+            $handle->bindParam(':customerID', $sanitized_id);
+
             $handle->bindParam(':fName', $sanitized_fname);
             $handle->bindParam(':lName', $sanitized_lname);
             $handle->bindParam(':pass', $sanitized_pass);
@@ -78,7 +84,6 @@ class CustomerDAO
             $handle->bindParam(':email', $sanitized_email);
             $handle->bindParam(':address', $sanitized_address);
             $handle->bindParam(':postal', $sanitized_postal);
-            $handle->bindParam(':customerID', $customerID);
 
             $handle->execute();
 

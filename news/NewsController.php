@@ -6,12 +6,12 @@ spl_autoload_register(function ($class) {
 
 class NewsController
 {
-    public function readNews()
+    public function readNews($token)
     {
         $newsDAO = new NewsDAO();
         $news = $newsDAO->readNewsDB();
 
-        $this->templateNews($news);
+        $this->templateNews($news, $token);
     }
 
     public function readNewsByID($newsID)
@@ -98,7 +98,7 @@ class NewsController
         }
     }
 
-    private function templateNews($row)
+    private function templateNews($row, $token)
     {
         require("../SpecialNews/SpecialNewsController.php");
         $specialNews = new SpecialNewsController();
@@ -142,7 +142,7 @@ class NewsController
             }
             echo "</td>";
             echo '<td><a href="newsEditView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-            echo '<td><a href="newsDeleteView.php?ID=' . $row->newsID . '" class="waves-effect waves-light btn red">Delete</a></td>';
+            echo '<td><a href="newsDeleteView.php?ID=' . $row->newsID . '&token=' . $token . '" class="waves-effect waves-light btn red">Delete</a></td>';
             echo "</tr>";
         }
     }

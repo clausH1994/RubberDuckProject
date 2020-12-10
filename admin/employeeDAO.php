@@ -10,7 +10,8 @@ class employeeDAO
 
         $query = "SELECT * FROM Employee WHERE employeeID= :employeeID";
         $handle = $dbcon->prepare($query);
-        $handle->bindParam(':employeeID', $emID);
+        $sanitized_ID = htmlspecialchars(trim($emID));
+        $handle->bindParam(':employeeID', $sanitized_ID);
         $handle->execute();
 
         $result = $handle->fetchAll();
@@ -65,7 +66,7 @@ class employeeDAO
         try {
             $dbcon = dbCon();
 
-            $query = "UPDATE Employee SET fname = :fName, lname = :lName, email = :Email, pass = :Pass WHERE employeeID = :EmployeeID";
+            $query = "UPDATE Employee SET fname = :fName, lname = :lName, email = :Email, pass = :Pass WHERE employeeID = :employeeID";
             $handle = $dbcon->prepare($query);
 
             $sanitized_fname = htmlspecialchars(trim($fname));
@@ -73,11 +74,13 @@ class employeeDAO
             $sanitized_email = htmlspecialchars(trim($email));
             $sanitized_pass = htmlspecialchars(trim($pass));
 
+            $sanitized_ID = htmlspecialchars(trim($emID));
+            $handle->bindParam(':employeeID', $sanitized_ID);
+
             $handle->bindParam(':fName', $sanitized_fname);
             $handle->bindParam(':lName', $sanitized_lname);
             $handle->bindParam(':Email', $sanitized_email);
             $handle->bindParam(':Pass', $sanitized_pass);
-            $handle->bindParam(':EmployeeID', $emID);
 
             $handle->execute();
 
@@ -94,7 +97,8 @@ class employeeDAO
 
             $query = "DELETE FROM Employee WHERE employeeID = :employeeID";
             $handle = $dbcon->prepare($query);
-            $handle->bindParam(':employeeID', $emID);
+            $sanitized_ID = htmlspecialchars(trim($emID));
+            $handle->bindParam(':employeeID', $sanitized_ID);
 
             $handle->execute();
 

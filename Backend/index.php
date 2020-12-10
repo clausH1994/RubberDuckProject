@@ -72,7 +72,7 @@ $getCategory = $coloQuery->fetchAll();
                             <td>" . $getProduct['image'] . "</td> 
                             <td>" . $getProduct['quantity'] . "</td>";
                             echo '<td><a href="editEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn" ">Edit</a></td>';
-                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['ID'] . '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
+                            echo '<td><a href="deleteEntry.php?ID=' . $getProduct['ID'] . '&token=' . $token .  '" class="waves-effect waves-light btn red" onclick="return confirm(\'Delete! are you sure?\')">Delete</a></td>';
                             echo "</tr>";
                         }
                         ?>
@@ -143,6 +143,7 @@ $getCategory = $coloQuery->fetchAll();
                         <label for="description">Description</label>
                     </div>
                 </div>
+                <input type="hidden" name="token" value="<?php echo $token; ?>" />
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Add
                 </button>
             </form>

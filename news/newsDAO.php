@@ -24,7 +24,8 @@ class NewsDAO
 
         $query = "SELECT * FROM News WHERE newsID= :newsID";
         $handle = $dbcon->prepare($query);
-        $handle->bindParam(':newsID', $newsID);
+        $sanitized_id = htmlspecialchars(trim($newsID));
+        $handle->bindParam(':newsID', $sanitized_id);
 
         $handle->execute();
         $result = $handle->fetchAll();
@@ -72,10 +73,12 @@ class NewsDAO
             $sanitized_description = htmlspecialchars(trim($description));
             $sanitized_date = htmlspecialchars(trim($date));
 
+            $sanitized_id = htmlspecialchars(trim($newsID));
+            $handle->bindParam(':newsID', $sanitized_id);
+
             $handle->bindParam(':title', $sanitized_title);
             $handle->bindParam(':description', $sanitized_description);
             $handle->bindParam(':date', $sanitized_date);
-            $handle->bindParam(':newsID', $newsID);
 
             $handle->execute();
 
@@ -92,7 +95,8 @@ class NewsDAO
 
             $query = "DELETE FROM News WHERE newsID = :newsID";
             $handle = $dbcon->prepare($query);
-            $handle->bindParam(':newsID', $newsID);
+            $sanitized_id = htmlspecialchars(trim($newsID));
+            $handle->bindParam(':newsID', $sanitized_id);
 
             $handle->execute();
 
@@ -109,7 +113,8 @@ class NewsDAO
         $query = ('SELECT * FROM NewsAndSpecialData WHERE newsID = :newsID');
 
         $handle = $dbcon->prepare($query);
-        $handle->bindParam(':newsID', $_GET['ID']);
+        $sanitized_id = htmlspecialchars(trim($_GET['ID']));
+        $handle->bindParam(':newsID', $sanitized_id);
         $handle->execute();
 
         $result = $handle->fetchAll();
@@ -136,7 +141,8 @@ class NewsDAO
             AND n.newsID = :newsID";
 
             $handle = $dbcon->prepare($query);
-            $handle->bindParam(':newsID', $newsID);
+            $sanitized_id = htmlspecialchars(trim($newsID));
+            $handle->bindParam(':newsID', $sanitized_id);
             $handle->execute();
 
 
@@ -146,8 +152,7 @@ class NewsDAO
                 $offerCon->deleteOffer($row['offer']);
             }
 
-            foreach($result as $row)
-            {
+            foreach ($result as $row) {
                 $specialNewsCon->deleteSpecialNewsWithNewsID($row['newsID']);
                 $dailySpecailCon->deleteDailySpecial($row['dailyID']);
                 $this->deleteNewsDB($row['newsID']);
