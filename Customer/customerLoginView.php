@@ -20,8 +20,19 @@ if (isset($_GET['status'])) {
     }
 }
 
-if (isset($_POST['submit'])) { // Form has been submitted.
+if (!empty($msg)) {
+    echo "<p>" . $msg . "</p>";
+}
 
+$secret = "6LeuRP4ZAAAAAN9mLfTK-Zobdg9T_HSNjzyRUWcy";
+
+$response = $_POST["g-recaptcha-response"];
+
+$getstuff = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $response);
+
+$success = json_decode($getstuff, true);
+
+if ($success['success']) {
     $regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
     if (!preg_match($regexp, $_POST['email'])) {
         echo "<p style='color: red; font-size: 20px'>please enter a valid mail</p>";
@@ -31,22 +42,10 @@ if (isset($_POST['submit'])) { // Form has been submitted.
         $msg = $cusCon->message;
     }
 }
-if (!empty($msg)) {
-   echo "<p>" . $msg . "</p>";
-}
-
-$secret = "6LeuRP4ZAAAAAN9mLfTK-Zobdg9T_HSNjzyRUWcy";
-
-$response = $_POST["g-recaptcha-response"];
-
-$getstuff = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$response);
-
-$success = json_decode($getstuff,true);
-
-    if($success['success']){}
 
 ?>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html" />
     <!-- Compiled and minified CSS -->
@@ -62,20 +61,20 @@ $success = json_decode($getstuff,true);
 <body>
     <div class="container">
         <div class="container" style="margin-top:25vh;">
-   
+
             <h2>Please Login As Customer</h2>
             <form method="post">
                 Email:
                 <input type="text" name="email" maxlength="30" required />
                 Password:
                 <input type="password" name="pass" maxlength="30" required />
-                
+
                 <form action="?" method="POST">
                     <div class="g-recaptcha" data-sitekey="6LeuRP4ZAAAAAANkHDXiiy7BfX-wB-TKUCWvqO58"></div>
-                    <br/>
-                    <input type="submit" value="Submit" type="submit" name="submit">
+                    <br />
+                    <input type="submit" value="Submit" type="submit">
                 </form>
-                
+
                 <!-- <button class="g-recaptcha" data-sitekey="6LcuufQZAAAAAMU21o2A8a6GozK8GdXFKdcIGr78" data-callback='onSubmit' data-action='submit'>Verify</button>
                 <br><br>
                 <button class="btn waves-effect waves-light" type="submit" name="submit">Login</button> -->

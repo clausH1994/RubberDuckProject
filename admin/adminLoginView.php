@@ -3,7 +3,6 @@
 spl_autoload_register(function ($class) {
     include "../connection/" . $class . ".php";
 });
-
 $session = new Session();
 $log = new AdminLoginHandle();
 //look for logout keyword and log the user out if == 1
@@ -15,8 +14,19 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
 }
 $log->checkforAdmin();
 
-if (isset($_POST['submit'])) { // Form has been submitted.
 
+
+
+
+$secret = "6LeuRP4ZAAAAAN9mLfTK-Zobdg9T_HSNjzyRUWcy";
+
+$response = $_POST["g-recaptcha-response"];
+
+$getstuff = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $response);
+
+$success = json_decode($getstuff, true);
+
+if ($success['success']) {
     $regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
     if (!preg_match($regexp, $_POST['email'])) {
         echo "<p style='color: red; font-size: 20px;'>please enter a valid mail</p>";
@@ -27,15 +37,6 @@ if (isset($_POST['submit'])) { // Form has been submitted.
     }
 }
 
-$secret = "6LeuRP4ZAAAAAN9mLfTK-Zobdg9T_HSNjzyRUWcy";
-
-$response = $_POST["g-recaptcha-response"];
-
-$getstuff = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$response);
-
-$success = json_decode($getstuff,true);
-
-    if($success['success']){}
 ?>
 
 <html>
@@ -64,8 +65,9 @@ $success = json_decode($getstuff,true);
                 <br><br>
                 <form action="?" method="POST">
                     <div class="g-recaptcha" data-sitekey="6LeuRP4ZAAAAAANkHDXiiy7BfX-wB-TKUCWvqO58"></div>
-                    <br/>
-                    <input type="submit" value="Submit" type="submit" name="submit">
+                    <br />
+                    <input type="hidden" name="cap" value="<?php echo $logic ?>">
+                    <input type="submit" value="Submit" name="submit">
                 </form>
             </form>
         </div>

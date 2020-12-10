@@ -9,6 +9,7 @@ class CustomerLogout
 
         // 1. Find the session
         // This is done with session_start()
+        session_start();
         // in the session handle class
 
         // 2. Unset all the session variables

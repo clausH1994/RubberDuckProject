@@ -20,7 +20,7 @@ if (isset($_SESSION['cartItem'])) {
 
 if (isset($_GET['action'])) {
   if ($_GET['action'] == "logout") {
-    require_once("customer/CustomerLogout.php");
+    require_once("Customer/CustomerLogout.php");
     require_once("connection/Redirector.php");
 
     $cusCon = new CustomerLogout();
