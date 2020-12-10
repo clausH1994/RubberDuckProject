@@ -54,6 +54,7 @@ if (isset($_GET['action'])) {
       <?php
       if ($session->userLogged_in()) {
         echo "<li><a href='Customer/customerUpdateView.php'>Update Profile</a></li>" . 
+        "<li><a href='my-page.php'>My Page</a></li>" .
         "<li><a href='index.php?action=logout'>Logout</a></li>" ;
       } else {
         echo "<li><a href='Customer/customerLoginView.php'>Login</a></li>";

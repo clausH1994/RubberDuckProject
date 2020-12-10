@@ -1,10 +1,17 @@
 <?php
+require("../connection/session.php");
 require_once("NewsController.php");
+
+$session = new Session();
 
 $newsCon = new NewsController();
 
-if (isset($_GET['ID'])) {
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$token = $_SESSION['token'];
 
+if (isset($_GET['ID'])) {
     $newsID = $_GET['ID'];
     if (!empty($_GET["action"])) {
         //start the switch/case
@@ -21,9 +28,9 @@ if (isset($_GET['ID'])) {
                     die('CSRF TOKEN NOT FOUND. ABORT');
                 }
         }
-    } else {
+    }else {
 
-    require_once("../admin/adminHeader.php");
+        require_once("../admin/adminHeader.php");
 
 ?>
 

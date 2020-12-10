@@ -1,7 +1,8 @@
 <?php
 require_once "connection/dbcon.php";
-require_once "header.php";
 include "shop/cartsession.php";
+include "connection/Redirector.php";
+
 
 $dbcon = dbCon();
 
@@ -55,6 +56,8 @@ if (isset($_POST['filter'])) {
 if (!empty($query)) {
     $product_array = $query->fetchAll();
 }
+
+require_once "header.php";
 ?>
 
 <div class="row" style="margin:0;">

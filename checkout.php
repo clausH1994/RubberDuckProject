@@ -1,9 +1,14 @@
 <?php
 require_once "connection/dbcon.php";
+require "connection/session.php";
 require_once "connection/Redirector.php";
 $total_price = 0;
+$session = new Session();
 
-require_once "header.php";
+if (empty($_SESSION['token'])) {
+  $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$token = $_SESSION['token'];
 
 if (isset($_SESSION['user_id'])) {
   $customerID = htmlspecialchars(trim(($_SESSION['user_id'])));
@@ -13,10 +18,7 @@ if (isset($_SESSION['user_id'])) {
   $query->execute();
   $getCustomer = $query->fetchAll();
 
-  if (empty($_SESSION['token'])) {
-    $_SESSION['token'] = bin2hex(random_bytes(32));
-  }
-  $token = $_SESSION['token'];
+  require_once "header.php";
 ?>
   <div class="row" class="checkout">
     <form class="col s6" method="post" action="shop/checkfunc.php">
@@ -29,38 +31,38 @@ if (isset($_SESSION['user_id'])) {
       <div class="row">
         <div class="input-field col s6">
           <input id="first_name" value="<?php echo $getCustomer[0]['fname']; ?>" type="text" class="validate">
-          <label for="first_name">Fornavn</label>
+          <label for="first_name">First Name</label>
         </div>
         <div class="input-field col s6">
           <input id="last_name" value="<?php echo $getCustomer[0]['lname']; ?>" type="text" class="validate">
-          <label for="last_name">Efternavn</label>
+          <label for="last_name">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <input type="text" value="<?php echo $getCustomer[0]['phonenumber']; ?>" class="validate">
-          <label for="adresse">Adresse</label>
+          <label for="adresse">Phone</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <input type="text" value="<?php echo $getCustomer[0]['address']; ?>" class="validate">
-          <label for="adresse">Adresse</label>
+          <label for="adresse">Address</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s4">
           <input id="postnr" type="text" value="<?php echo $getCustomer[0]['postalID']; ?>" class="validate">
-          <label for="postnr">Post Nummer</label>
+          <label for="postnr">Zipcode</label>
         </div>
         <div class="input-field col s8">
           <input id="by" type="text" value="<?php echo $getCustomer[0]['City']; ?>" class="validate">
-          <label for="by">By</label>
+          <label for="by">City</label>
         </div>
       </div>
   </div>
   <input type="hidden" name="token" value="<?php echo $token; ?>" />
-  <button class="btn waves-effect waves-light" type="submit" name="submit">Køb</button>
+  <button class="btn waves-effect waves-light" type="submit" name="submit">Buy</button>
   </form>
   </div>
 

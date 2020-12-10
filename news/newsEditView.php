@@ -3,14 +3,31 @@ spl_autoload_register(function ($class) {
     include "../connection/" . $class . ".php";
 });
 
+$session = new Session();
+
 if (!isset($_GET['ID'])) {
     $redirector = new Redirector("newsOverView.php");
 }
-require_once("../admin/adminHeader.php");
 require_once("NewsController.php");
 
 $newsCon = new NewsController();
 $news = $newsCon->readNewsById($_GET['ID']);
+
+// START FORM PROCESSING
+if (isset($_POST['submit'])) { // Form has been submitted.
+    if (!empty($_POST['token'])) {
+        if (hash_equals($_SESSION['token'], $_POST['token'])) {
+            unset($_SESSION['token']);
+            $newsCon->editNews($_GET['ID'], $_POST['title'], $_POST['desc'],  $_POST['date'],);
+        } else {
+            die('CSRF VALIDATION FAILED');
+        }
+    } else {
+        die('CSRF TOKEN NOT FOUND. ABORT');
+    }
+}
+
+require_once("../admin/adminHeader.php");
 ?>
 
 
@@ -41,20 +58,3 @@ $news = $newsCon->readNewsById($_GET['ID']);
 
 </html>
 
-
-<?php
-
-
-// START FORM PROCESSING
-if (isset($_POST['submit'])) { // Form has been submitted.
-    if (!empty($_POST['token'])) {
-        if (hash_equals($_SESSION['token'], $_POST['token'])) {
-            unset($_SESSION['token']);
-            $newsCon->editNews($_GET['ID'], $_POST['title'], $_POST['desc'],  $_POST['date'],);
-        } else {
-            die('CSRF VALIDATION FAILED');
-        }
-    } else {
-        die('CSRF TOKEN NOT FOUND. ABORT');
-    }
-}
