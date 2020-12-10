@@ -4,4 +4,4 @@
 
 <h3> You have recived a email with your order </h3>
 
-<a href="index.php" class="btn">Forside</a>
+<a href="index.php" class="btn">Front Page</a>

@@ -4,4 +4,4 @@
 
 <h3> Please contact technical support </h3>
 
-<a href="index.php" class="btn">Forside</a>
+<a href="contact.php" class="btn">Support</a>
