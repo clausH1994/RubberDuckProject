@@ -1,7 +1,11 @@
 <?php
 require_once("../connection/session.php");
 require_once("CustomerController.php");
-require_once("../header.php");
+
+require_once("../connection/session.php");
+
+$session = new Session();
+
 
 
 if (empty($_SESSION['token'])) {
@@ -32,6 +36,8 @@ if (isset($_POST['submit'])) { // Form has been submitted.
         die('CSRF TOKEN NOT FOUND. ABORT');
     }
 }
+
+require_once("header.php");
 
 ?>
 

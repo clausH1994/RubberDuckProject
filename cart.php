@@ -14,7 +14,6 @@ $dbcon = dbCon();
 
 		$recommendedColor = 0;
 		$recommendedColor2 = 0;
-		$cartItem = $_SESSION["cartItem"];
 		$amountOfproducts = count($cartItem);
 		$amountOfproductsMinustwo = $amountOfproducts - 2;
 	
