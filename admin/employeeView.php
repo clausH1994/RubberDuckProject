@@ -17,9 +17,19 @@ if (isset($_POST['submit'])) { // Form has been submitted.
 ?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
 <?php
 	} else {
-		$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
+		if (!empty($_POST['token'])) {
+			if (hash_equals($_SESSION['token'], $_POST['token'])) {
+				unset($_SESSION['token']);
+				$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
+			} else {
+				die('CSRF VALIDATION FAILED');
+			}
+		} else {
+			die('CSRF TOKEN NOT FOUND. ABORT');
+		}
 	}
 }
+
 
 require("adminHeader.php");
 
@@ -57,26 +67,7 @@ require("adminHeader.php");
 
 						<?php
 
-						// START FORM PROCESSING
-						if (isset($_POST['submit'])) { // Form has been submitted.
-							$regexp = "/^[^0-9][A-z0-9_-]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_-]+)*[.][A-z]{2,4}$/";
-							if (!preg_match($regexp, $_POST['email'])) {
-						?> <p style="color: red; font-size: 20px;">please enter a valid mail</p>
-						<?php
-							} else {
-								if (!empty($_POST['token'])) {
-									if (hash_equals($_SESSION['token'], $_POST['token'])) {
-										unset($_SESSION['token']);
-										$employeeCon->createEmployee($_POST["fname"], $_POST["lname"], $_POST["email"], $_POST["pass"]);
-									} else {
-										die('CSRF VALIDATION FAILED');
-									}
-								} else {
-									die('CSRF TOKEN NOT FOUND. ABORT');
-								}
-							}
-						}
-
+						
 
 						?>
 
